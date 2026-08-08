@@ -1,0 +1,52 @@
+{
+  "generated_utc": "2026-08-08T04:03:16.567351+00:00",
+  "headline_result": {
+    "coefficient_absolute_shift": -1.3005140432137234e-05,
+    "coefficient_relative_shift_percent": -0.5368298004987943,
+    "shift_over_published_density_source_se": 2.7431728975503686
+  },
+  "input_sha256": {
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+    "data_raw/hard_sphere_vacancy_scale.csv": "0355d5e1f15e03ae5b84a2148728687802097f1e191b08b15c1abd0edf81dc96"
+  },
+  "reproduction_command": "python scripts/hard_sphere_defect_sensitivity.py",
+  "scenario_definition": {
+    "held_fixed": [
+      "lattice-site density",
+      "fluid density"
+    ],
+    "omitted": [
+      "lattice relaxation",
+      "coexistence-pressure shift",
+      "coexistence-chemical-potential shift",
+      "fluid-density re-equilibration",
+      "uncertainty in vacancy fraction"
+    ],
+    "solid_particle_density": "rho_s(x_v)=(1-x_v)rho_s(0)",
+    "status": "one-sided scale perturbation, not a defect-corrected coexistence result, confidence interval, or total uncertainty",
+    "vacancy_fraction": "x_v=(M-N)/M"
+  },
+  "script": "scripts/hard_sphere_defect_sensitivity.py",
+  "sources": {
+    "coexistence_specific_volumes": {
+      "doi": "10.1103/PhysRevLett.108.165701",
+      "uncertainty": "published standard errors; covariance not reported"
+    },
+    "reported_first_order_defect_shifts": {
+      "coexistence_chemical_potential_kBT": -0.00274,
+      "coexistence_pressure_kBT_per_sigma_cubed": -0.00257,
+      "doi": "10.1021/jp010779e",
+      "role": "provenance only; these values are not folded into the fixed-site-density scale perturbation"
+    },
+    "representative_vacancy_fraction": {
+      "doi": "10.1021/jp010779e",
+      "uncertainty": "source reports an approximate scale; no statistical uncertainty is assigned here",
+      "value": 0.00026
+    }
+  },
+  "uncertainty_propagation": {
+    "method": "first-order delta method with complex-step Jacobian",
+    "reported_se_scope": "Fernandez specific-volume errors only",
+    "specific_volume_covariance": 0.0
+  }
+}

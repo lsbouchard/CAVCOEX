@@ -1,0 +1,24 @@
+{
+  "cavity_model": "consistent scaled-particle cubic insertion polynomial",
+  "cumulant_rows": 384,
+  "dependency_sha256": {
+    "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+  },
+  "eos": "Percus-Yevick compressibility route",
+  "finite_size_rows": 240,
+  "generated_utc": "2026-08-08T04:03:08.362129+00:00",
+  "input_sha256": {},
+  "matplotlib": "3.10.7",
+  "method": "deterministic discrete EOS reweighting",
+  "note": "CSV columns named se_* are retained for schema compatibility; for deterministic finite-size values they are blank. Cumulant se_* columns are conservative numerical differentiation/roundoff error estimates, not Monte Carlo sampling errors.",
+  "numpy": "2.3.4",
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "random_seed": null,
+  "reproduce_command": "python3 scripts/grand_reweight.py",
+  "script": "scripts/grand_reweight.py",
+  "script_sha256": "61274b48bc63f61d553ff9f1c1393a49106629469100e01ea04413bd16c5b391",
+  "statistical_standard_errors": false
+}

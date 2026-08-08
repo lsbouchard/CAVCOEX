@@ -1,0 +1,112 @@
+{
+  "analysis_version": "lattice-exact-controls-v1",
+  "dependency_sha256": {
+    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67"
+  },
+  "enumeration": {
+    "configuration_counts": {
+      "2": 16,
+      "3": 512,
+      "4": 65536
+    },
+    "diagnostics_by_L": {
+      "2": {
+        "maximum_abs_covariance_identity_residual": 4.440892098500626e-16,
+        "maximum_abs_decomposition_residual": 1.3322676295501878e-15,
+        "maximum_abs_fixed_minus_spatial_empty": 3.3306690738754696e-16,
+        "maximum_abs_log_odds_shift_residual": 8.881784197001252e-16,
+        "maximum_abs_probability_normalization_residual": 2.220446049250313e-16,
+        "production_helper_max_abs_observable_error": 1.3322676295501878e-15,
+        "production_helper_max_relative_contribution_error": 4.2711152048500546e-16
+      },
+      "3": {
+        "maximum_abs_covariance_identity_residual": 8.881784197001252e-16,
+        "maximum_abs_decomposition_residual": 6.217248937900877e-15,
+        "maximum_abs_fixed_minus_spatial_empty": 3.774758283725532e-15,
+        "maximum_abs_log_odds_shift_residual": 8.881784197001252e-16,
+        "maximum_abs_probability_normalization_residual": 1.1102230246251565e-15,
+        "production_helper_max_abs_observable_error": 1.509903313490213e-14,
+        "production_helper_max_relative_contribution_error": 1.3247181557200684e-14
+      },
+      "4": {
+        "maximum_abs_covariance_identity_residual": 2.6645352591003757e-15,
+        "maximum_abs_decomposition_residual": 2.4424906541753444e-13,
+        "maximum_abs_fixed_minus_spatial_empty": 2.020605904817785e-13,
+        "maximum_abs_log_odds_shift_residual": 8.881784197001252e-16,
+        "maximum_abs_probability_normalization_residual": 8.881784197001252e-16,
+        "production_helper_max_abs_observable_error": 2.085442929455894e-12,
+        "production_helper_max_relative_contribution_error": 6.631986688807128e-13
+      }
+    },
+    "h_grid": {
+      "maximum": 9.0,
+      "minimum": -6.0,
+      "points": 61,
+      "step": 0.25
+    },
+    "independent_scalar_direct_sum": {
+      "h_values": [
+        -3.0,
+        0.0,
+        4.0
+      ],
+      "implementation": "scalar lattice-gas sum exp[beta*epsilon*n_bonds+x*N], with explicit bond and empty-bond loops",
+      "maximum_abs_observable_error": 4.3520742565306136e-14,
+      "sizes": [
+        2,
+        3
+      ]
+    },
+    "production_helper_comparison": "one representative per spin-inversion orbit, grouped by bond sum and passed through make_blocks, block_contributions, and observables_from_contributions",
+    "sizes": [
+      2,
+      3,
+      4
+    ]
+  },
+  "generated_utc": "2026-08-08T04:03:20.222560+00:00",
+  "input_sha256": {},
+  "interface_estimate": {
+    "beta_tau_axial": 0.2280631670946952,
+    "formula": "beta*tau=2K+ln(tanh K)",
+    "periodic_factor": "exp(-2*beta*tau*L)",
+    "prefactors": [
+      "1",
+      "L",
+      "V"
+    ],
+    "production_sizes": [
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "response_scale_formula": "if r=A exp(-2 beta tau L), report min[1,2r/(1+r)]",
+    "status": "transparent exponential and prefactor-sensitivity estimates; not rigorous bounds or confidence intervals"
+  },
+  "matplotlib": "3.10.7",
+  "model": {
+    "K": 0.5,
+    "basin_rule": "liquid iff M>0 or (M=0 and s_0=+1)",
+    "beta_epsilon": 2.0,
+    "bond_counting": "right and down bonds from every site; 2V bonds including parallel periodic edges at L=2",
+    "cavity": "empty nearest-neighbor bond uniformly averaged over 2V bonds",
+    "name": "periodic square-lattice gas / square-lattice Ising model",
+    "reweighting": "x=x_coex+h/V; centered factor exp[h M/(2V)]",
+    "x_coexistence": -4.0
+  },
+  "numpy": "2.3.4",
+  "outputs_sha256": {
+    "data_processed/lattice_exact_finite_size.csv": "36f65bdce57814d642e2621ae65f7a575c5ae8dfe4448a23cb6b05ee960539a5",
+    "data_processed/lattice_interface_weight_estimate.csv": "370799fbc915a3806e75d80de47554d35620e9dc61fada2b793f22535c7b2d89",
+    "figures/lattice_exact_finite_size_control.pdf": "6268d0b3550afc396dda3391c9823da8b12cf772d8d639010c903ba9430e0af5"
+  },
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "reproduce_command": "python3 scripts/lattice_exact_controls.py",
+  "script": "scripts/lattice_exact_controls.py",
+  "script_sha256": "fde31c4e5e63f9c9031dd90e6adadc42eb9a0bb592e2e3082f17cb8409f4de4b"
+}

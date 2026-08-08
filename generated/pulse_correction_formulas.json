@@ -1,0 +1,56 @@
+{
+  "conventions": [
+    "The signed leading peak is -delta_rho*tanh(a0/4).",
+    "The magnitude correction equals sign(signed_peak_0) times the signed correction.",
+    "The sign in w(h)=a1-dn*h follows the stated a_V convention.",
+    "FWHM is defined from |R_V|; signed half-height roots are equivalent while the pulse sign is fixed.",
+    "The +/- half-height labels refer to the scaled z coordinate; their physical h ordering reverses for delta_rho<0.",
+    "Peak and FWHM expansions require delta_rho!=0 and a0!=0.",
+    "The curve expansion is local in the scaled field h and uniform on fixed compact h intervals."
+  ],
+  "curve": {
+    "R_0(h)": "delta_rho*G(delta_rho*h,a0)",
+    "R_1(h)": "u(h)*G(z,a0)+delta_rho*[v(h)*G_z(z,a0)+w(h)*G_a(z,a0)]",
+    "expansion": "R_V(h)=R_0(h)+R_1(h)/V+O(V^-2), uniformly on compact h sets"
+  },
+  "definitions": {
+    "G_a": "-L'(z-a)",
+    "G_z": "L'(z-a)-L'(z)",
+    "u(h)": "d0+dchi*h",
+    "v(h)": "d0*h+dchi*h^2/2",
+    "w(h)": "a1-dn*h",
+    "z": "delta_rho*h"
+  },
+  "expansion_parameter": "epsilon = 1/V",
+  "fwhm": {
+    "R_0_prime": "delta_rho^2*G_z(delta_rho*h,a0)",
+    "branch_h_s_0": "(a0/2+s*q)/delta_rho, s in {-1,+1}",
+    "branch_h_s_1": "-[R_1(branch_h_s_0)-signed_1/2]/R_0'(branch_h_s_0)",
+    "q": "acosh(2+cosh(a0/2))",
+    "width_0": "2*q/abs(delta_rho)",
+    "width_1": "sign(delta_rho)*(branch_h_plus_1-branch_h_minus_1)"
+  },
+  "generated_by": "scripts/derive_pulse_finite_size_corrections.py",
+  "input": {
+    "D_V": "V*delta_rho+d0+dchi*h",
+    "a_V": "a0+(a1-dn*h)/V",
+    "kernel": "G(z,a)=L(z-a)-L(z), L(x)=1/(1+exp(-x))",
+    "response": "R_V(h)=(D_V/V)*G(y_V,a_V)",
+    "y_V": "delta_rho*h+(d0*h+dchi*h^2/2)/V"
+  },
+  "peak": {
+    "h_0": "a0/(2*delta_rho)",
+    "h_1": "dchi/(2*delta_rho^3*p)-dn/(2*delta_rho^2*t)+(w_0-2*v_0)/(2*delta_rho)",
+    "h_1_implicit": "-R_1'(h_0)/R_0''(h_0)",
+    "magnitude_0": "abs(signed_0)",
+    "magnitude_1": "sign(signed_0)*signed_1",
+    "p": "1/[4*cosh(a0/4)^2]",
+    "signed_0": "-delta_rho*t",
+    "signed_1": "-u_0*t-delta_rho*p*w_0",
+    "t": "tanh(a0/4)",
+    "u_0": "u(h_0)",
+    "v_0": "v(h_0)",
+    "w_0": "w(h_0)"
+  },
+  "schema_version": 1
+}

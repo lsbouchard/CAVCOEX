@@ -1,0 +1,224 @@
+{
+  "bootstrap_hierarchy": "Within each size, replicas are sampled with replacement and time blocks are sampled with replacement within each selected replica.",
+  "code_sha256": {
+    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
+    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
+    "scripts/lattice_leave_lmax_prediction.py": "2a41d08aacf9dd315474e4a9b81029ca3aeb066fc6eb7d8c0d29177506dcf754",
+    "scripts/lattice_pulse_correction_prediction.py": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
+    "scripts/lattice_validation_statistics.py": "01c5a6727fb25eeb5f7724778eec7bb9ce01296cf471c23b03e324348e426499"
+  },
+  "covariance_calibration": "The correlation matrix is eigenvalue-truncated at the specified relative thresholds. The observed quadratic statistic is calibrated against centered hierarchical-bootstrap difference curves.",
+  "dependence_statement": "All observables and coefficients from one resample share indices, retaining their covariance. Distinct lattice sizes use distinct simulation and bootstrap streams; no claim of independent points within a curve is made.",
+  "dependency_sha256": {
+    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
+    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
+    "scripts/lattice_pulse_correction_prediction.py": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
+    "scripts/lattice_validation_statistics.py": "9dd3213a3ddfe6e38da580af91ba1c2c32326c8571ee45239d66350f217cc20a"
+  },
+  "exact_fixed_inputs": {
+    "K": 0.5,
+    "a0": 4.299960245352132,
+    "delta_rho": 0.911319377877496
+  },
+  "generated_utc": "2026-08-08T17:48:14.978036+00:00",
+  "input_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "interpretive_scope": "This is an out-of-size prediction of L=64 from smaller sizes, not an independent experimental replication. The paired-antithetic estimator uses the exact particle-hole symmetry of this benchmark.",
+  "maximum_pre_forced_abs_dchi": 2.0463630789890885e-12,
+  "output_sha256": {
+    "data_processed/lattice_leave_lmax_prediction_coefficients.csv": "496899a15e779c58e108d1492a0733be631443b391e20993a409be175a28c1a6",
+    "data_processed/lattice_leave_lmax_prediction_covariance.npz": "eade44d8226da3d6c67c21ae087d0a7600bae403b9c75583039746bfc58afdc3",
+    "data_processed/lattice_leave_lmax_prediction_curves.csv": "9777f4b9578019bac5bdbb59d7f8c34482bddd72c724037da33ec9dc1e80353a",
+    "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "03db726179f5ebeea4048834cabebd364cec8deefb8913dedead2f97b3442f7a",
+    "figures/lattice_leave_lmax_prediction.pdf": "1097ba3d5e9d8aa957e9fb41607c3247e04ab053427fe09cf3afedd0bb6538b4"
+  },
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "prediction_definition": "The exact thermodynamic delta_rho and a0 are fixed. The finite-V training sequences d0(V), dchi(V), a1(V), dn(V), and the two h=0 conditional intraphase responses are fitted only at L<=48. Their 1/V polynomial intercepts enter the derived first-order curve at V=64^2. Particle-hole symmetry identifies dchi=0.",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "raw_paths": [
+    "data_raw/lattice_gas_phase_switch_trajectories.npz",
+    "data_raw/lattice_gas_additional_replicas.npz"
+  ],
+  "raw_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "reproduce_command": "python3 scripts/lattice_leave_lmax_prediction.py",
+  "schema_version": 1,
+  "script": "scripts/lattice_leave_lmax_prediction.py",
+  "script_sha256": "56deac4e69bc66080ea7b948739513d900eaf46a70d53fac39b788f5755265c4",
+  "settings": {
+    "blocks_per_replica": 40,
+    "bootstrap_draws": 2000,
+    "covariance_relative_eigenvalue_thresholds": [
+      1e-06,
+      1e-08,
+      1e-10
+    ],
+    "fit_configurations": [
+      {
+        "included_lengths": [
+          16,
+          24,
+          32,
+          48
+        ],
+        "name": "primary",
+        "polynomial_degree_in_inverse_volume": 1,
+        "role": "primary"
+      },
+      {
+        "included_lengths": [
+          24,
+          32,
+          48
+        ],
+        "name": "drop_L16",
+        "polynomial_degree_in_inverse_volume": 1,
+        "role": "size_cut_sensitivity"
+      },
+      {
+        "included_lengths": [
+          16,
+          24,
+          32,
+          48
+        ],
+        "name": "constant_all",
+        "polynomial_degree_in_inverse_volume": 0,
+        "role": "fit_form_sensitivity"
+      },
+      {
+        "included_lengths": [
+          16,
+          24,
+          32,
+          48
+        ],
+        "name": "quadratic_all",
+        "polynomial_degree_in_inverse_volume": 2,
+        "role": "fit_form_sensitivity"
+      }
+    ],
+    "h_max": 6.0,
+    "h_min": -1.0,
+    "h_points": 141,
+    "primary_covariance_relative_eigenvalue_threshold": 1e-08,
+    "replica_ids_by_length": {
+      "16": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "24": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "32": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "48": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "64": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "seed": 26080611,
+    "target_length": 64,
+    "taylor_half_window_h": 0.5,
+    "taylor_polynomial_degree": 2,
+    "taylor_specification": "quadratic_h0p5",
+    "training_lengths": [
+      16,
+      24,
+      32,
+      48
+    ]
+  },
+  "simultaneous_calibration": "The 95% critical value is the percentile of the maximum absolute pointwise-standardized centered bootstrap curve.",
+  "statistical_null_scope": "The pointwise, simultaneous, and covariance p-values test exact equality of the finite L=64 curve to the truncated first-order predictor. The analytic result itself permits an O(V^-2) remainder. A high-precision contrast can therefore resolve a small higher-order remainder without contradicting the first-order expansion.",
+  "target_nonleakage": {
+    "fit_uses_target_length": false,
+    "target_access_timing": "all central and bootstrap predictions are computed before L=64 blocks are constructed",
+    "target_quantities_accessed": [
+      "deltaN/V",
+      "deltaN_phase_reweighting/V"
+    ]
+  },
+  "target_replicas": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "versions": {
+    "matplotlib": "3.10.7",
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "scipy": "1.18.0"
+  }
+}

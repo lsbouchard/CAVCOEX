@@ -1,0 +1,148 @@
+{
+  "analysis_version": "solid-cavity-mc-v2",
+  "artifacts": {
+    "figure": "figures/solid_cavity_mc_benchmark.pdf",
+    "final_states": "data_raw/solid_cavity_mc_final_states.npz",
+    "latex_table": "generated/solid_cavity_mc_table.tex",
+    "processed": "data_processed/solid_cavity_mc.csv",
+    "raw_blocks": "data_raw/solid_cavity_mc_blocks.csv",
+    "results_note": "generated/solid_cavity_mc_results.md",
+    "structure_diagnostics": "data_raw/solid_cavity_mc_structure.csv"
+  },
+  "base_seed": 92026072,
+  "code_commit_at_generation": "00bad6f569f45d0609c6beb0464f3827dba49497",
+  "density_source": {
+    "citation": "Fernandez et al. Physical Review Letters 108 165701 (2012)",
+    "derived_relation": "eta_s = pi / (6 v_solid)",
+    "doi": "10.1103/PhysRevLett.108.165701",
+    "eta": 0.5431240865082712,
+    "pressure": 11.5727,
+    "raw_table": "data_raw/fernandez2012_coexistence.csv",
+    "raw_table_sha256": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+    "se_eta": 1.6901325237537612e-05,
+    "se_pressure": 0.001,
+    "se_specific_volume": 3e-05,
+    "specific_volume": 0.96405
+  },
+  "dependency_sha256": {
+    "scripts/cavity_mc.py": "94c52a06a2aef1930d989879848bcbfd7e14f9662dec5143b835911ac1b4e2d5"
+  },
+  "derived_settings": {
+    "probe_trials_per_state": 16384000,
+    "production_sweeps": 40000,
+    "samples_per_block": 80
+  },
+  "generated_utc": "2026-08-06T09:26:31.921448+00:00",
+  "input_sha256": {
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+  },
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "quality_summary": {
+    "R0p75_direct_rows_reliable": 2,
+    "R0p75_direct_rows_total": 2,
+    "R1_direct_rows_reliable": 0,
+    "R1_direct_rows_total": 2,
+    "R1_event_audit": [
+      {
+        "N": 108,
+        "empty_events": 0,
+        "probe_trials": 16384000,
+        "reliability_status": "zero_events;too_few_positive_blocks;relative_error_too_large"
+      },
+      {
+        "N": 256,
+        "empty_events": 0,
+        "probe_trials": 16384000,
+        "reliability_status": "zero_events;too_few_positive_blocks;relative_error_too_large"
+      }
+    ],
+    "all_R0p5_exact_controls_pass": true,
+    "all_states_acceptance_gate": true,
+    "all_states_crystal_structure_gate": true,
+    "maximum_abs_R0p5_exact_z": 0.5016520154518724,
+    "maximum_production_Lindemann": 0.13502574066746567,
+    "minimum_production_FCC_Bragg": 0.8448627289336651,
+    "minimum_production_Q6": 0.3697056958008174
+  },
+  "quality_thresholds": {
+    "acceptable_double_block_se_ratio": [
+      0.67,
+      1.5
+    ],
+    "all_block_FCC_Bragg_minimum": 0.35,
+    "all_block_Lindemann_maximum": 0.25,
+    "all_block_global_Q6_minimum": 0.35,
+    "exact_R0p5_maximum_abs_z": 3.0,
+    "maximum_half_difference_z": 3.5,
+    "maximum_relative_probability_se": 0.2,
+    "minimum_empty_events": 100,
+    "minimum_positive_blocks": 20,
+    "production_acceptance_interval": [
+      0.08,
+      0.65
+    ]
+  },
+  "reproduce_command": "python3 scripts/solid_cavity_mc.py --seed 92026072 --sizes 108 256 --equil-sweeps 16000 --tune-sweeps 4000 --production-blocks 100 --sweeps-per-block 400 --sample-stride 5 --probes-per-sample 2048",
+  "scope": {
+    "box": "periodic cube",
+    "cavity_centers": "independent uniform random spatial probes",
+    "ensemble": "canonical NVT",
+    "moves": "symmetric single-particle Metropolis translations",
+    "not_N4": "No phase switch, grand-canonical sampling, chemical-potential reweighting, fluid/solid relative weight, or cross-basin normalization was performed.",
+    "phase": "defect-free commensurate FCC solid basin",
+    "potential": "additive hard spheres of diameter sigma=1",
+    "radii_over_sigma": [
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85,
+      0.9,
+      0.95,
+      1.0
+    ]
+  },
+  "script": "scripts/solid_cavity_mc.py",
+  "script_sha256": "40530bf7c3d5e719c045dd05dd28cf1f6b7d8043d0f72af0c5f6f2263c0da77c",
+  "settings": {
+    "audit_chunk_sweeps": 2000,
+    "equil_sweeps": 16000,
+    "probes_per_sample": 2048,
+    "production_blocks": 100,
+    "sample_stride": 5,
+    "sweeps_per_block": 400,
+    "tune_chunk_sweeps": 400,
+    "tune_sweeps": 4000
+  },
+  "sizes": [
+    108,
+    256
+  ],
+  "software": {
+    "matplotlib": "3.10.7",
+    "numba": "0.63.1",
+    "numba_threads": 10,
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "scipy": "1.18.0"
+  },
+  "source_type": "mc_new",
+  "uncertainty": {
+    "blocks": 100,
+    "method": "maximum standard error over 1-, 2-, 5-, and 10-block batchings; beta-W uncertainty uses the delta method",
+    "stationarity_checks": [
+      "first-half versus second-half block means",
+      "single-block versus paired-block standard errors",
+      "multiscale blocking through ten adjacent base blocks"
+    ],
+    "sweeps_per_block": 400,
+    "zero_event_reporting": "raw exposure only; no confidence bound"
+  },
+  "units_convention": "beta=sigma=Lambda=1",
+  "wall_seconds_total": 16.262502416968346
+}

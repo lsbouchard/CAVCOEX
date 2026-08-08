@@ -1,0 +1,118 @@
+{
+  "analysis_version": "lattice-free-intercept-joint-quadratic-v1",
+  "bootstrap_calibration": {
+    "centered_noise_definition": "bootstrap vector minus central vector",
+    "covariance_treatment": "the covariance estimate and its retained eigenmodes are held fixed while every bootstrap null replicate is refitted",
+    "draw_count": 2000,
+    "global_lack_of_fit": "add each centered noise vector to the fitted nine-parameter free quadratic null, refit all nine parameters, and recompute Q",
+    "joint_intercept_test": "add each centered noise vector to the fitted exact-intercept quadratic null, refit both six-parameter restricted and nine-parameter unrestricted models, and recompute Delta Q",
+    "parameter_uncertainty": "refit the unrestricted model to central vector plus each stored centered bootstrap noise vector",
+    "source": "stored upstream replica-first, time-block-second hierarchical bootstrap vectors",
+    "tail_probability": "(1 + count[T_boot >= T_obs])/(B + 1)",
+    "test_statistic": "Delta Q = Q_restricted(A=A_exact) - Q_unrestricted(A free)"
+  },
+  "covariance_regularization": {
+    "covariance_construction": "block diagonal across lattice sizes from the sample covariance of the stored three-observable hierarchical-bootstrap vectors",
+    "method": "eigendecomposition of the 15x15 correlation matrix; retain lambda > relative_threshold * lambda_max and evaluate GLS in the retained whitened modes",
+    "primary_relative_threshold": 1e-08,
+    "sensitivity_thresholds": [
+      0.0001,
+      1e-06,
+      1e-08,
+      1e-10
+    ],
+    "stress_threshold": {
+      "purpose": "conservative sensitivity check that truncates the weakest correlation eigenmode; it is not used for the primary result",
+      "relative_threshold": 0.0001
+    }
+  },
+  "data": {
+    "bootstrap_draws": 2000,
+    "exact_intercepts": {
+      "fwhm_h": 5.564321789962347,
+      "peak_center_h": 2.359195003274776,
+      "peak_magnitude": 0.7211578616788782
+    },
+    "independence_structure": "independent simulations at different lattice sizes; full three-observable bootstrap covariance retained within each size",
+    "joint_observation_order": "increasing L, then peak_center_h, peak_magnitude, fwhm_h",
+    "lengths": [
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "mode": "paired_antithetic",
+    "observable_order_within_size": [
+      "peak_center_h",
+      "peak_magnitude",
+      "fwhm_h"
+    ],
+    "observation_count": 15,
+    "parameter_names_scaled": [
+      "A_peak_center_h",
+      "B_scaled_peak_center_h",
+      "C_scaled_peak_center_h",
+      "A_peak_magnitude",
+      "B_scaled_peak_magnitude",
+      "C_scaled_peak_magnitude",
+      "A_fwhm_h",
+      "B_scaled_fwhm_h",
+      "C_scaled_fwhm_h"
+    ],
+    "volumes": [
+      256,
+      576,
+      1024,
+      2304,
+      4096
+    ]
+  },
+  "degrees_of_freedom": {
+    "asymptotic_chi_square_p_values": "reported as secondary diagnostics; bootstrap-calibrated p values are primary",
+    "global_lack_of_fit": "retained covariance rank minus unrestricted whitened-design rank",
+    "joint_intercept_test": "unrestricted whitened-design rank minus restricted whitened-design rank; three when all intercept restrictions are estimable"
+  },
+  "dependency_sha256": {
+    "scripts/lattice_validation_statistics.py": "9dd3213a3ddfe6e38da580af91ba1c2c32326c8571ee45239d66350f217cc20a"
+  },
+  "generated_utc": "2026-08-08T04:03:52.715011+00:00",
+  "input_sha256": {
+    "data_processed/lattice_scalar_joint_validation.csv": "76e090fb7e05eb673f3f0c509a66a3db460d59612b130b6ce2738b540d674322"
+  },
+  "limitations": [
+    "The test conditions on the upstream scalar-extraction and bootstrap procedure.",
+    "The finite-size ansatz is quadratic in 1/V over the five simulated sizes; the global lack-of-fit test checks this ansatz against the retained covariance modes.",
+    "The bootstrap calibrates finite-sample noise but does not replace an analytic proof of the thermodynamic limit."
+  ],
+  "model": {
+    "fitted_form": "X_L = A_X + b_X*u + c_X*u^2, u=V_ref/V",
+    "intercept_restriction_count": 3,
+    "physical_conversion": {
+      "A_X": "A_X",
+      "B_X": "b_X * V_ref",
+      "C_X": "c_X * V_ref^2"
+    },
+    "physical_form": "X_L = A_X + B_X/V + C_X/V^2",
+    "reference_volume": 256,
+    "restricted_null": "the three A_X are fixed jointly to the exact limiting vector; all three B_X and C_X remain free",
+    "restricted_parameter_count": 6,
+    "unrestricted_parameter_count": 9
+  },
+  "numpy": "2.3.4",
+  "output_sha256": {
+    "data_processed/lattice_free_intercept_joint_quadratic_bootstrap.csv": "47a67b6f7fbf0089763472fa554975539cb2c11350dd032c81191e75ebc4b2c5",
+    "data_processed/lattice_free_intercept_joint_quadratic_eigenmodes.csv": "6e53a7d1cdd768a2bf3a17eb838f29fed630a02710059b2dd055c4aef4cade28",
+    "data_processed/lattice_free_intercept_joint_quadratic_intercept_covariance.csv": "a17042201b7f383b0950ef10b1bf5d6710266daac40ed29d4be528bb3845bf60",
+    "data_processed/lattice_free_intercept_joint_quadratic_parameters.csv": "218f5b52e15bd70b8c0813dec51f5680bdc8373dcbec62babee51b24815bd006",
+    "data_processed/lattice_free_intercept_joint_quadratic_summary.csv": "ea6b77af1178c8e0608f87352c7e2a6239c958ce666fffe03046a64dc08ac087"
+  },
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "reproduce_command": "python3 scripts/lattice_free_intercept_joint_quadratic.py",
+  "scipy": "1.18.0",
+  "script": "scripts/lattice_free_intercept_joint_quadratic.py",
+  "script_sha256": "84bfe88acc9b95fa3d3ce9bdc2b7b22960bf1753288f0f153ffd0b0b5bc45fc9"
+}

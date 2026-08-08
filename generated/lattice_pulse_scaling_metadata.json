@@ -1,0 +1,56 @@
+{
+  "generated_utc": "2026-08-08T18:02:04.154012+00:00",
+  "script": "scripts/lattice_pulse_scaling.py",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "numpy": "2.3.4",
+  "pandas": "2.3.3",
+  "matplotlib": "3.10.7",
+  "scipy": "1.18.0",
+  "raw_paths": [
+    "data_raw/lattice_gas_phase_switch_trajectories.npz",
+    "data_raw/lattice_gas_additional_replicas.npz"
+  ],
+  "seed": 26080602,
+  "bootstrap_draws": 5000,
+  "resampling": "replicas sampled with replacement; blocks sampled with replacement within each selected replica",
+  "blocks_per_replica": 40,
+  "analysis_grid": {
+    "minimum_h": -6.0,
+    "maximum_h": 9.0,
+    "points": 601,
+    "spacing_h": 0.025
+  },
+  "peak_estimator": "bounded continuous minimization of a cubic-spline interpolant of the pulse magnitude",
+  "width_estimator": "Brent root finding for both half-height crossings of the same cubic-spline interpolant",
+  "fit": "weighted least squares A+B/V using hierarchical standard errors",
+  "finite_size_sensitivity_models": [
+    "A+B/V using all sizes",
+    "A+B/V+C/V^2 using all sizes",
+    "A+B/V after excluding L=16"
+  ],
+  "grid_sensitivity_spacings_h": [
+    0.025,
+    0.05,
+    0.1
+  ],
+  "finite_size_sensitivity_max_abs_shift_from_nominal": {
+    "fwhm_h": 0.001140320369442449,
+    "peak_center_h": 0.0004154331556511792,
+    "peak_magnitude": 4.1661519613822584e-05
+  },
+  "grid_sensitivity_max_abs_intercept_shift": {
+    "fwhm_h": 1.3437227952550757e-07,
+    "peak_center_h": 6.414578317404107e-07,
+    "peak_magnitude": 2.4078153915141343e-09
+  },
+  "sensitivity_outputs": [
+    "data_processed/lattice_pulse_finite_size_sensitivity.csv",
+    "data_processed/lattice_pulse_grid_sensitivity.csv"
+  ],
+  "exact_limits": {
+    "peak_center_h": 2.359195003274776,
+    "peak_magnitude": 0.7211578616788782,
+    "fwhm_h": 5.564321789962347
+  }
+}

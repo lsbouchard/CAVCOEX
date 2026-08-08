@@ -1,0 +1,35 @@
+{
+  "baseline_archive_modified": false,
+  "dependency_sha256": {
+    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67"
+  },
+  "diagnostics": "data_raw/lattice_gas_additional_replicas_diagnostics.csv",
+  "generated_utc": "2026-08-06T10:33:57.600896+00:00",
+  "input_sha256": {},
+  "numpy": "2.3.4",
+  "output": "data_raw/lattice_gas_additional_replicas.npz",
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "reproduce_command": "python3 scripts/lattice_gas_additional_replicas.py --seed 25072026 --sizes 16 24 32 48 64 --replica-start 4 --replica-stop 12 --equil-steps 2000 --production-steps 20000 --workers 1 --overwrite",
+  "script": "scripts/lattice_gas_additional_replicas.py",
+  "script_sha256": "91ecb780004d2f428c7406da5600f5d62bf3b7f59ced02fc87150eec4fec0bf5",
+  "seed_formula": "base_seed + 1009*L + 104729*replica",
+  "settings": {
+    "base_seed": 25072026,
+    "equilibration_steps": 2000,
+    "overwrite_existing_archive": true,
+    "production_steps": 20000,
+    "replica_start": 4,
+    "replica_stop_exclusive": 12,
+    "sizes": [
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "workers": 1
+  }
+}

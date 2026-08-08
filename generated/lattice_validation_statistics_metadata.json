@@ -1,0 +1,292 @@
+{
+  "analysis_mode": {
+    "holdout": "paired_antithetic with disjoint training/heldout replicas",
+    "scalar": [
+      "paired_antithetic",
+      "raw_unpaired"
+    ]
+  },
+  "blocks_per_replica": 40,
+  "bootstrap_calibration": "centered hierarchical bootstrap noise is added to the fitted null model and every replicate is refitted before computing its statistic",
+  "bootstrap_hierarchy": "replicas sampled with replacement first; time blocks sampled with replacement within every selected replica",
+  "covariance_regularization": {
+    "method": "eigenmode truncation of the correlation matrix; retained modes have lambda > relative_threshold * lambda_max",
+    "primary_relative_threshold": 1e-08,
+    "sensitivity_thresholds": [
+      1e-06,
+      1e-08,
+      1e-10
+    ]
+  },
+  "dependency_sha256": {
+    "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
+    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
+    "scripts/lattice_pulse_scaling.py": "8c44621a2339b273d55e1261ea36c2cf2b581f1c6a2e9c26834e40792d58904c"
+  },
+  "exact_inputs": {
+    "K": 0.5,
+    "delta_beta_w": 4.299960245352132,
+    "spontaneous_magnetization": 0.911319377877496
+  },
+  "exact_limits": {
+    "fwhm_h": 5.564321789962347,
+    "peak_center_h": 2.359195003274776,
+    "peak_magnitude": 0.7211578616788782
+  },
+  "field_interval": {
+    "definition": "specified from the exact half-height crossings before examining finite-size residuals",
+    "h_max": 6.0,
+    "h_min": -1.0,
+    "points": 141,
+    "spacing": 0.050000000000000044
+  },
+  "fixed_limit_fit": "X_L = X_infinity_exact + B/V; B is the only fitted parameter",
+  "generated_utc": "2026-08-08T04:03:50.969826+00:00",
+  "holdout_bootstrap_draws": 1000,
+  "holdout_folds": {
+    "48": [
+      {
+        "heldout": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "training": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "heldout": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "training": [
+          0,
+          1,
+          2,
+          3,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "heldout": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "training": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "64": [
+      {
+        "heldout": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "training": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "heldout": [
+          4,
+          5,
+          6,
+          7
+        ],
+        "training": [
+          0,
+          1,
+          2,
+          3,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      {
+        "heldout": [
+          8,
+          9,
+          10,
+          11
+        ],
+        "training": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ]
+  },
+  "independence_structure": "lattice sizes come from independent simulations and are treated as independent covariance blocks; observables within a size retain their full bootstrap covariance",
+  "input_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "joint_fixed_limit_models": {
+    "linear_all": "X_L = X_infinity_exact + B/V for all five sizes",
+    "linear_drop_L16": "X_L = X_infinity_exact + B/V for L=24,32,48,64",
+    "primary_baseline": "linear_all",
+    "quadratic_all": "X_L = X_infinity_exact + B/V + C/V^2 for all five sizes",
+    "reference_volume_used_for_numerical_conditioning": 256
+  },
+  "joint_scalar_records": {
+    "bootstrap_rows": 20000,
+    "central_rows": 10,
+    "fit_models": [
+      "linear_all",
+      "quadratic_all",
+      "linear_drop_L16"
+    ],
+    "joint_fit_rows": 6,
+    "observables": [
+      "peak_center_h",
+      "peak_magnitude",
+      "fwhm_h"
+    ]
+  },
+  "limitations": [
+    "The centered bootstrap calibrates finite-sample noise but is not a proof of asymptotic chi-square behavior.",
+    "Covariance modes below the declared relative threshold are not assigned inverse weight.",
+    "The exact-crossfit label refers to the decomposition, not to equality of finite training and heldout estimates.",
+    "The first-corrected prediction tests the derived truncated expansion on a fixed field interval; it is not an all-orders identity."
+  ],
+  "matplotlib": "3.10.7",
+  "monte_carlo_p_value": "(1 + number of centered-bootstrap statistics at least as large as observed)/(B+1); the minimum reportable values are therefore 1/(B+1)",
+  "numpy": "2.3.4",
+  "output_sha256": {
+    "data_processed/lattice_curve_holdout_test.csv": "44d9f311dd0b3971d8e1b6f5b117ec9ac05971474b62bcdcbd8afb65d8179d07",
+    "data_processed/lattice_exact_limit_fixed_fits.csv": "8465d0d56c2685bb8474699e3ed148444510695f939c2e544c4e2de2eaa7007f",
+    "data_processed/lattice_scalar_covariance.csv": "b0422cd77d358ab195d98a9d9be701ea3de2dad8ef12dd67135f5501da53ad91",
+    "data_processed/lattice_scalar_joint_validation.csv": "76e090fb7e05eb673f3f0c509a66a3db460d59612b130b6ce2738b540d674322",
+    "figures/lattice_exact_limit_residuals.pdf": "d0a6cd3dd9a367ab7beaad828408a643304da5863815856c2fc0c65fc8b31d7a",
+    "figures/lattice_holdout_validation.pdf": "19a913266b51362105f4e738e8b1dae15a4d955bdcb66f94b854bc2fed8244c5"
+  },
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "prediction_distinction": {
+    "exact_crossfit": "the finite-volume decomposition is algebraically exact for its training primitives; transfer to heldout replicas is a statistical cross-fitted prediction",
+    "first_corrected_logistic": "fixes the exact thermodynamic density gap and cavity-work difference, fits d0,dchi,a1,dn only to training phase primitives over the specified field interval, and evaluates the derived O(1/V) curve; the total response adds its leading intraphase term",
+    "leading_logistic": "uses only h=0 training primitives and additionally assumes their leading two-state field dependence"
+  },
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "replica_ids_by_size": {
+    "16": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "24": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "32": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "48": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "64": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "reproduce_command": "python3 scripts/lattice_validation_statistics.py",
+  "scalar_bootstrap_draws": 2000,
+  "scipy": "1.18.0",
+  "script": "scripts/lattice_validation_statistics.py",
+  "script_sha256": "9dd3213a3ddfe6e38da580af91ba1c2c32326c8571ee45239d66350f217cc20a",
+  "seed": 26080607
+}

@@ -1,0 +1,52 @@
+{
+  "generated_utc": "2026-08-08T18:06:17.650101+00:00",
+  "script": "scripts/lattice_soft_cavity_family.py",
+  "script_sha256": "6d8620518689047f6965be00d41b4c2df2b2e7c1c019ae8ceee570dc0ecb78af",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "numpy": "2.3.4",
+  "pandas": "2.3.3",
+  "matplotlib": "3.10.7",
+  "scipy": "1.18.0",
+  "input_sha256": {
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc",
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679"
+  },
+  "seed": 26080611,
+  "L": 64,
+  "replica_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "blocks_per_replica": 40,
+  "bootstrap_draws": 2000,
+  "lambdas": [
+    "0.25",
+    "0.5",
+    "1",
+    "2",
+    "infinity"
+  ],
+  "bias": "chi_lambda = exp[-lambda * (n_i+n_j)] for a uniformly sampled nearest-neighbor bond",
+  "reuse_scope": "same archived unconstrained trajectories as the hard-cavity benchmark; this is a staged-weight family, not an independent simulation ensemble",
+  "comparison_scope": "reported z scores compare the finite L measurement directly with the exact thermodynamic limit; they diagnose finite-size displacement and are not thermodynamic-limit extrapolation tests",
+  "exact_soft_weight": "p_lambda=p00+exp(-lambda)*p01+exp(-2 lambda)*p11",
+  "exact_work_contrast": "Delta beta W=log(p_lambda,gas/p_lambda,liquid)",
+  "output_sha256": {
+    "data_processed/lattice_soft_cavity_features.csv": "04b44816ba59c334262ec037834c1d5b30f0d367aa2b720367550f398e55526e",
+    "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+    "figures/lattice_soft_cavity_family.pdf": "03f3ec58e2e82f1d243c2928e15b5cdcd61beaa0b0455c48eb5c5f546a0f84af"
+  },
+  "runtime_seconds": 14.684626750000461,
+  "reproduce_command": "python3 scripts/lattice_soft_cavity_family.py --length 64 --blocks-per-replica 40 --bootstrap-draws 2000 --seed 26080611"
+}

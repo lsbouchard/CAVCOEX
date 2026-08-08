@@ -1,0 +1,85 @@
+{
+  "artifact_type": "analytic EOS predictions; no independent simulation data",
+  "checks": {
+    "dense_grid": {
+      "CS": {
+        "max_dW_dmu": 0.985544648048151,
+        "min_S0": 0.014455351951848952,
+        "min_beta_mu_ex_slope_eta_gt_0": 8.00780486966199,
+        "min_total_beta_mu_slope_eta_gt_0": 21.202457668666593
+      },
+      "PY-c": {
+        "max_dW_dmu": 0.9872442906574395,
+        "min_S0": 0.012755709342560552,
+        "min_beta_mu_ex_slope_eta_gt_0": 8.007805140326678,
+        "min_total_beta_mu_slope_eta_gt_0": 21.31559740549909
+      },
+      "mKLM-2019": {
+        "max_dW_dmu": 0.985780043982059,
+        "min_S0": 0.014219956017940964,
+        "min_beta_mu_ex_slope_eta_gt_0": 8.007804968318116,
+        "min_total_beta_mu_slope_eta_gt_0": 21.229153819210058
+      }
+    },
+    "finite_difference_threshold": 1e-08,
+    "random_five_point_finite_difference_max_relative_errors": {
+      "CS:Z": 3.053159984877183e-12,
+      "CS:beta_mu_ex": 3.1438956261505802e-12,
+      "PY-c:Z": 3.4031187021273746e-12,
+      "PY-c:beta_mu_ex": 2.9293540834658787e-12,
+      "mKLM-2019:Z": 2.630666433095767e-12,
+      "mKLM-2019:beta_mu_ex": 2.532488932496338e-12
+    },
+    "symbolic": {
+      "CS_invS_minus_1_numerator": "2*eta*(4-eta)",
+      "PYc_invS_minus_1_numerator": "eta*(4-eta)*(eta^2+2)",
+      "mKLM_positive_factor_at_x_0": 8.0,
+      "mKLM_positive_factor_at_x_13_over_12": 63.9911126786167,
+      "mKLM_sturm_roots_on_x_0_to_13_over_12": 0,
+      "thermodynamic_integral_identity": "exact for all models"
+    }
+  },
+  "coexistence_marker": {
+    "derived_from_v_fluid_sigma3": 1.06448,
+    "doi": "10.1103/PhysRevLett.108.165701",
+    "eta_fluid": 0.4918822106552484,
+    "eta_fluid_standard_uncertainty": 4.6208685053288777e-05,
+    "source": "Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
+    "v_fluid_sigma3_standard_uncertainty": 0.0001
+  },
+  "dependency_sha256": {
+    "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+  },
+  "grid": {
+    "eta_max": 0.52,
+    "eta_min": 0.0,
+    "points": 2001
+  },
+  "input_sha256": {},
+  "matplotlib": "3.10.7",
+  "models": [
+    {
+      "key": "CS",
+      "name": "Carnahan-Starling",
+      "source": "Carnahan and Starling (1969), doi:10.1063/1.1672048"
+    },
+    {
+      "key": "PY-c",
+      "name": "Percus-Yevick (compressibility)",
+      "source": "Thiele (1963), doi:10.1063/1.1734272"
+    },
+    {
+      "key": "mKLM-2019",
+      "name": "modified KLM (2019)",
+      "source": "Pieprzyk et al. (2019), doi:10.1039/C9CP00903E, Eq. (4)"
+    }
+  ],
+  "numpy": "2.3.4",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6",
+  "random_check_seed": 20260724,
+  "reproduce_command": "python3 scripts/cs_benchmark.py",
+  "script": "scripts/cs_benchmark.py",
+  "script_sha256": "51e66e8a304460baaaab56acd708959ee814a62326f431021ec5b1b064ae8026",
+  "sympy": "1.14.0"
+}

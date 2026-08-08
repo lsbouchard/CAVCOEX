@@ -1,0 +1,33 @@
+{
+  "bootstrap_draws": 20000,
+  "dependency_sha256": {
+    "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+  },
+  "doi": "10.1103/PhysRevLett.108.165701",
+  "generated_utc": "2026-08-08T04:03:11.463785+00:00",
+  "input_sha256": {
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+  },
+  "limitations": [
+    "not a reanalysis of particle trajectories",
+    "not a new tethered or phase-switch simulation",
+    "finite-N curves are a data-anchored proxy, not an exact finite-basin insertion identity",
+    "the pure-phase insertion relation assumes insertion/removal-stable basins in the thermodynamic limit",
+    "reported source covariances were unavailable; tabulated errors were sampled independently",
+    "solid intraphase background uses an occupancy-constrained, pressure-anchored free-volume proxy rather than a defect-equilibrated grand-canonical susceptibility",
+    "the leading phase-reweighting term does not depend on the intraphase compressibility estimate"
+  ],
+  "matplotlib": "3.10.7",
+  "method": "thermodynamic pure-phase R=sigma insertion relation plus two-phase asymptotics evaluated with external coexistence densities",
+  "numpy": "2.3.4",
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "random_seed": 24072026,
+  "reproduce_command": "python3 scripts/phase_conditioned.py",
+  "script": "scripts/phase_conditioned.py",
+  "script_sha256": "16a18a71494f759acd5ae9a29da8384949d742b1f282b7e6b7af50bcca1e33b8",
+  "source": "Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
+  "source_data": "published Table I summary statistics"
+}

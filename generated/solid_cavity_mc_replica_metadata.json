@@ -1,0 +1,179 @@
+{
+  "analysis_version": "solid-cavity-independent-replicas-v1",
+  "artifacts": {
+    "comparison": "data_processed/solid_cavity_mc_replica_comparison.csv",
+    "figure": "figures/solid_cavity_mc_replica_audit.pdf",
+    "final_states": "data_raw/solid_cavity_mc_additional_replica_states.npz",
+    "processed_replicas": "data_processed/solid_cavity_mc_additional_replicas.csv",
+    "raw_blocks": "data_raw/solid_cavity_mc_additional_replica_blocks.csv",
+    "raw_structure": "data_raw/solid_cavity_mc_additional_replica_structure.csv",
+    "results_note": "generated/solid_cavity_mc_replica_results.md",
+    "structure_summary": "data_processed/solid_cavity_mc_replica_structure_summary.csv"
+  },
+  "base_seed": 631026801,
+  "baseline_inputs": {
+    "processed": "data_processed/solid_cavity_mc.csv",
+    "processed_sha256": "82b7698a5db356a49563b81ed8deb149316e9037618986dd946fa091bc9e2919",
+    "structure": "data_raw/solid_cavity_mc_structure.csv",
+    "structure_sha256": "e0bc3f53a06908a7c22b59b57f7b565a3e0e05999f735183e8b6a19091d8150e"
+  },
+  "classification": {
+    "inputs": [
+      "empty-event count",
+      "positive-block count",
+      "relative probability standard error",
+      "first-half versus second-half stationarity",
+      "double-block standard-error stability",
+      "crystal/acceptance/exact-control gates",
+      "independent-replica Cochran Q and delete-one stability"
+    ],
+    "probability_floor_used": false,
+    "replica_consistency_thresholds": {
+      "maximum_cochran_q_per_dof": 4.0,
+      "maximum_delete_one_shift_over_hierarchical_se": 1.5
+    },
+    "zero_event_reporting": "raw probe exposure only; no rule-of-three or nominal 95% zero-event confidence bound"
+  },
+  "code_commit_at_generation": "00bad6f569f45d0609c6beb0464f3827dba49497",
+  "density_source": {
+    "citation": "Fernandez et al. Physical Review Letters 108 165701 (2012)",
+    "doi": "10.1103/PhysRevLett.108.165701",
+    "eta": 0.5431240865082712,
+    "pressure": 11.5727,
+    "se_eta": 1.6901325237537612e-05,
+    "se_pressure": 0.001,
+    "se_specific_volume": 3e-05,
+    "specific_volume": 0.96405
+  },
+  "dependency_sha256": {
+    "scripts/cavity_mc.py": "94c52a06a2aef1930d989879848bcbfd7e14f9662dec5143b835911ac1b4e2d5",
+    "scripts/solid_cavity_mc.py": "40530bf7c3d5e719c045dd05dd28cf1f6b7d8043d0f72af0c5f6f2263c0da77c"
+  },
+  "generated_utc": "2026-08-06T09:27:45.825675+00:00",
+  "input_sha256": {
+    "data_processed/solid_cavity_mc.csv": "82b7698a5db356a49563b81ed8deb149316e9037618986dd946fa091bc9e2919",
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+    "data_raw/solid_cavity_mc_structure.csv": "e0bc3f53a06908a7c22b59b57f7b565a3e0e05999f735183e8b6a19091d8150e"
+  },
+  "pressure_diagnostic": {
+    "central_shell_width_over_sigma": 0.02,
+    "definition": "finite-shell average g over 1 <= r/sigma < 1 + Delta, inserted into beta p = rho[1 + 4 eta g(1+)]",
+    "limitation": "diagnostic only; finite-shell result is not represented as an exact zero-width pressure extrapolation",
+    "sensitivity_widths_over_sigma": [
+      0.01,
+      0.02,
+      0.03
+    ]
+  },
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "quality_summary": {
+    "all_R0p80_replica_audited": true,
+    "all_crystal_gates_pass": true,
+    "all_exact_R0p5_controls_pass": true,
+    "independent_state_trajectories": 8,
+    "maximum_abs_R0p80_baseline_difference_z": 0.9654944085612585,
+    "maximum_abs_structural_baseline_difference_z": 1.5554961461493426,
+    "minimum_R0p80_events_per_replica": 181
+  },
+  "replica_seed_stride": 10000019,
+  "replicas_per_size": 4,
+  "reproduce_command": "python3 scripts/solid_cavity_replica_campaign.py --seed 631026801 --sizes 108 256 --replicas 4 --equil-sweeps 16000 --tune-sweeps 4000 --production-blocks 100 --sweeps-per-block 400 --sample-stride 5 --probes-per-sample 2048 --overwrite",
+  "scope": {
+    "ensemble": "canonical NVT",
+    "not_direct_coexistence": "No phase switch, grand-canonical relative weight, chemical-potential reweighting, or common fluid/solid normalization.",
+    "phase": "defect-free commensurate FCC reference basin",
+    "purpose": "independent-replica consistency and rare-event audit"
+  },
+  "script": "scripts/solid_cavity_replica_campaign.py",
+  "script_sha256": "69629a4ab13d3d56c8536b0a1e7b9afce270dec908d3de64220be542d90150c6",
+  "seed_records": [
+    {
+      "N": 108,
+      "base_seed": 631026801,
+      "equil_seed": 641026801,
+      "production_seed": 651026801,
+      "replica": 0
+    },
+    {
+      "N": 256,
+      "base_seed": 631026801,
+      "equil_seed": 642026804,
+      "production_seed": 652026804,
+      "replica": 0
+    },
+    {
+      "N": 108,
+      "base_seed": 641026820,
+      "equil_seed": 651026820,
+      "production_seed": 661026820,
+      "replica": 1
+    },
+    {
+      "N": 256,
+      "base_seed": 641026820,
+      "equil_seed": 652026823,
+      "production_seed": 662026823,
+      "replica": 1
+    },
+    {
+      "N": 108,
+      "base_seed": 651026839,
+      "equil_seed": 661026839,
+      "production_seed": 671026839,
+      "replica": 2
+    },
+    {
+      "N": 256,
+      "base_seed": 651026839,
+      "equil_seed": 662026842,
+      "production_seed": 672026842,
+      "replica": 2
+    },
+    {
+      "N": 108,
+      "base_seed": 661026858,
+      "equil_seed": 671026858,
+      "production_seed": 681026858,
+      "replica": 3
+    },
+    {
+      "N": 256,
+      "base_seed": 661026858,
+      "equil_seed": 672026861,
+      "production_seed": 682026861,
+      "replica": 3
+    }
+  ],
+  "settings": {
+    "audit_chunk_sweeps": 2000,
+    "equil_sweeps": 16000,
+    "probes_per_sample": 2048,
+    "production_blocks": 100,
+    "sample_stride": 5,
+    "sweeps_per_block": 400,
+    "tune_chunk_sweeps": 400,
+    "tune_sweeps": 4000
+  },
+  "sizes": [
+    108,
+    256
+  ],
+  "software": {
+    "matplotlib": "3.10.7",
+    "numba": "0.63.1",
+    "numba_threads": 10,
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+    "scipy": "1.18.0"
+  },
+  "solid_cavity_mc_script_sha256": "40530bf7c3d5e719c045dd05dd28cf1f6b7d8043d0f72af0c5f6f2263c0da77c",
+  "target_rare_event_radius_over_sigma": 0.8,
+  "uncertainty": {
+    "aggregate": "equal-replica mean with max(within-replica propagated SE, between-replica SE)",
+    "robustness": "Cochran Q and delete-one-replica shifts",
+    "within_trajectory": "largest adjacent-batch SE over 1-, 2-, 5-, and 10-block aggregations"
+  },
+  "wall_seconds_total": 65.98563308292069
+}

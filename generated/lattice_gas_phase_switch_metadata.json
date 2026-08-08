@@ -1,0 +1,56 @@
+{
+  "dependency_sha256": {},
+  "exact_thermodynamic_values": {
+    "delta_betaW": 4.299960245352132,
+    "nearest_neighbor_correlation": 0.8727822876562767,
+    "pair_empty_gas": 0.9238552608528172,
+    "pair_empty_liquid": 0.012535882975321211,
+    "spontaneous_magnetization": 0.911319377877496
+  },
+  "generated_utc": "2026-08-06T07:10:32.277706+00:00",
+  "input_sha256": {},
+  "model": {
+    "basin": "liquid if M>0; gas if M<0; for M=0, liquid iff spin at site zero is +1",
+    "beta_epsilon": 2.0,
+    "coexistence_log_activity_x": -4.0,
+    "constraint": "two empty nearest-neighbor sites, uniformly averaged over lattice bonds",
+    "downstream_reweighting": "performed only by merged hierarchical analysis scripts after the additional-replica archive has been generated",
+    "ising_coupling_K": 0.5,
+    "name": "periodic square-lattice gas / square-lattice Ising model",
+    "sampler": "Wolff single-cluster sampling of both sectors at zero field",
+    "symmetry_variance_reduction": "each configuration averaged with its global spin inverse"
+  },
+  "numpy": "2.3.4",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance": {
+    "analysis_note": "this script is trajectory production only; all manuscript-facing analysis consumes both raw archives through scripts/lattice_analysis_common.py",
+    "diagnostics_path": "data_raw/lattice_gas_phase_switch_diagnostics.csv",
+    "raw_trajectory_path": "data_raw/lattice_gas_phase_switch_trajectories.npz",
+    "source_type": "mc_new"
+  },
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "quality_summary": {
+    "maximum_tau_int_steps": 1.1028272903103558,
+    "minimum_block_length_over_tau": 453.38014790991514,
+    "minimum_sector_reversals_per_replica": 18126
+  },
+  "reproduce_command": "python3 scripts/lattice_gas_phase_switch.py --seed 25072026 --sizes 16 24 32 48 64 --replicas 4 --equil-steps 2000 --production-steps 20000 --blocks-per-replica 40 --bootstrap-draws 400",
+  "script": "scripts/lattice_gas_phase_switch.py",
+  "script_sha256": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
+  "settings": {
+    "blocks_per_replica": 40,
+    "bootstrap_draws": 400,
+    "equil_steps": 2000,
+    "production_steps": 20000,
+    "replicas": 4,
+    "seed": 25072026,
+    "sizes": [
+      16,
+      24,
+      32,
+      48,
+      64
+    ]
+  }
+}

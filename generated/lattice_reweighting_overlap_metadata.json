@@ -1,0 +1,104 @@
+{
+  "antithetic_treatment": "each sampled configuration and its deterministic global spin inverse are combined into one orbit weight before concentration is evaluated",
+  "block_count_per_replica": 40,
+  "definition": "Kish weighted-support fraction=(sum w)^2/[n sum(w^2)]; weight entropy is reported as exp[-sum p log p]/n",
+  "dependency_sha256": {
+    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34"
+  },
+  "generated_utc": "2026-08-08T04:06:27.717814+00:00",
+  "input_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "interpretation": "weight concentration and reweighting support only; neither value is an independent-sample count or a substitute for the replica-respecting hierarchical uncertainty calculation",
+  "matplotlib": "3.10.7",
+  "numpy": "2.3.4",
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "raw_paths": [
+    "data_raw/lattice_gas_phase_switch_trajectories.npz",
+    "data_raw/lattice_gas_additional_replicas.npz"
+  ],
+  "replica_ids": {
+    "16": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "24": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "32": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "48": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "64": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ]
+  },
+  "reproduce_command": "python3 scripts/lattice_reweighting_overlap.py",
+  "script": "scripts/lattice_reweighting_overlap.py",
+  "script_sha256": "3c2f5d97524227d2682fa49c2c05c9599179729161fda82857853aa47b22eebe",
+  "support_thresholds_for_sensitivity": [
+    0.05,
+    0.1,
+    0.2
+  ]
+}

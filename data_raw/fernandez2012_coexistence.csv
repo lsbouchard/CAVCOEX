@@ -1,0 +1,9 @@
+N,p_simulation,v_solid,se_v_solid,v_fluid,se_v_fluid,p_equal_weight,se_p_equal_weight,source,doi
+108,10.92,0.97580,0.00007,1.07611,0.00008,10.9216,0.0018,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+256,11.224,0.97049,0.00006,1.07202,0.00007,11.2209,0.0013,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+500,11.363,0.96796,0.00010,1.06932,0.00007,11.3607,0.0008,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+864,11.441,0.96796,0.00010,1.06932,0.00007,11.4416,0.0013,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+1372,11.487,0.96549,0.00014,1.06659,0.00013,11.4897,0.0013,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+2048,11.514,0.96500,0.00014,1.06577,0.00015,11.5146,0.0007,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+2916,11.529,0.96468,0.00014,1.06545,0.00019,11.5311,0.0015,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701
+infinity,,0.96405,0.00003,1.06448,0.00010,11.5727,0.0010,Fernandez et al. Physical Review Letters 108 165701 (2012),10.1103/PhysRevLett.108.165701

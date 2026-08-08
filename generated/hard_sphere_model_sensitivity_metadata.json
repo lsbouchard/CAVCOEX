@@ -1,0 +1,61 @@
+{
+  "bootstrap_draws": 20000,
+  "crossing_random_seed": 6082027,
+  "dependency_sha256": {
+    "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+  },
+  "generated_utc": "2026-08-08T04:03:15.892017+00:00",
+  "input": "data_raw/fernandez2012_coexistence.csv",
+  "input_sha256": {
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+  },
+  "invariant": "deltaN_reweight/V is computed only from the two densities and phase weights; its model range is numerically zero",
+  "limitations": [
+    "the model envelope is a sensitivity range, not a confidence interval",
+    "the two Speedy curves share one functional family",
+    "published input covariances were unavailable and errors were sampled independently",
+    "finite-size volumes are held at their nominal tabulated fluid values during error propagation",
+    "this is not a direct common-normalization fluid-crystal simulation",
+    "the sign crossing combines an exact density-only leading term with a model-dependent O(1) term"
+  ],
+  "matplotlib": "3.10.7",
+  "maximum_density_coefficient_model_range": 0.0,
+  "models": {
+    "bannerman_2010_refit": {
+      "citation": "M. N. Bannerman et al., J. Chem. Phys. 132, 084507 (2010)",
+      "description": "Speedy functional form with A=0.620735, B=0.708194, C=0.591663",
+      "doi": "10.1063/1.3328823",
+      "status": "coefficient refit, not an independent functional family"
+    },
+    "pressure_anchored_free_volume": {
+      "description": "local Z=A/(1-eta/eta_cp), with A chosen separately at each source state to reproduce its tabulated pressure",
+      "status": "baseline modelling assumption, not a fitted global EOS"
+    },
+    "speedy_1998": {
+      "citation": "R. J. Speedy, J. Phys.: Condens. Matter 10, 4387 (1998)",
+      "description": "Z=3/(1-x)-A(x-B)/(x-C), x=eta/eta_cp, A=0.5921, B=0.7072, C=0.601",
+      "doi": "10.1088/0953-8984/10/20/006"
+    }
+  },
+  "numpy": "2.3.4",
+  "outputs": [
+    "data_processed/hard_sphere_model_sensitivity.csv",
+    "data_processed/hard_sphere_model_envelope.csv",
+    "data_processed/hard_sphere_model_crossings.csv",
+    "figures/hard_sphere_model_sensitivity.pdf"
+  ],
+  "pandas": "2.3.3",
+  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
+  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "random_seed": 6082026,
+  "reproduce_command": "python3 scripts/hard_sphere_sensitivity.py",
+  "reproduction_command": "python scripts/hard_sphere_sensitivity.py --bootstrap-draws 20000",
+  "script": "scripts/hard_sphere_sensitivity.py",
+  "script_sha256": "6c6f41671b44393fc4ab2fcd136239da59402bdf3849e84c20c7a18a4218ac2f",
+  "source": {
+    "citation": "L. A. Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
+    "data_used": "published Table I summary statistics",
+    "doi": "10.1103/PhysRevLett.108.165701"
+  }
+}
