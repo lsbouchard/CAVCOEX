@@ -1,0 +1,20 @@
+{
+  "block_lengths": [
+    500,
+    1000,
+    2000
+  ],
+  "bootstrap_draws": 800,
+  "generated_utc": "2026-09-29T20:06:29.832922+00:00",
+  "iid_new_variance_ratio": 0.975,
+  "iid_old_variance_ratio": 1.8916666666666668,
+  "input_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "maximum_coarsened_se_ratio": 1.0906161354742632,
+  "method": "stratified time-block bootstrap; all chains retained",
+  "minimum_coarsened_se_ratio": 0.8690251468952973,
+  "scope": "sampling-error sensitivity, no new Monte Carlo trajectories",
+  "script_sha256": "424a3cf69fc3a7ea1f7ac4eeb577976e1d023c6d380c0734a7b88cb81e908d0c"
+}

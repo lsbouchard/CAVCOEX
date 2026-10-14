@@ -1,13 +1,34 @@
 {
-  "bootstrap_draws": 20000,
+  "generated_utc": "2026-09-30T03:10:01.382348+00:00",
+  "script": "scripts/phase_conditioned.py",
+  "script_sha256": "86357a0ea4f5796cc2a4456883da6c08e633b81121ceb63ca3b0fc216ed16196",
   "dependency_sha256": {
     "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
   },
-  "doi": "10.1103/PhysRevLett.108.165701",
-  "generated_utc": "2026-08-08T04:03:11.463785+00:00",
   "input_sha256": {
     "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
   },
+  "output_sha256": {
+    "data_processed/phase_conditioned_cavity.csv": "88ac1a1952459b9518b9d0fdad4e65d4222e93b39778be5980faefe23b411cc8",
+    "generated/phase_equal_weight_summary.csv": "b49cc10e394b69c7d836a2ea79674975aad885b1741f09f71fe1d8156d8aac52",
+    "generated/coexistence_widths.csv": "205ca9d686020661c436f075c8a0681a6302ce673028d9af65714ea37b3ec38b",
+    "generated/phase_table.tex": "6f9b456210e2c29b232ea97e601b03c6f20ed8aa5173c9bcc1ade9ed69e9ea2b",
+    "figures/phase_reweighting.pdf": "275dc2682ca48e6166181763ac1540e7778149b611405f2abcf439f07547b521",
+    "figures/coexistence_collapse.pdf": "1702b077728831132a1bc10439df1e0cd0c8ca47348bec3437e9ff34c976bd9d",
+    "figures/phase_source_uncertainty.pdf": "339194c8a68235dd292cf5982fe672c14fe424abf93f94ccec309d8527d7a916"
+  },
+  "reproduce_command": "python3 scripts/phase_conditioned.py",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "numpy": "2.3.5",
+  "pandas": "2.3.3",
+  "matplotlib": "3.10.8",
+  "random_seed": 24072026,
+  "bootstrap_draws": 20000,
+  "source": "Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
+  "doi": "10.1103/PhysRevLett.108.165701",
+  "source_data": "published Table I summary statistics",
+  "method": "thermodynamic pure-phase R=sigma insertion relation plus two-phase asymptotics evaluated with external coexistence densities",
   "limitations": [
     "not a reanalysis of particle trajectories",
     "not a new tethered or phase-switch simulation",
@@ -16,18 +37,5 @@
     "reported source covariances were unavailable; tabulated errors were sampled independently",
     "solid intraphase background uses an occupancy-constrained, pressure-anchored free-volume proxy rather than a defect-equilibrated grand-canonical susceptibility",
     "the leading phase-reweighting term does not depend on the intraphase compressibility estimate"
-  ],
-  "matplotlib": "3.10.7",
-  "method": "thermodynamic pure-phase R=sigma insertion relation plus two-phase asymptotics evaluated with external coexistence densities",
-  "numpy": "2.3.4",
-  "pandas": "2.3.3",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
-  "random_seed": 24072026,
-  "reproduce_command": "python3 scripts/phase_conditioned.py",
-  "script": "scripts/phase_conditioned.py",
-  "script_sha256": "16a18a71494f759acd5ae9a29da8384949d742b1f282b7e6b7af50bcca1e33b8",
-  "source": "Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
-  "source_data": "published Table I summary statistics"
+  ]
 }

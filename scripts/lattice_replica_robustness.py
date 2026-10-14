@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Hierarchical paired-versus-unpaired lattice-gas robustness analysis."""
+"""Stratified-block paired-versus-unpaired lattice-gas robustness analysis."""
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import sys
@@ -19,6 +20,7 @@ try:
         available_sizes,
         contribution_blocks,
         load_trajectory_archives,
+        stratified_block_indices,
     )
     from .lattice_gas_phase_switch import observables_from_contributions
 except ImportError:
@@ -26,6 +28,7 @@ except ImportError:
         available_sizes,
         contribution_blocks,
         load_trajectory_archives,
+        stratified_block_indices,
     )
     from lattice_gas_phase_switch import observables_from_contributions
 
@@ -117,13 +120,12 @@ def analyze(
 
         replica_count = len(replicas)
         for draw in range(bootstrap_draws):
-            selected_replicas = rng.integers(0, replica_count, replica_count)
+            indices = stratified_block_indices(replica_count, block_count, rng)
             totals = {
                 mode: np.zeros(blocks.shape[2:], dtype=float)
                 for mode, blocks in arrays.items()
             }
-            for selected in selected_replicas:
-                selected_blocks = rng.integers(0, block_count, block_count)
+            for selected, selected_blocks in enumerate(indices):
                 for mode, blocks in arrays.items():
                     totals[mode] += np.sum(
                         blocks[selected, selected_blocks], axis=0
@@ -265,6 +267,10 @@ def analyze(
         "numpy": np.__version__,
         "pandas": pd.__version__,
         "raw_paths": [str(path.resolve().relative_to(ROOT)) for path in raw_paths],
+        "input_sha256": {
+            str(path.resolve().relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in raw_paths
+        },
         "seed": seed,
         "bootstrap_draws": bootstrap_draws,
         "blocks_per_replica": block_count,
@@ -273,11 +279,11 @@ def analyze(
         ),
         "unpaired_definition": "raw zero-field Wolff trajectories",
         "resampling": (
-            "replicas sampled with replacement; common block indices sampled "
-            "within each selected replica for the paired and unpaired estimators"
+            "all replicas retained as fixed strata; common block indices sampled "
+            "within each replica for the paired and unpaired estimators"
         ),
         "interval_note": (
-            "standard errors are hierarchical-bootstrap estimates; the reported "
+            "standard errors are stratified block-bootstrap estimates; the reported "
             "95% interval additionally uses Student-t multiplier with R-1 degrees "
             "of freedom to expose finite-replica small-sample cost"
         ),

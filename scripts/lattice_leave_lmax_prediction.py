@@ -8,8 +8,8 @@ curve.  It then predicts the complete total and phase-reweighting curves at
 ``L=64`` without using any ``L=64`` quantity in the fit.  Only after the
 prediction is fixed are all twelve ``L=64`` replicas used for validation.
 
-Uncertainty is propagated by a two-level bootstrap (replicas, then time
-blocks within each selected replica).  Sizes are resampled with distinct
+Uncertainty is propagated by a stratified bootstrap of time blocks within
+every retained replica.  Sizes are resampled with distinct
 random streams.  Pointwise, simultaneous-curve, and regularized full-
 covariance diagnostics therefore include uncertainty from both coefficient
 training and the reserved target curve.
@@ -535,8 +535,28 @@ def curve_diagnostics(
     return curve_rows, diagnostic_rows, covariances
 
 
-def make_figure(curves: pd.DataFrame, output: Path) -> None:
-    """Render the primary evaluation curves and simultaneous residual check."""
+def retained_mode_residuals(
+    residual: np.ndarray, covariance: np.ndarray,
+    threshold: float = PRIMARY_COVARIANCE_THRESHOLD,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Return correlation eigenvalues and standardized residual projections.
+
+    Modes are in descending eigenvalue order. Each eigenvector is oriented so
+    its largest-magnitude component is positive, making plotted signs stable.
+    Their squared residuals sum to the regularized covariance statistic Q.
+    """
+    regularized = regularized_precision(covariance, threshold)
+    vectors = regularized["retained_eigenvectors"][:, ::-1]
+    signs = np.sign(vectors[np.argmax(np.abs(vectors), axis=0), np.arange(vectors.shape[1])])
+    modes = (regularized["whitener"] @ np.asarray(residual))[::-1] * signs
+    return regularized["retained_eigenvalues"][::-1], modes
+
+
+def make_figure(
+    curves: pd.DataFrame, diagnostics: pd.DataFrame,
+    covariances: dict[str, np.ndarray], output: Path,
+) -> None:
+    """Render prediction curves and the retained covariance-mode residuals."""
 
     primary = curves[curves["analysis_config"] == "primary"]
     mpl.rcParams.update(
@@ -564,8 +584,6 @@ def make_figure(curves: pd.DataFrame, output: Path) -> None:
         observed = selected["heldout_observation"].to_numpy()
         lower = selected["simultaneous_95_low"].to_numpy()
         upper = selected["simultaneous_95_high"].to_numpy()
-        z = selected["pointwise_z"].to_numpy()
-        critical = float(selected["simultaneous_critical_95"].iloc[0])
 
         axis = axes[0, column]
         axis.fill_between(h, lower, upper, color="0.88", linewidth=0.0)
@@ -588,28 +606,41 @@ def make_figure(curves: pd.DataFrame, output: Path) -> None:
         axis.legend(frameon=False, loc="upper center")
 
         residual_axis = axes[1, column]
-        residual_axis.axhspan(-critical, critical, color="0.92", zorder=-2)
+        _, mode_z = retained_mode_residuals(observed - predicted, covariances[target])
+        mode_index = np.arange(1, len(mode_z) + 1)
+        diagnostic = diagnostics[
+            (diagnostics["analysis_config"] == "primary")
+            & (diagnostics["target"] == target)
+            & (diagnostics["covariance_relative_eigenvalue_threshold"]
+               == PRIMARY_COVARIANCE_THRESHOLD)
+        ].iloc[0]
         residual_axis.axhline(0.0, color="black", linewidth=0.75)
-        residual_axis.axhline(critical, color="0.35", linestyle="--", linewidth=0.8)
-        residual_axis.axhline(-critical, color="0.35", linestyle="--", linewidth=0.8)
+        residual_axis.axhline(2.0, color="0.45", linestyle="--", linewidth=0.8)
+        residual_axis.axhline(-2.0, color="0.45", linestyle="--", linewidth=0.8)
+        residual_axis.vlines(mode_index, 0.0, mode_z, color=colors[target], linewidth=1.0)
         residual_axis.plot(
-            h,
-            z,
+            mode_index,
+            mode_z,
             color=colors[target],
-            linewidth=1.0,
+            linestyle="none",
             marker="o",
-            markersize=2.0,
-            markevery=4,
+            markersize=4.2,
             markerfacecolor="white",
-            markeredgewidth=0.55,
+            markeredgewidth=0.9,
         )
-        residual_axis.set_title(f"{titles[target]}: standardized residual")
-        residual_axis.set_xlabel(r"$h=V(x-x_{\rm coex})$")
-        residual_axis.set_ylabel("evaluation minus prediction (SE)")
+        residual_axis.set_title(f"{titles[target]}: covariance modes")
+        residual_axis.set_xlabel("retained mode (largest eigenvalue first)")
+        residual_axis.set_ylabel("standardized mode residual")
+        residual_axis.set_xticks(mode_index)
+        residual_axis.set_xlim(0.65, len(mode_z) + 0.35)
+        residual_axis.set_ylim(min(-3.2, 1.25*float(mode_z.min())),
+                               max(3.7, 1.35*float(mode_z.max())))
+        probability = float(diagnostic["covariance_centered_bootstrap_p_value"])
+        p_text = f"{probability:.1g}" if probability < 0.001 else f"{probability:.2f}"
         residual_axis.text(
             0.03,
-            0.93,
-            rf"$\max|z|={np.max(np.abs(z)):.2f}$; $c_{{0.95}}={critical:.2f}$",
+            0.96,
+            rf"$Q={diagnostic['covariance_Q']:.1f}$, $p={p_text}$",
             transform=residual_axis.transAxes,
             ha="left",
             va="top",
@@ -882,8 +913,8 @@ def analyze(
             ),
         },
         "bootstrap_hierarchy": (
-            "Within each size, replicas are sampled with replacement and time "
-            "blocks are sampled with replacement within each selected replica."
+            "Within each size, all replicas are retained as fixed strata and "
+            "time blocks are sampled independently within each replica."
         ),
         "dependence_statement": (
             "All observables and coefficients from one resample share indices, "
@@ -898,7 +929,7 @@ def analyze(
         "covariance_calibration": (
             "The correlation matrix is eigenvalue-truncated at the specified "
             "relative thresholds. The observed quadratic statistic is calibrated "
-            "against centered hierarchical-bootstrap difference curves."
+            "against centered stratified block-bootstrap difference curves."
         ),
         "statistical_null_scope": (
             "The pointwise, simultaneous, and covariance p-values test exact "
@@ -932,11 +963,39 @@ def parse_args() -> argparse.Namespace:
         "--bootstrap-draws", type=int, default=DEFAULT_BOOTSTRAP_DRAWS
     )
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    parser.add_argument("--plot-only", action="store_true",
+                        help="redraw saved curves/covariances without resampling")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    if args.plot_only:
+        data = ROOT / "data_processed"
+        curve_path = data / "lattice_leave_lmax_prediction_curves.csv"
+        diagnostic_path = data / "lattice_leave_lmax_prediction_diagnostics.csv"
+        covariance_path = data / "lattice_leave_lmax_prediction_covariance.npz"
+        figure_path = ROOT / "figures/lattice_leave_lmax_prediction.pdf"
+        metadata_path = ROOT / "generated/lattice_leave_lmax_prediction_metadata.json"
+        with np.load(covariance_path) as archive:
+            covariances = {target: archive[f"covariance_{target}"] for target in TARGETS}
+        make_figure(pd.read_csv(curve_path), pd.read_csv(diagnostic_path),
+                    covariances, figure_path)
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        metadata["figure_render"] = {
+            "generated_utc": datetime.now(timezone.utc).isoformat(),
+            "scope": "figure only; original numerical execution record preserved",
+            "command": "python scripts/lattice_leave_lmax_prediction.py --plot-only",
+            "script_sha256": sha256(Path(__file__).resolve()),
+            "input_sha256": {str(path.relative_to(ROOT)): sha256(path)
+                             for path in (curve_path, diagnostic_path, covariance_path)},
+            "output_sha256": {str(figure_path.relative_to(ROOT)): sha256(figure_path)},
+            "mode_order": "descending correlation eigenvalue; largest component positive",
+        }
+        metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n",
+                                 encoding="utf-8")
+        print("redrew saved prediction with retained covariance-mode residuals")
+        return
     raw_paths = tuple(Path(path) for path in args.raw)
     for path in raw_paths:
         if not path.exists():
@@ -974,7 +1033,7 @@ def main() -> None:
             "joint_total_reweighting"
         ],
     )
-    make_figure(curves, figure_path)
+    make_figure(curves, diagnostics, covariances, figure_path)
 
     output_paths = (
         coefficient_path,

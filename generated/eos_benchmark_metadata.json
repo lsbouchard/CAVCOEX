@@ -47,16 +47,12 @@
     "source": "Fernandez et al., Phys. Rev. Lett. 108, 165701 (2012)",
     "v_fluid_sigma3_standard_uncertainty": 0.0001
   },
-  "dependency_sha256": {
-    "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
-  },
   "grid": {
     "eta_max": 0.52,
     "eta_min": 0.0,
     "points": 2001
   },
-  "input_sha256": {},
-  "matplotlib": "3.10.7",
+  "matplotlib": "3.10.8",
   "models": [
     {
       "key": "CS",
@@ -74,12 +70,10 @@
       "source": "Pieprzyk et al. (2019), doi:10.1039/C9CP00903E, Eq. (4)"
     }
   ],
-  "numpy": "2.3.4",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6",
+  "numpy": "2.3.5",
+  "python": "3.12.12",
   "random_check_seed": 20260724,
-  "reproduce_command": "python3 scripts/cs_benchmark.py",
   "script": "scripts/cs_benchmark.py",
-  "script_sha256": "51e66e8a304460baaaab56acd708959ee814a62326f431021ec5b1b064ae8026",
+  "script_sha256": "aa41a8c6ac168e06631a888c40970be0aed4081aaf67cdde7f01eca77c1de78d",
   "sympy": "1.14.0"
 }

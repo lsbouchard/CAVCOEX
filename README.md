@@ -11,7 +11,10 @@ calculations.
 
 ## Status and scope
 
-The committed data are the frozen production campaign used for the study.  The
+The raw data are the frozen simulation campaign used for the study. The
+September 2026 audit revises uncertainty estimation while preserving those
+trajectories. The October 2026 revision adds tested analytic water--ice
+applications and publication-figure styling from frozen inputs. The
 repository is intentionally limited to numerical reproducibility material: it
 does not contain manuscript sources, submission PDFs, review correspondence, or
 release archives.
@@ -21,12 +24,14 @@ support.  See [NOTICE.md](NOTICE.md) and [LICENSE](LICENSE).
 
 ## Quick start
 
-Create the tested Conda environment, then validate the frozen release:
+Request the audit environment's recorded direct versions, then validate
+the frozen release (environment creation itself has not been tested):
 
 ```sh
-conda env create -f environment.yml
-conda activate constrained-cavity-nucleation
+conda env create -f environment-audit.yml
+conda activate cavity-audit
 make test
+make check-release
 ```
 
 To regenerate all deterministic products and reanalyse the archived lattice
@@ -46,7 +51,7 @@ through `python scripts/<name>.py --help`.
 | Path | Contents |
 | --- | --- |
 | `scripts/` | Simulation drivers, analytic checks, fitting, reweighting, and figure generation. |
-| `tests/` | 109 regression and consistency tests. |
+| `tests/` | Regression and consistency tests for the calculations and release. |
 | `data/` | Equation-of-state benchmark data. |
 | `data_raw/` | Frozen Monte Carlo trajectories, block records, diagnostics, and external coexistence input. |
 | `data_processed/` | Recomputed numerical tables and covariance products. |
@@ -60,12 +65,45 @@ make analytic           # exact identities and deterministic hard-sphere checks
 make lattice-analysis   # reanalyse the archived square-lattice-gas campaign
 make test               # run the regression suite
 make reproduce          # analytic + lattice analysis + test
+make check-release      # verify every curated file against SHA256SUMS
+make figures            # render publication figures from frozen data only
 ```
 
-The raw hard-sphere and lattice-gas simulation archives are retained so the
-analysis can be repeated without a prohibitively long production run.  The
-simulation scripts use fixed seeds and supply the exact production settings in
-their source and command-line help.
+The lattice uncertainty analysis resamples time blocks separately within each
+independent replica, retaining every replica once in each resample. This
+avoids counting trajectory-mean fluctuations twice. Resampling and block-size
+checks are included in the regression suite and generated audit records.
+
+`make reproduce` retains the frozen hard-sphere campaign summaries; it
+regenerates deterministic hard-sphere calculations and all lattice analyses.
+The simulation scripts use fixed seeds. Their recorded commands are stored
+in `generated/*_metadata.json`; command-line defaults need not reproduce the
+original campaign settings. Recipes are serialized even with `make -j` so
+that analysis and tests cannot read partially updated products.
+
+`make figures` does not run a simulation, bootstrap, or coefficient fit.
+It checks that styling leaves plotted numerical coordinates and frozen
+inputs unchanged. One validation figure is retained because its original
+curve arrays were not separately archived. Preview images go to `tmp/`.
+
+## Water--ice application
+
+`scripts/water_ice_phase_response.py` implements the exact phase-probability
+tilt, the leading fixed-pressure volume and enthalpy response, the finite-sample
+equal-weight temperature shift, and exact conditional reweighting of a discrete
+ice-cluster free-energy profile. Work contrasts, latent heat, phase-volume
+differences, and cluster probabilities must be supplied from a specified
+water model or experiment, in consistent units. No synthetic parameter set is
+advertised as water data. These functions are analytic applications, not a
+water simulation, a freeze--thaw hysteresis model, or an absolute nucleation-rate
+prediction. The tests compare them with independently constructed finite
+probability laws.
+
+The readable version lock and explicit macOS ARM64 lock preserve the
+historical environment. See [REPRODUCIBILITY.md](REPRODUCIBILITY.md) for the
+separate audit environment and the distinction between execution provenance
+and a packaging snapshot. `data_raw/source_snapshots/` retains an older
+solid-cavity source referenced by the original raw-data hashes.
 
 ## External data
 

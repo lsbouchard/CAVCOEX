@@ -1,0 +1,138 @@
+{
+  "scope": "frozen-data figure typography only; no simulation, bootstrap or refit",
+  "figures": [
+    {
+      "figure": "cavity_geometry_schematic.pdf",
+      "data_digest_before": "3df8a4511df16d6d5744ca268e44f08866c22e54ded8f9550e4b2dab3dcd1349",
+      "data_digest_after": "3df8a4511df16d6d5744ca268e44f08866c22e54ded8f9550e4b2dab3dcd1349",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "cumulant_hierarchy.pdf",
+      "data_digest_before": "32302b9c7a33fb119905596dd49582ddc8fa3d95f957fd6263a490d273b6b499",
+      "data_digest_after": "32302b9c7a33fb119905596dd49582ddc8fa3d95f957fd6263a490d273b6b499",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "finite_size_collapse.pdf",
+      "data_digest_before": "00e839ee6a0052a646f3f5c8fa5813b1310f562f88ed77a5805e904286ed03ed",
+      "data_digest_after": "00e839ee6a0052a646f3f5c8fa5813b1310f562f88ed77a5805e904286ed03ed",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "tonks_validation.pdf",
+      "data_digest_before": "6d723271b5c0f0820756c691799dfb34024f73a8ebcdf2dabd47de9cabc8403e",
+      "data_digest_after": "6d723271b5c0f0820756c691799dfb34024f73a8ebcdf2dabd47de9cabc8403e",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "cs_benchmark.pdf",
+      "data_digest_before": "b8c7b29942cd04850596f3688f816f635590fe6728e2911365d93d202a457db9",
+      "data_digest_after": "b8c7b29942cd04850596f3688f816f635590fe6728e2911365d93d202a457db9",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_pulse_scaling.pdf",
+      "data_digest_before": "d6a30ae532a905ae5401863285f4ae5e270abc1b0f979df389dbde329b4700d5",
+      "data_digest_after": "d6a30ae532a905ae5401863285f4ae5e270abc1b0f979df389dbde329b4700d5",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_leave_lmax_prediction.pdf",
+      "data_digest_before": "d64acbf9ae988aff0e8758a9335e32746be69d9c4a359534583878b99c079df8",
+      "data_digest_after": "d64acbf9ae988aff0e8758a9335e32746be69d9c4a359534583878b99c079df8",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_soft_cavity_family.pdf",
+      "data_digest_before": "b88e125e8616c99e6355fe4fa684703d81cc2530cd53a3919f705a1931f461b9",
+      "data_digest_after": "b88e125e8616c99e6355fe4fa684703d81cc2530cd53a3919f705a1931f461b9",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_exact_finite_size_control.pdf",
+      "data_digest_before": "c2900ec9b67d4e446198a71fc06e46519c32de615e5a12050adce1227d6a1296",
+      "data_digest_after": "c2900ec9b67d4e446198a71fc06e46519c32de615e5a12050adce1227d6a1296",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_pulse_area_sum_rule.pdf",
+      "data_digest_before": "300666c1cb5dad80a0f6c5c39da3f3141712ada19714bfe0d75ee13ccad81085",
+      "data_digest_after": "300666c1cb5dad80a0f6c5c39da3f3141712ada19714bfe0d75ee13ccad81085",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "lattice_exact_limit_residuals.pdf",
+      "data_digest_before": "03fe93200efc189e377805e99f8f818a28534c8293117629322f427b170fa238",
+      "data_digest_after": "03fe93200efc189e377805e99f8f818a28534c8293117629322f427b170fa238",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "cavity_mc_benchmark.pdf",
+      "data_digest_before": "cf84e0ba1f67fc64a8a1a51239d250af9c7207bdbb2ede52b56929bfab4bf969",
+      "data_digest_after": "cf84e0ba1f67fc64a8a1a51239d250af9c7207bdbb2ede52b56929bfab4bf969",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "phase_reweighting.pdf",
+      "data_digest_before": "60f8ccb63ffdc44d786065f26c18fdeabdc2ec50a5e1cee2d2e69deec6aa2985",
+      "data_digest_after": "60f8ccb63ffdc44d786065f26c18fdeabdc2ec50a5e1cee2d2e69deec6aa2985",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "hard_sphere_model_sensitivity.pdf",
+      "data_digest_before": "854b288b8652895d342e03b44a5569edf22f9ea55dddc896dfa5d3a26d545392",
+      "data_digest_after": "854b288b8652895d342e03b44a5569edf22f9ea55dddc896dfa5d3a26d545392",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "solid_cavity_mc_benchmark.pdf",
+      "data_digest_before": "b6046b4f0c5e0f7933bd0016c51f1b954a94189025a81da3db6758e2f73ccdec",
+      "data_digest_after": "b6046b4f0c5e0f7933bd0016c51f1b954a94189025a81da3db6758e2f73ccdec",
+      "artist_data_unchanged": true
+    },
+    {
+      "figure": "solid_cavity_mc_replica_audit.pdf",
+      "data_digest_before": "d5ea0a023518e54265a89410271ff27bd1c95107fb54d7bf80cd3be478011d08",
+      "data_digest_after": "d5ea0a023518e54265a89410271ff27bd1c95107fb54d7bf80cd3be478011d08",
+      "artist_data_unchanged": true
+    }
+  ],
+  "input_sha256": {
+    "data_processed/cumulant_test.csv": "226b858a5dc596e69d55c1304bec7bfb98dfa204ff3c5671a79855de4bf77dcf",
+    "data_processed/finite_size_cavity.csv": "3bc947f94ff0d2b93974457a530f4afc20d4e47b68f832bc015edee0a7f824e6",
+    "data_processed/tonks_validation.csv": "9d7b3cee70bf858fe59d5a99706b24099f2803488710b692d9bdf04caa685290",
+    "data/eos_benchmark.csv": "a972158c006fa5a65351003184294d85307e975343563c2b7de26ebbf3af6d28",
+    "data_processed/lattice_peak_center_amplitude.csv": "52eb8aac850976be2e3dc38e9dfdfd60be0664893c5cc563a040707d68987003",
+    "data_processed/lattice_peak_scaling_fits.csv": "dafe061c2dab4f256271f6c8ce05e55e40a32bd89eb9fff370104684ccdc015d",
+    "data_processed/lattice_width_hierarchical.csv": "51a0ae04eeb3fc89f8d1630e07f4292a42b30106b7ec67e7cddcccb80a421a21",
+    "data_processed/lattice_width_hierarchical_fit.csv": "2b7eaf09cc182cb2c3efc60f4cc01164c3eb60fbef75ed4bdfb97a38ce17f503",
+    "data_processed/lattice_pulse_curves.csv": "186bfac9a16850e21a3f511a9f050b2e5674af010266651aef0ee96943b36afa",
+    "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+    "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+    "data_processed/lattice_leave_lmax_prediction_curves.csv": "7c21f6db9ad60daa86136c789c0aaaab38d30d767fc7e563294c8763fabe5bb0",
+    "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "7e1cf7c6f37cabff040ee3e029cdd42f69ca1aa2aaff5f4dfbd033b5e79d614d",
+    "generated/lattice_gas_phase_switch_metadata.json": "3d3a5c3240ca626c436000b39a01f5faa761ca0c5e998ddb206461a0f92f67b0",
+    "data_processed/lattice_soft_cavity_features.csv": "e1775b3ae934a7b84d099cf3ffa25398d52c3ccedbb4629d2471b63ab0c9e81a",
+    "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+    "data_processed/lattice_exact_finite_size.csv": "36f65bdce57814d642e2621ae65f7a575c5ae8dfe4448a23cb6b05ee960539a5",
+    "data_processed/lattice_interface_weight_estimate.csv": "370799fbc915a3806e75d80de47554d35620e9dc61fada2b793f22535c7b2d89",
+    "data_processed/lattice_pulse_area_sum_rule.csv": "1b45b41e09e9350762c45fe6d9a88128d113e664bd68a09e0fbc08c2dcc8c754",
+    "data_processed/lattice_pulse_area_sum_rule_fits.csv": "5836fa1f8dbfadd94031f88f88dab7b8d73a3ea36012572db779aa26813ca0fe",
+    "data_processed/lattice_exact_limit_fixed_fits.csv": "6f09037677fd8c70878233c4bd076df8359571570f27a347305a2ed89a619b9f",
+    "data_processed/cavity_mc.csv": "8aa2c3e87e57599e973e2c0321e0f8bfe8740fcb97ad39fa5629ea66b1fed3d7",
+    "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+    "generated/phase_equal_weight_summary.csv": "b49cc10e394b69c7d836a2ea79674975aad885b1741f09f71fe1d8156d8aac52",
+    "data_processed/hard_sphere_model_sensitivity.csv": "e6230f69c82fd8b78e80029c537ed93ed0d6c2f1da7caebffa3a1316d8a9b553",
+    "data_processed/hard_sphere_model_envelope.csv": "7fea8d31ed998cf3f97d951a23374512b3db844f819b68d69021f94c3fbe98a5",
+    "data_processed/hard_sphere_model_crossings.csv": "a7bcb0c6c85fbe43798d2688877d6550051387144595a796bee0d81553104c2c",
+    "data_processed/solid_cavity_mc.csv": "82b7698a5db356a49563b81ed8deb149316e9037618986dd946fa091bc9e2919",
+    "data_raw/solid_cavity_mc_structure.csv": "e0bc3f53a06908a7c22b59b57f7b565a3e0e05999f735183e8b6a19091d8150e",
+    "data_raw/solid_cavity_mc_blocks.csv": "03a16220d5eca86c3b2dd5783f1400a47d2b8213fa53ea9b8662316b35a7521d",
+    "data_processed/solid_cavity_mc_additional_replicas.csv": "ee2c3ef4a4ffa215f0ff041ce800769bc43bdc585b9b974ef0098a66058c101c",
+    "data_raw/solid_cavity_mc_additional_replica_structure.csv": "f76ec082c51d6c7b140b4ff7fc5c8173da654381696451d776d5e6c67ad137d7",
+    "data_processed/solid_cavity_mc_replica_comparison.csv": "2e658748bd2931c72e243dac56845253f6cbdc0da5110aebf0c26ff9aa2ebb3d"
+  },
+  "inputs_unchanged": true,
+  "retained_compatible_figure": "lattice_holdout_validation.pdf"
+}

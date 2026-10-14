@@ -60,6 +60,7 @@ DOUBLE_BLOCK_SE_RATIO_INTERVAL = (0.67, 1.50)
 EXACT_CONTROL_Z_LIMIT = 3.0
 Q6_FLUID_LIMIT = 0.25
 FCC_BRAGG_FLUID_LIMIT = 0.35
+MAX_CELL_LIST_BYTES = 128 * 1024**2
 
 
 @dataclass(frozen=True)
@@ -136,7 +137,19 @@ def _flat_cell_index(cx: int, cy: int, cz: int, n_cells: int) -> int:
 def _build_cell_list(
     positions: np.ndarray, length: float, n_cells: int
 ) -> tuple[np.ndarray, np.ndarray]:
+    if n_cells < 1:
+        raise ValueError("n_cells must be positive")
+    if not np.isfinite(length) or length <= 0.0:
+        raise ValueError("box length must be finite and positive")
     n_particles = positions.shape[0]
+    # counts and dense members are int64 arrays. Check the budget before
+    # cubing n_cells so even a malformed enormous input cannot overflow.
+    allowed_cells = MAX_CELL_LIST_BYTES // 8 // (n_particles + 1)
+    if n_cells > allowed_cells // n_cells // n_cells:
+        raise ValueError(
+            "dense cell-list allocation exceeds 128 MiB; reduce the particle "
+            "count or cell count, or use a sparse cell-list implementation"
+        )
     total_cells = n_cells**3
     counts = np.zeros(total_cells, dtype=np.int64)
     members = np.full((total_cells, n_particles), -1, dtype=np.int64)
@@ -514,6 +527,8 @@ def summarize_block_probability(
     difference_se = math.sqrt(_standard_error(first) ** 2 + _standard_error(second) ** 2)
     if difference_se > 0.0 and np.isfinite(difference_se):
         half_difference_z = float(abs(np.mean(first) - np.mean(second)) / difference_se)
+    elif difference_se == 0.0 and np.mean(first) != np.mean(second):
+        half_difference_z = float("inf")
     else:
         half_difference_z = 0.0
 
@@ -1015,12 +1030,12 @@ def make_figure(data: pd.DataFrame, output: Path) -> None:
         color="#D55E00",
         linestyle="--",
         linewidth=0.8,
-        label=f"event gate ({MIN_EMPTY_EVENTS})",
+        label=f"{MIN_EMPTY_EVENTS}-event criterion",
     )
     events_axis.set_yscale("log")
     events_axis.set_xlabel(r"packing fraction $\eta$")
     events_axis.set_ylabel(r"empty events, $R/\sigma=1$")
-    events_axis.set_title("Direct-insertion event audit")
+    events_axis.set_title("Direct-insertion statistics")
     events_axis.grid(alpha=0.14, linewidth=0.5, which="both")
     events_axis.legend(frameon=False, fontsize=7.0)
 

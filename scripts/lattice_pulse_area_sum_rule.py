@@ -12,7 +12,7 @@ the signed area is independent of the density gap:
 Here ``a`` is the liquid-minus-gas cavity-work difference.  This script
 integrates the *signed* finite-volume phase-reweighting response directly from
 the archived trajectories, estimates its uncertainty with the production
-replica/block hierarchy, and compares the finite-size sequence with both the
+fixed replica strata, and compares the finite-size sequence with both the
 exact finite-window target and the full analytic sum rule.
 """
 
@@ -41,7 +41,7 @@ try:
     from .lattice_analysis_common import (
         available_sizes,
         contribution_blocks,
-        hierarchical_bootstrap_totals,
+        stratified_block_bootstrap_totals,
         load_trajectory_archives,
         replicas_for_size,
     )
@@ -55,7 +55,7 @@ except ImportError:
     from lattice_analysis_common import (
         available_sizes,
         contribution_blocks,
-        hierarchical_bootstrap_totals,
+        stratified_block_bootstrap_totals,
         load_trajectory_archives,
         replicas_for_size,
     )
@@ -398,7 +398,7 @@ def analyze(
         )
         bootstrap_values = np.empty(bootstrap_draws, dtype=float)
         for draw, total in enumerate(
-            hierarchical_bootstrap_totals(blocks, bootstrap_draws, rng)
+            stratified_block_bootstrap_totals(blocks, bootstrap_draws, rng)
         ):
             bootstrap_values[draw] = signed_phase_reweighting_area(
                 H_GRID, total, volume
@@ -470,8 +470,8 @@ def analyze(
             for length in lengths
         },
         "bootstrap_hierarchy": (
-            "replicas sampled with replacement first; time blocks sampled with "
-            "replacement within every selected replica"
+            "all replicas retained as fixed strata; time blocks sampled with "
+            "replacement independently within each replica"
         ),
         "analysis_mode": "paired spin-inversion antithetic contributions",
         "field_interval": {
@@ -507,7 +507,7 @@ def analyze(
             "A+B/V+C/V^2 with A free",
         ],
         "bootstrap_calibration": (
-            "centered hierarchical bootstrap noise is added to each fitted null "
+            "centered stratified block-bootstrap noise is added to each fitted null "
             "curve and every replicate is refitted before computing its statistic"
         ),
         "input_sha256": {str(path): sha256(path) for path in raw_paths},

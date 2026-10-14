@@ -365,10 +365,17 @@ def plot_sensitivity(
 
     configure_plotting()
     center = curves[np.isclose(curves["h"], 0.0)].copy()
-    fig, axes = plt.subplots(
-        2, 2, figsize=(7.15, 5.45), constrained_layout=True
+    fig = plt.figure(figsize=(7.15, 6.25), constrained_layout=True)
+    grid = fig.add_gridspec(
+        3, 2, height_ratios=(1.0, 1.0, 0.43), hspace=0.10
     )
-    ax_s0, ax_intra, ax_volume, ax_pulse = axes.ravel()
+    ax_s0 = fig.add_subplot(grid[0, 0])
+    ax_intra = fig.add_subplot(grid[0, 1])
+    ax_volume = fig.add_subplot(grid[1, 0])
+    ax_pulse = fig.add_subplot(grid[1, 1])
+    crossing_inset = fig.add_subplot(grid[2, 0])
+    residual_inset = fig.add_subplot(grid[2, 1])
+    axes = np.array([[ax_s0, ax_intra], [ax_volume, ax_pulse]])
     marker_cycle = ("o", "s", "^")
     color_by_model = {model.key: model.color for model in SOLID_MODELS}
 
@@ -460,7 +467,6 @@ def plot_sensitivity(
     ax_volume.set_title("Full response and sign crossing")
     ax_volume.grid(alpha=0.16, linewidth=0.5)
     ax_volume.legend(frameon=False, loc="upper left")
-    crossing_inset = ax_volume.inset_axes([0.54, 0.08, 0.42, 0.34])
     crossing_inset.fill_between(
         volume_grid,
         outer_lower,
@@ -490,9 +496,10 @@ def plot_sensitivity(
     crossing_inset.axhline(0.0, color="black", linewidth=0.45)
     crossing_inset.set_xlim(399.0, 408.0)
     crossing_inset.set_ylim(-0.012, 0.012)
-    crossing_inset.set_xlabel(r"$V/\sigma^3$", fontsize=6.4, labelpad=1.0)
-    crossing_inset.set_ylabel(r"$\Delta N_\sigma$", fontsize=6.4, labelpad=1.0)
-    crossing_inset.tick_params(labelsize=5.8, pad=1.0)
+    crossing_inset.set_xlabel(r"$V/\sigma^3$", fontsize=8.2, labelpad=1.0)
+    crossing_inset.set_ylabel(r"$\Delta N_\sigma$", fontsize=8.2, labelpad=1.0)
+    crossing_inset.set_title("zero-crossing enlargement", fontsize=8.4, pad=2.0)
+    crossing_inset.tick_params(labelsize=7.6, pad=1.0)
     crossing_inset.grid(alpha=0.12, linewidth=0.4)
 
     representative_n = 500
@@ -523,7 +530,6 @@ def plot_sensitivity(
     ax_pulse.set_ylabel(r"proxy total $\Delta N_\sigma$")
     ax_pulse.set_title(r"Representative proxy pulse ($N_f=500$ source)")
     ax_pulse.grid(alpha=0.16, linewidth=0.5)
-    residual_inset = ax_pulse.inset_axes([0.55, 0.57, 0.41, 0.36])
     baseline = pulse[
         pulse["model"] == "pressure_anchored_free_volume"
     ].sort_values("h")
@@ -540,9 +546,10 @@ def plot_sensitivity(
             linewidth=0.85,
         )
     residual_inset.axhline(0.0, color="black", linewidth=0.4)
-    residual_inset.set_xlabel(r"$h$", fontsize=6.4, labelpad=1.0)
-    residual_inset.set_ylabel(r"$10^3\,\delta\Delta N_\sigma$", fontsize=6.4, labelpad=1.0)
-    residual_inset.tick_params(labelsize=5.8, pad=1.0)
+    residual_inset.set_xlabel(r"$h$", fontsize=8.2, labelpad=1.0)
+    residual_inset.set_ylabel(r"$10^3\,\delta\Delta N_\sigma$", fontsize=8.2, labelpad=1.0)
+    residual_inset.set_title("model separation", fontsize=8.4, pad=2.0)
+    residual_inset.tick_params(labelsize=7.6, pad=1.0)
     residual_inset.grid(alpha=0.12, linewidth=0.4)
 
     for label, axis in zip(("a", "b", "c", "d"), axes.ravel()):

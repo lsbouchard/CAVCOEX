@@ -7,12 +7,12 @@
     "global_lack_of_fit": "add each centered noise vector to the fitted nine-parameter free quadratic null, refit all nine parameters, and recompute Q",
     "joint_intercept_test": "add each centered noise vector to the fitted exact-intercept quadratic null, refit both six-parameter restricted and nine-parameter unrestricted models, and recompute Delta Q",
     "parameter_uncertainty": "refit the unrestricted model to central vector plus each stored centered bootstrap noise vector",
-    "source": "stored upstream replica-first, time-block-second hierarchical bootstrap vectors",
+    "source": "stored upstream stratified time-block bootstrap vectors",
     "tail_probability": "(1 + count[T_boot >= T_obs])/(B + 1)",
     "test_statistic": "Delta Q = Q_restricted(A=A_exact) - Q_unrestricted(A free)"
   },
   "covariance_regularization": {
-    "covariance_construction": "block diagonal across lattice sizes from the sample covariance of the stored three-observable hierarchical-bootstrap vectors",
+    "covariance_construction": "block diagonal across lattice sizes from the sample covariance of the stored three-observable stratified block-bootstrap vectors",
     "method": "eigendecomposition of the 15x15 correlation matrix; retain lambda > relative_threshold * lambda_max and evaluate GLS in the retained whitened modes",
     "primary_relative_threshold": 1e-08,
     "sensitivity_thresholds": [
@@ -74,11 +74,12 @@
     "joint_intercept_test": "unrestricted whitened-design rank minus restricted whitened-design rank; three when all intercept restrictions are estimable"
   },
   "dependency_sha256": {
-    "scripts/lattice_validation_statistics.py": "9dd3213a3ddfe6e38da580af91ba1c2c32326c8571ee45239d66350f217cc20a"
+    "scripts/lattice_validation_statistics.py": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985"
   },
-  "generated_utc": "2026-08-08T04:03:52.715011+00:00",
+  "generated_utc": "2026-09-29T20:24:14.545213+00:00",
   "input_sha256": {
-    "data_processed/lattice_scalar_joint_validation.csv": "76e090fb7e05eb673f3f0c509a66a3db460d59612b130b6ce2738b540d674322"
+    "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+    "generated/lattice_validation_statistics_metadata.json": "68cda1b75c392a894036db9710f84e1e8f7c5a11eb56644046e823ca52eefea7"
   },
   "limitations": [
     "The test conditions on the upstream scalar-extraction and bootstrap procedure.",
@@ -99,20 +100,19 @@
     "restricted_parameter_count": 6,
     "unrestricted_parameter_count": 9
   },
-  "numpy": "2.3.4",
+  "numpy": "2.3.5",
   "output_sha256": {
-    "data_processed/lattice_free_intercept_joint_quadratic_bootstrap.csv": "47a67b6f7fbf0089763472fa554975539cb2c11350dd032c81191e75ebc4b2c5",
-    "data_processed/lattice_free_intercept_joint_quadratic_eigenmodes.csv": "6e53a7d1cdd768a2bf3a17eb838f29fed630a02710059b2dd055c4aef4cade28",
-    "data_processed/lattice_free_intercept_joint_quadratic_intercept_covariance.csv": "a17042201b7f383b0950ef10b1bf5d6710266daac40ed29d4be528bb3845bf60",
-    "data_processed/lattice_free_intercept_joint_quadratic_parameters.csv": "218f5b52e15bd70b8c0813dec51f5680bdc8373dcbec62babee51b24815bd006",
-    "data_processed/lattice_free_intercept_joint_quadratic_summary.csv": "ea6b77af1178c8e0608f87352c7e2a6239c958ce666fffe03046a64dc08ac087"
+    "data_processed/lattice_free_intercept_joint_quadratic_bootstrap.csv": "15b0d38939449c317042490a9fb4f0a93222474737d2e930bd2baa8913af1e62",
+    "data_processed/lattice_free_intercept_joint_quadratic_eigenmodes.csv": "4ca1d01fc5ee59a77938dc77a9c4482eb0cc30889ceaf03445402776cd979413",
+    "data_processed/lattice_free_intercept_joint_quadratic_intercept_covariance.csv": "14162426dd445f7e5ff142a23b137d3475fd7cec7738a64c898c018d2c5d7143",
+    "data_processed/lattice_free_intercept_joint_quadratic_parameters.csv": "f48e24a46c09464ddb17cd9b3e28b7fab00e7e936dc2ea9651049ffc4bedad6d",
+    "data_processed/lattice_free_intercept_joint_quadratic_summary.csv": "e8cb722263c17dc235eeff4676ec0a2f182fe89fefa5044afd5351fef1330d1d"
   },
   "pandas": "2.3.3",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
   "reproduce_command": "python3 scripts/lattice_free_intercept_joint_quadratic.py",
-  "scipy": "1.18.0",
+  "scipy": "1.17.1",
   "script": "scripts/lattice_free_intercept_joint_quadratic.py",
-  "script_sha256": "84bfe88acc9b95fa3d3ce9bdc2b7b22960bf1753288f0f153ffd0b0b5bc45fc9"
+  "script_sha256": "9d9a757cbfe88fa34a658a2ac8c451b204bb0852ec607c6562383c24e3d21904"
 }

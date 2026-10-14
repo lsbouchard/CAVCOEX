@@ -122,7 +122,7 @@ def plot_data(data: pd.DataFrame, output: Path) -> None:
         )
     axis.axhline(0.0, color="black", linestyle="--", linewidth=0.75)
     axis.set_xlabel(r"$1/L$")
-    axis.set_ylabel("deviation from leading coefficient (percent)")
+    axis.set_ylabel("deviation from leading\ncoefficient (percent)")
     axis.grid(alpha=0.16, linewidth=0.5)
     axis.legend(frameon=False)
     fig.savefig(output)

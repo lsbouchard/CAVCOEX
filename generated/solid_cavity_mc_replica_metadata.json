@@ -29,7 +29,7 @@
     ],
     "probability_floor_used": false,
     "replica_consistency_thresholds": {
-      "maximum_cochran_q_per_dof": 4.0,
+      "maximum_cochran_q_per_dof": 4,
       "maximum_delete_one_shift_over_hierarchical_se": 1.5
     },
     "zero_event_reporting": "raw probe exposure only; no rule-of-three or nominal 95% zero-event confidence bound"
@@ -49,6 +49,31 @@
     "scripts/cavity_mc.py": "94c52a06a2aef1930d989879848bcbfd7e14f9662dec5143b835911ac1b4e2d5",
     "scripts/solid_cavity_mc.py": "40530bf7c3d5e719c045dd05dd28cf1f6b7d8043d0f72af0c5f6f2263c0da77c"
   },
+  "figure_render": {
+    "artist_data_unchanged": true,
+    "command": "python scripts/render_publication_figures.py",
+    "generated_utc": "2026-10-14T19:53:22.338115+00:00",
+    "output_sha256": {
+      "figures/solid_cavity_mc_replica_audit.pdf": "406126473733dd4403ee597f68557fb60a0f9bbcd32223e7d4b24fb96f6f67fd"
+    },
+    "scope": "frozen-input presentation render only; original statistical execution preserved",
+    "script_sha256": "69629a4ab13d3d56c8536b0a1e7b9afce270dec908d3de64220be542d90150c6",
+    "style_script_sha256": "c56e6266cf13b8794067a8165cad1ad89ecbe8f8a9d431b02df84d0973832871",
+    "verification": "generated/publication_figure_style.json"
+  },
+  "figure_render_history": [
+    {
+      "artist_data_unchanged": true,
+      "command": "python3 revision_final_audit_20261014/restyle_figures.py --replica-only",
+      "generated_utc": "2026-10-14",
+      "output_sha256": {
+        "figures/solid_cavity_mc_replica_audit.pdf": "8f6ad913ce02462f0aa6af2b3d10038338dd0d923107b8508fe64494c912b547"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "69629a4ab13d3d56c8536b0a1e7b9afce270dec908d3de64220be542d90150c6",
+      "style_script_sha256": "62c91022cddae4c715eb9254685ac9dad0b7ab31262f7ab2d50d3f12a754c83e"
+    }
+  ],
   "generated_utc": "2026-08-06T09:27:45.825675+00:00",
   "input_sha256": {
     "data_processed/solid_cavity_mc.csv": "82b7698a5db356a49563b81ed8deb149316e9037618986dd946fa091bc9e2919",

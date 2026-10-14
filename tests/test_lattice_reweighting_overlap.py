@@ -4,9 +4,30 @@ import numpy as np
 import pandas as pd
 
 from scripts.lattice_reweighting_overlap import support_summary
+from scripts import lattice_reweighting_overlap as overlap
 
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def test_fieldwise_support_matches_small_dense_reference(monkeypatch):
+    raw = overlap.load_trajectory_archives(
+        [ROOT/"data_raw/lattice_gas_phase_switch_trajectories.npz"])
+    fixture = {key: {name: values[:200] for name, values in entry.items()}
+               for key, entry in raw.items() if key[0] == 16 and key[1] < 2}
+    grid = np.linspace(-6.0, 9.0, 61)
+    monkeypatch.setattr(overlap, "load_trajectory_archives", lambda paths: fixture)
+    monkeypatch.setattr(overlap, "DEFAULT_H_GRID", grid)
+    frame, _, _, _ = overlap.analyze([ROOT/"small-fixture"], 4)
+    dense = [overlap._replica_weight_arrays(fixture[(16, replica)], 256, grid)
+             for replica in (0, 1)]
+    for estimator in overlap.ESTIMATORS:
+        all_weights = np.concatenate([entry[estimator] for entry in dense], axis=1)
+        selected = frame[(frame.estimator == estimator) &
+                         (frame.analysis_unit == "antithetic_orbit")].sort_values("h")
+        expected = pd.DataFrame([support_summary(weights) for weights in all_weights])
+        np.testing.assert_allclose(
+            selected[expected.columns].to_numpy(), expected.to_numpy(), rtol=2e-14, atol=2e-14)
 
 
 def test_support_summary_is_scale_invariant_and_exact_for_uniform_weights() -> None:

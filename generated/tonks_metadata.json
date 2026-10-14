@@ -1,15 +1,10 @@
 {
-  "dependency_sha256": {},
-  "generated_utc": "2026-08-08T04:03:05.322455+00:00",
-  "input_sha256": {},
+  "generated_utc": "2026-09-29T20:11:20.854555+00:00",
   "maximum_identity_absolute_error": 2.220446049250313e-16,
   "method": "exact periodic Tonks configurational partition functions",
-  "numpy": "2.3.4",
+  "numpy": "2.3.5",
   "pandas": "2.3.3",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
-  "reproduce_command": "python3 scripts/tonks_validation.py",
-  "script": "scripts/tonks_validation.py",
-  "script_sha256": "e0b15f6554ce2cd8d1e4aea4b6c2bf2c597312c5d6fc0faa2a54ff4730ec1d3b"
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "script": "scripts/tonks_validation.py"
 }

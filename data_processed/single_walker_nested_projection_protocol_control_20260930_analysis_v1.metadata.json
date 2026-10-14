@@ -1,0 +1,39 @@
+{
+  "generated_utc": "2026-09-30T12:21:43.760485+00:00",
+  "script": "scripts/continuum_single_walker_analyze.py",
+  "script_sha256": "2e3eab60693ca1ee0ea7e41551b9b040a34f6f43ed30488119f91dcbb504b2f6",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "numpy": "2.3.5",
+  "source_snapshot": "data_raw/source_snapshots/continuum_single_walker_analyze_2e3eab60693ca1ee0ea7e41551b9b040a34f6f43ed30488119f91dcbb504b2f6.py",
+  "input_sha256": {
+    "data_raw/continuum_native_compact_h1_number_radius_graph_v1.json": "794ba2c7bb67a4058e8c568ef9fbb335fbb29b5bd585ff07768aefb0efe077b8",
+    "data_raw/continuum_native_compact_h1_number_radius_graph_v1.npz": "0ac8013cff22f186cca704c23782569c26039a3729038261372d2ddda6ce13aa",
+    "data_raw/continuum_single_host_native_compact_h1_endpoint_quota_pilot.json": "e740c0968e485028265aa74b90f017bc86035daff6e5f9b536640a91faa6fa5e",
+    "data_raw/continuum_single_host_native_compact_h1_endpoint_quota_pilot.npz": "bc82f42d4dfffc6c0f6d41d22b24a39cb4828167436c21b2da00dc5b45ba17df",
+    "data_raw/continuum_single_host_native_compact_h1_relocation_pilot.json": "c507859b9cc1cdda13ce699c85ee85960525a31812d232028a7ce2f039f8e96a",
+    "data_raw/continuum_single_host_native_compact_h1_relocation_pilot.npz": "bccdbc8809e0f00c1254ffc21e4565a572c6bd878b7784deede2c53b346d4b93",
+    "data_raw/controls/single_walker_nested_projection_protocol_control_20260930.json": "a3cdf5a6819b340eaa0fde90fe609b9402f5821c2d774f78d2174d05a54a9ec8",
+    "data_raw/controls/single_walker_nested_projection_protocol_control_20260930.npz": "f8be8df2bce2607d342e038a770925203b127d3fb1bc34a735fdc57db2ae1acd",
+    "data_raw/source_snapshots/continuum_analyze_9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d.py": "9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d",
+    "data_raw/source_snapshots/continuum_normalizer_projection_c6d1e4898e9a8f0295670848d839864fd85e8237097cb3e2d6ccc10828d02b86.py": "c6d1e4898e9a8f0295670848d839864fd85e8237097cb3e2d6ccc10828d02b86",
+    "data_raw/source_snapshots/continuum_replica_exchange_5c22c49039a857d1304c049d46ccb3c4a456c6e180684cdddf2480a5cfc1a319.py": "5c22c49039a857d1304c049d46ccb3c4a456c6e180684cdddf2480a5cfc1a319",
+    "data_raw/source_snapshots/continuum_simulated_tempering_25d42f556d2bc62f8b44f66fb2b64015a9ae0c2c72dd2b5317542f95478d0cde.py": "25d42f556d2bc62f8b44f66fb2b64015a9ae0c2c72dd2b5317542f95478d0cde",
+    "data_raw/source_snapshots/continuum_simulated_tempering_36cff9a1eaa15881609dea3e95c6010245fc422c195ff7200d4d1e694586cf24.py": "36cff9a1eaa15881609dea3e95c6010245fc422c195ff7200d4d1e694586cf24",
+    "data_raw/source_snapshots/continuum_simulated_tempering_fc230a608039d6166042eb004d02c8fd4e8c32da8e85ff042e61c01a1bd9b789.py": "fc230a608039d6166042eb004d02c8fd4e8c32da8e85ff042e61c01a1bd9b789",
+    "data_raw/source_snapshots/continuum_tempering_graph_653dffc51d8c74a6b89693fb0a0ff4405f26d6ce6b6a1f1c0bbbc0dab65e191b.py": "653dffc51d8c74a6b89693fb0a0ff4405f26d6ce6b6a1f1c0bbbc0dab65e191b"
+  },
+  "output_sha256": {
+    "data_processed/single_walker_nested_projection_protocol_control_20260930_analysis_v1.json": "d68a802f11bfa1b6a406273c228e540509df603176900d70c1b27c18b4ea0190"
+  },
+  "reproduce_argv": [
+    "python3",
+    "scripts/continuum_single_walker_analyze.py",
+    "data_raw/controls/single_walker_nested_projection_protocol_control_20260930.npz",
+    "--output",
+    "data_processed/single_walker_nested_projection_protocol_control_20260930_analysis_v1.json",
+    "--bootstrap",
+    "200",
+    "--seed",
+    "2026092940"
+  ]
+}

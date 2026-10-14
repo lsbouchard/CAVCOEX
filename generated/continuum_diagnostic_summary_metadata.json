@@ -1,0 +1,30 @@
+{
+  "generated_utc": "2026-09-30T06:18:11.939466+00:00",
+  "script": "scripts/summarize_continuum_diagnostics.py",
+  "script_sha256": "47be36888a48fd3b0137afb7449bf703cef704ea5c41b6bbcf91b2809d5f72bc",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "input_sha256": {
+    "data_processed/continuum_number_campaign_audit.json": "d1eebf0d4076089fb2c00b5cf7f588c287b1c559fea5e9473f94b09cdb9f7778",
+    "data_processed/continuum_fluid_lineage_transport.json": "d3e8d789cebe02fb09090c576766fc71081f9bac3f44e5d53413fbdc2f962e98",
+    "data_processed/continuum_crystal_lineage_transport.json": "555fa2faacabad383ffc7871d874fbfc503d7c5aaf5d5c8af4464aa36eec8767",
+    "data_processed/continuum_fluid_phase_gate_diagnostics.json": "db2d9a8c1a0839bb31ba89f36c7b454525accbec02b39d8abd8e6f715eb2f7e1",
+    "data_processed/continuum_crystal_phase_gate_diagnostics.json": "f7140730863d7450af2eef83820a80f7b9605047640f2c85ac50edc1a992f4c9"
+  },
+  "input_distribution": "Inputs are in the full audit bundle; omission from the lean checkout is intentional",
+  "output_sha256": {
+    "data_processed/continuum_diagnostic_summary.json": "f4f28e03716fa73de69cf1f9dcc484d5bca281f76504c9145fd5303bc10a7a05"
+  },
+  "reproduce_argv": [
+    "python3",
+    "scripts/summarize_continuum_diagnostics.py",
+    "data_processed/continuum_number_campaign_audit.json",
+    "--output",
+    "data_processed/continuum_diagnostic_summary.json",
+    "--transport",
+    "data_processed/continuum_fluid_lineage_transport.json",
+    "data_processed/continuum_crystal_lineage_transport.json",
+    "--gates",
+    "data_processed/continuum_fluid_phase_gate_diagnostics.json",
+    "data_processed/continuum_crystal_phase_gate_diagnostics.json"
+  ]
+}

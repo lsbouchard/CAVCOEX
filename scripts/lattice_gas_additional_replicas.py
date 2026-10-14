@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import sys
@@ -34,6 +35,32 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = ROOT / "data_raw" / "lattice_gas_additional_replicas.npz"
 
 
+def output_paths(output: Path, root: Path = ROOT) -> tuple[Path, Path, Path]:
+    """Keep canonical destinations, or put all custom-output sidecars together."""
+    output = output.expanduser().resolve()
+    if output.suffix != ".npz":
+        raise ValueError("--output must have the .npz extension")
+    if output == (root / "data_raw" / "lattice_gas_additional_replicas.npz").resolve():
+        return (
+            output,
+            root / "data_raw" / "lattice_gas_additional_replicas_diagnostics.csv",
+            root / "generated" / "lattice_gas_additional_replicas_metadata.json",
+        )
+    return (
+        output,
+        output.with_name(output.stem + "_diagnostics.csv"),
+        output.with_name(output.stem + "_metadata.json"),
+    )
+
+
+def displayed_path(path: Path, root: Path = ROOT) -> str:
+    """Use a project-relative path when possible, otherwise an absolute path."""
+    try:
+        return str(path.resolve().relative_to(root.resolve()))
+    except ValueError:
+        return str(path.resolve())
+
+
 def _run_one(task: tuple[int, int, int, int, int]) -> tuple:
     length, replica, seed, equilibration_steps, production_steps = task
     initial_sign = 1 if replica % 2 == 0 else -1
@@ -59,24 +86,33 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--equil-steps", type=int, default=2_000)
     parser.add_argument("--production-steps", type=int, default=20_000)
     parser.add_argument("--workers", type=int, default=1)
-    parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
+    parser.add_argument(
+        "--output", type=Path, default=DEFAULT_OUTPUT,
+        help=".npz archive; custom diagnostics and metadata are written beside it",
+    )
     parser.add_argument(
         "--overwrite",
         action="store_true",
-        help="replace an existing additional-replica archive deterministically",
+        help="replace an existing archive and its diagnostics/metadata sidecars",
     )
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    if args.output.exists() and not args.overwrite:
+    archive_path, diagnostic_path, metadata_path = output_paths(args.output, ROOT)
+    existing = [path for path in (archive_path, diagnostic_path, metadata_path) if path.exists()]
+    if existing and not args.overwrite:
         raise FileExistsError(
-            "refusing to overwrite existing additional-replica archive "
-            f"without --overwrite: {args.output}"
+            "refusing to overwrite existing additional-replica products "
+            "without --overwrite: " + ", ".join(map(str, existing))
         )
-    if args.replica_stop <= args.replica_start:
-        raise ValueError("replica-stop must exceed replica-start")
+    if args.replica_start < 0 or args.replica_stop <= args.replica_start:
+        raise ValueError("replica-start must be nonnegative and replica-stop must exceed it")
+    if len(set(args.sizes)) != len(args.sizes) or any(length < 2 for length in args.sizes):
+        raise ValueError("sizes must be distinct integers of at least 2")
+    if args.equil_steps < 0 or args.production_steps <= 0 or args.workers < 1:
+        raise ValueError("equil-steps must be nonnegative; production-steps and workers must be positive")
     tasks = []
     for length in args.sizes:
         for replica in range(args.replica_start, args.replica_stop):
@@ -137,19 +173,25 @@ def main() -> None:
                 ),
             }
         )
-    np.savez_compressed(args.output, **raw)
-    diagnostic_path = (
-        ROOT / "data_raw" / "lattice_gas_additional_replicas_diagnostics.csv"
-    )
+    for path in (archive_path, diagnostic_path, metadata_path):
+        path.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(archive_path, **raw)
     pd.DataFrame(diagnostics).to_csv(diagnostic_path, index=False)
     metadata = {
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/lattice_gas_additional_replicas.py",
+        "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+        "dependency_sha256": {
+            "scripts/lattice_gas_phase_switch.py": hashlib.sha256(
+                Path(__file__).with_name("lattice_gas_phase_switch.py").read_bytes()
+            ).hexdigest(),
+        },
         "python": sys.version,
         "platform": platform.platform(),
         "numpy": np.__version__,
         "pandas": pd.__version__,
-        "output": str(args.output.resolve().relative_to(ROOT)),
+        "output": displayed_path(archive_path, ROOT),
+        "output_sha256": hashlib.sha256(archive_path.read_bytes()).hexdigest(),
         "baseline_archive_modified": False,
         "settings": {
             "base_seed": args.seed,
@@ -162,14 +204,12 @@ def main() -> None:
             "overwrite_existing_archive": args.overwrite,
         },
         "seed_formula": "base_seed + 1009*L + 104729*replica",
-        "diagnostics": str(diagnostic_path.relative_to(ROOT)),
+        "diagnostics": displayed_path(diagnostic_path, ROOT),
     }
-    (
-        ROOT / "generated" / "lattice_gas_additional_replicas_metadata.json"
-    ).write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     print(
         f"wrote {len(results)} additional replicas to "
-        f"{args.output.resolve().relative_to(ROOT)}"
+        f"{displayed_path(archive_path, ROOT)}"
     )
 
 

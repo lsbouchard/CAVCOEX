@@ -834,31 +834,37 @@ def make_figure(
 def write_table(processed: pd.DataFrame, output: Path) -> None:
     """Create a small LaTeX table generated directly from processed results."""
 
+    def measurement(value: float, standard_error: float) -> str:
+        """Format a value and its standard error with two uncertainty digits."""
+
+        if not np.isfinite(value) or not np.isfinite(standard_error):
+            return "--"
+        exponent = int(np.floor(np.log10(abs(standard_error))))
+        decimal_places = max(0, -exponent + 1)
+        scale = 10.0**decimal_places
+        uncertainty = int(round(standard_error * scale))
+        return f"{value:.{decimal_places}f}({uncertainty})"
+
     rows = [
-        r"\begin{tabular}{rrrrrrl}",
+        r"\begin{tabular}{rrrrrl}",
         r"\hline",
         (
-            r"$N$ & $R/\sigma$ & $P_{0,N}$ & $\mathrm{SE}(P_{0,N})$ "
-            r"& $\beta W_N$ & empty events & status \\"
+            r"$N$ & $R/\sigma$ & $P_{0,N}$ & $\beta W_N$ & empty events & status \\"
         ),
         r"\hline",
     ]
     for row in processed.itertuples(index=False):
         if row.empty_events == 0:
             probability = "0 observed"
-            se_probability = "--"
             beta_work = "--"
             status = "raw exposure only"
         else:
-            probability = f"{row.P_empty:.7g}"
-            se_probability = f"{row.se_P_empty:.2g}"
-            beta_work = (
-                f"{row.betaW_N:.5f}" if np.isfinite(row.betaW_N) else "--"
-            )
+            probability = measurement(row.P_empty, row.se_P_empty)
+            beta_work = measurement(row.betaW_N, row.se_betaW_N)
             status = "direct" if row.reliable_direct else "gated"
         rows.append(
             f"{row.N:d} & {row.R_over_sigma:.2f} & {probability} & "
-            f"{se_probability} & {beta_work} & {row.empty_events:d} & "
+            f"{beta_work} & {row.empty_events:d} & "
             f"{status} \\\\"
         )
     rows.extend([r"\hline", r"\end{tabular}"])

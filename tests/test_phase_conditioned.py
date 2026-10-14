@@ -1,10 +1,12 @@
 from pathlib import Path
+import sys
 
 import numpy as np
 import pandas as pd
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def test_equal_weight_reweighting_coefficient_matches_density_identity() -> None:
@@ -37,3 +39,27 @@ def test_fwhm_coefficient_matches_closed_form_for_every_source_size() -> None:
             / abs(row.rho_s - row.rho_f)
         )
         assert np.isclose(row.V_times_fwhm_mu, expected, rtol=2.0e-13)
+
+
+def test_pulse_legend_is_outside_data_axes(tmp_path, monkeypatch) -> None:
+    import phase_conditioned as phase
+
+    raw = pd.read_csv(ROOT / "data_raw/fernandez2012_coexistence.csv", dtype={"N": str})
+    detailed = pd.read_csv(ROOT / "data_processed/phase_conditioned_cavity.csv")
+    widths = pd.read_csv(ROOT / "generated/coexistence_widths.csv")
+    close = phase.plt.close
+    captured = []
+
+    def check_and_close(figure):
+        if hasattr(figure, "axes"):
+            figure.canvas.draw()
+            axis = figure.axes[0]
+            legend = axis.get_legend()
+            assert legend is not None
+            assert not legend.get_window_extent().overlaps(axis.get_window_extent())
+            captured.append(True)
+        close(figure)
+
+    monkeypatch.setattr(phase.plt, "close", check_and_close)
+    phase.plot_collapse(detailed, raw, widths, tmp_path / "pulse.pdf")
+    assert captured == [True]

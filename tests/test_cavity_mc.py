@@ -93,3 +93,10 @@ def test_multiscale_blocking_never_understates_single_block_error() -> None:
     assert summary["se_P_empty"] >= summary["se_P_empty_single_block"]
     assert summary["selected_block_factor"] in (1, 2, 5, 10)
     assert summary["effective_blocks_for_ci"] >= 4
+
+
+def test_constant_but_different_chain_halves_are_not_stationary():
+    hits = np.array([40]*25 + [80]*25)
+    summary = summarize_block_probability(hits, 10000)
+    assert np.isinf(summary["half_difference_z"])
+    assert "block_half_difference" in summary["reliability_status"]

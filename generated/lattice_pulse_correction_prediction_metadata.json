@@ -1,5 +1,5 @@
 {
-  "bootstrap_hierarchy": "12 replicas resampled with replacement, then 40 time blocks resampled within each selected replica; primitive and pulse statistics share draws at fixed L and sizes are independent",
+  "bootstrap_hierarchy": "all 12 replicas retained; 40 time blocks resampled independently within each replica; primitive and pulse statistics share draws at fixed L and sizes are independent",
   "caveats": [
     "The coefficient fits use five lattice sizes and must be judged with the reported size-cut and local-window sensitivities.",
     "The direct slopes are exact-intercept WLS fits and are not used to estimate d0, dchi, a1, or dn.",
@@ -8,10 +8,10 @@
   ],
   "code_sha256": {
     "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
-    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
-    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
-    "scripts/lattice_pulse_correction_prediction.py": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
-    "scripts/lattice_pulse_scaling.py": "f5f39c023b3981c72169daeae2c8c04d16193129eb881e49b6e6cb810f979794"
+    "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+    "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+    "scripts/lattice_pulse_correction_prediction.py": "20fa5a28ef8e16478b85100d11e451960b94ecff123ba00b71dc56f53e1ba415",
+    "scripts/lattice_pulse_scaling.py": "804cf5b3d61ce9aa13f9eb5198242bc8995eac6709d056d5822ef0cdd6e7fe8a"
   },
   "coefficient_sequence_definitions": {
     "a1": "V*[a_V(0)-a0]",
@@ -24,12 +24,6 @@
     "analysis": "python3 scripts/lattice_pulse_correction_prediction.py --bootstrap-draws 2000 --blocks-per-replica 40 --seed 26080609",
     "test": "python3 -m pytest tests/test_lattice_pulse_correction_prediction.py -q"
   },
-  "dependency_sha256": {
-    "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
-    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
-    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
-    "scripts/lattice_pulse_scaling.py": "8c44621a2339b273d55e1261ea36c2cf2b581f1c6a2e9c26834e40792d58904c"
-  },
   "exact_inputs": {
     "a0": 4.299960245352132,
     "delta_rho": 0.911319377877496,
@@ -39,43 +33,39 @@
       "peak_magnitude": 0.7211578616788782
     }
   },
-  "generated_utc": "2026-08-08T04:05:49.554058+00:00",
-  "input_sha256": {
-    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
-    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
-  },
+  "generated_utc": "2026-09-29T20:03:56.364027+00:00",
   "interpretation_policy": "A coefficient is called sensitivity-stable only when the complete declared sensitivity range stays within two bootstrap standard errors of that fit. A sensitivity-stable coefficient whose 95% bootstrap interval contains zero is explicitly labeled unresolved from zero; dchi is separately identified as zero by particle-hole symmetry.",
   "output_sha256": {
-    "data_processed/lattice_pulse_correction_coefficients.csv": "aba68b854f738d4b0e61522dfa20478e49ceefe91a67c36cf1e4062553d9e358",
-    "data_processed/lattice_pulse_correction_slope_predictions.csv": "e79463c536ae93ce5ae24c074aeb843b1589728316aab1919f3ce48389166146"
+    "data_processed/lattice_pulse_correction_coefficients.csv": "304becfa81d5853dd1134f49e05b20ab619ac8ff3e8baf271d77e874dc55d92a",
+    "data_processed/lattice_pulse_correction_slope_predictions.csv": "fcf3b241bf0f89d91c5424371a1a0e08bc9f1232d7a11264aa2b6e49f1efc9cf"
   },
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
   "prediction_formula_source": "peak_corrections and fwhm_corrections in scripts/derive_pulse_finite_size_corrections.py",
   "primary_coefficients": {
     "a1": {
-      "bootstrap_se": 2.0006086250311657,
+      "bootstrap_se": 1.4919077928106816,
       "ci95": [
-        -3.9431326529261614,
-        3.860089010826962
+        -3.0065682410961183,
+        2.833507758072116
       ],
-      "estimate": -0.02315858896597947,
+      "estimate": -0.01869188054930479,
       "identifiability": "unresolved_from_zero_but_sensitivity_stable",
       "sensitivity_range": [
-        -0.22838477684881553,
-        0.13665153990628603
+        -0.018700512137486552,
+        0.12718310497799415
       ]
     },
     "d0": {
-      "bootstrap_se": 0.08667379795533334,
+      "bootstrap_se": 0.0623693054860381,
       "ci95": [
-        -0.15028259943734282,
-        0.19056750788028057
+        -0.10926828127557046,
+        0.13287905423160382
       ],
-      "estimate": 0.022112829136668878,
+      "estimate": 0.016489732936625007,
       "identifiability": "unresolved_from_zero_but_sensitivity_stable",
       "sensitivity_range": [
-        0.009909442648153617,
-        0.05566277483321044
+        0.00776762279199295,
+        0.053437450137339124
       ]
     },
     "dchi": {
@@ -92,29 +82,28 @@
       ]
     },
     "dn": {
-      "bootstrap_se": 0.0428350294360719,
+      "bootstrap_se": 0.03159420149236919,
       "ci95": [
-        -8.528257251605277,
-        -8.360801958600799
+        -8.510103945429915,
+        -8.384930132797379
       ],
-      "estimate": -8.446117571671714,
+      "estimate": -8.448048000918766,
       "identifiability": "nonzero_and_sensitivity_stable",
       "sensitivity_range": [
-        -8.478822375346553,
-        -8.445562743239469
+        -8.477443757467764,
+        -8.44752114677032
       ]
     }
   },
   "primary_joint_comparison": {
-    "Q": 9.598478414776743,
-    "centered_bootstrap_p_value": 0.02448775612193903,
-    "chi2_p_value": 0.022306466889517516,
-    "condition_number": 311.83089934998463,
+    "Q": 24.14615599878876,
+    "centered_bootstrap_p_value": 0.0004997501249375312,
+    "chi2_p_value": 2.3284943419400817e-05,
+    "condition_number": 891.7815951163766,
     "rank": 3
   },
   "primary_size_model_rationale": "The transformed coefficient sequences are fitted as c+c1/V, while direct observables are fitted at fixed exact limit as A+B/V+C/V^2. Each fit therefore includes the first nuisance term beyond its target coefficient. The linear-direct and L>=24 fits are retained as declared truncation and size-cut sensitivities.",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
   "raw_paths": [
     "data_raw/lattice_gas_phase_switch_trajectories.npz",
     "data_raw/lattice_gas_additional_replicas.npz"
@@ -123,10 +112,8 @@
     "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
     "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
   },
-  "reproduce_command": "python3 scripts/lattice_pulse_correction_prediction.py",
   "schema_version": 1,
   "script": "scripts/lattice_pulse_correction_prediction.py",
-  "script_sha256": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
   "settings": {
     "analysis_configs": [
       {
@@ -240,8 +227,8 @@
     "reason": "spin-inversion pairing makes the finite-volume phase-number gap even in h"
   },
   "versions": {
-    "numpy": "2.3.4",
+    "numpy": "2.3.5",
     "pandas": "2.3.3",
-    "scipy": "1.18.0"
+    "scipy": "1.17.1"
   }
 }

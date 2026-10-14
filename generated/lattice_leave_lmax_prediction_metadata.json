@@ -1,43 +1,85 @@
 {
-  "bootstrap_hierarchy": "Within each size, replicas are sampled with replacement and time blocks are sampled with replacement within each selected replica.",
+  "bootstrap_hierarchy": "Within each size, all replicas are retained as fixed strata and time blocks are sampled independently within each replica.",
   "code_sha256": {
-    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
-    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
-    "scripts/lattice_leave_lmax_prediction.py": "2a41d08aacf9dd315474e4a9b81029ca3aeb066fc6eb7d8c0d29177506dcf754",
-    "scripts/lattice_pulse_correction_prediction.py": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
-    "scripts/lattice_validation_statistics.py": "01c5a6727fb25eeb5f7724778eec7bb9ce01296cf471c23b03e324348e426499"
+    "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+    "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+    "scripts/lattice_leave_lmax_prediction.py": "36fe01d71f3ae5662e29620f3331a28efb97d56cbfe2a824757a2f04b0b4241b",
+    "scripts/lattice_pulse_correction_prediction.py": "7f2d2c720b44d7f41f97668059a55c68a81eb7813be86959f785d1d67abbf6bb",
+    "scripts/lattice_validation_statistics.py": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985"
   },
-  "covariance_calibration": "The correlation matrix is eigenvalue-truncated at the specified relative thresholds. The observed quadratic statistic is calibrated against centered hierarchical-bootstrap difference curves.",
+  "covariance_calibration": "The correlation matrix is eigenvalue-truncated at the specified relative thresholds. The observed quadratic statistic is calibrated against centered stratified block-bootstrap difference curves.",
   "dependence_statement": "All observables and coefficients from one resample share indices, retaining their covariance. Distinct lattice sizes use distinct simulation and bootstrap streams; no claim of independent points within a curve is made.",
-  "dependency_sha256": {
-    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
-    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67",
-    "scripts/lattice_pulse_correction_prediction.py": "966175aa780ee48ccfe5a50da666b3deeba06652d57cdeea4cec2fefff30f867",
-    "scripts/lattice_validation_statistics.py": "9dd3213a3ddfe6e38da580af91ba1c2c32326c8571ee45239d66350f217cc20a"
-  },
   "exact_fixed_inputs": {
     "K": 0.5,
     "a0": 4.299960245352132,
     "delta_rho": 0.911319377877496
   },
-  "generated_utc": "2026-08-08T17:48:14.978036+00:00",
-  "input_sha256": {
-    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
-    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  "figure_render": {
+    "artist_data_unchanged": true,
+    "command": "python scripts/render_publication_figures.py",
+    "generated_utc": "2026-10-14T19:53:22.338707+00:00",
+    "input_sha256": {
+      "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+      "data_processed/lattice_leave_lmax_prediction_curves.csv": "7c21f6db9ad60daa86136c789c0aaaab38d30d767fc7e563294c8763fabe5bb0",
+      "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "7e1cf7c6f37cabff040ee3e029cdd42f69ca1aa2aaff5f4dfbd033b5e79d614d"
+    },
+    "mode_order": "descending correlation eigenvalue; largest component positive",
+    "output_sha256": {
+      "figures/lattice_leave_lmax_prediction.pdf": "73031b9a30f306e4e497616854d60535542de1c5562f1974ed5d0db4aff5dc2b"
+    },
+    "scope": "frozen-input presentation render only; original statistical execution preserved",
+    "script_sha256": "e727a4ce720742c902595c04db5f1cb41e212926c2a95ac627a316b3dd842e5c",
+    "style_script_sha256": "c56e6266cf13b8794067a8165cad1ad89ecbe8f8a9d431b02df84d0973832871",
+    "verification": "generated/publication_figure_style.json"
   },
+  "figure_render_history": [
+    {
+      "command": "python scripts/lattice_leave_lmax_prediction.py --plot-only",
+      "generated_utc": "2026-09-29T20:10:06.921569+00:00",
+      "input_sha256": {
+        "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+        "data_processed/lattice_leave_lmax_prediction_curves.csv": "7c21f6db9ad60daa86136c789c0aaaab38d30d767fc7e563294c8763fabe5bb0",
+        "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "7e1cf7c6f37cabff040ee3e029cdd42f69ca1aa2aaff5f4dfbd033b5e79d614d"
+      },
+      "mode_order": "descending correlation eigenvalue; largest component positive",
+      "output_sha256": {
+        "figures/lattice_leave_lmax_prediction.pdf": "9d7a127433a42026be73e1616f3d1fc09a2097ed9f67d7bdb41824ee9fcd7deb"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "e727a4ce720742c902595c04db5f1cb41e212926c2a95ac627a316b3dd842e5c"
+    },
+    {
+      "artist_data_unchanged": true,
+      "command": "python3 revision_final_audit_20261014/restyle_figures.py",
+      "generated_utc": "2026-10-14",
+      "input_sha256": {
+        "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+        "data_processed/lattice_leave_lmax_prediction_curves.csv": "7c21f6db9ad60daa86136c789c0aaaab38d30d767fc7e563294c8763fabe5bb0",
+        "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "7e1cf7c6f37cabff040ee3e029cdd42f69ca1aa2aaff5f4dfbd033b5e79d614d"
+      },
+      "mode_order": "descending correlation eigenvalue; largest component positive",
+      "output_sha256": {
+        "figures/lattice_leave_lmax_prediction.pdf": "ef147db1dee643d657fba130481d174af75390f9b4d104e83a8566cc6099976a"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "e727a4ce720742c902595c04db5f1cb41e212926c2a95ac627a316b3dd842e5c",
+      "style_script_sha256": "62c91022cddae4c715eb9254685ac9dad0b7ab31262f7ab2d50d3f12a754c83e",
+      "verification": "revision_final_audit_20261014/figure_style_verification.json"
+    }
+  ],
+  "generated_utc": "2026-09-29T20:04:13.936719+00:00",
   "interpretive_scope": "This is an out-of-size prediction of L=64 from smaller sizes, not an independent experimental replication. The paired-antithetic estimator uses the exact particle-hole symmetry of this benchmark.",
   "maximum_pre_forced_abs_dchi": 2.0463630789890885e-12,
   "output_sha256": {
-    "data_processed/lattice_leave_lmax_prediction_coefficients.csv": "496899a15e779c58e108d1492a0733be631443b391e20993a409be175a28c1a6",
-    "data_processed/lattice_leave_lmax_prediction_covariance.npz": "eade44d8226da3d6c67c21ae087d0a7600bae403b9c75583039746bfc58afdc3",
-    "data_processed/lattice_leave_lmax_prediction_curves.csv": "9777f4b9578019bac5bdbb59d7f8c34482bddd72c724037da33ec9dc1e80353a",
-    "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "03db726179f5ebeea4048834cabebd364cec8deefb8913dedead2f97b3442f7a",
-    "figures/lattice_leave_lmax_prediction.pdf": "1097ba3d5e9d8aa957e9fb41607c3247e04ab053427fe09cf3afedd0bb6538b4"
+    "data_processed/lattice_leave_lmax_prediction_coefficients.csv": "6e9e1d130525316b7c9230dec6d0aa8787ae39f32c169f66d383dd2aca407f35",
+    "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+    "data_processed/lattice_leave_lmax_prediction_curves.csv": "7c21f6db9ad60daa86136c789c0aaaab38d30d767fc7e563294c8763fabe5bb0",
+    "data_processed/lattice_leave_lmax_prediction_diagnostics.csv": "7e1cf7c6f37cabff040ee3e029cdd42f69ca1aa2aaff5f4dfbd033b5e79d614d",
+    "figures/lattice_leave_lmax_prediction.pdf": "27cc437b5f5c7aff33d787df55eaa9839a9093aaf6bf6be59e43bb76e318a42e"
   },
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
   "prediction_definition": "The exact thermodynamic delta_rho and a0 are fixed. The finite-V training sequences d0(V), dchi(V), a1(V), dn(V), and the two h=0 conditional intraphase responses are fitted only at L<=48. Their 1/V polynomial intercepts enter the derived first-order curve at V=64^2. Particle-hole symmetry identifies dchi=0.",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
   "raw_paths": [
     "data_raw/lattice_gas_phase_switch_trajectories.npz",
     "data_raw/lattice_gas_additional_replicas.npz"
@@ -46,10 +88,8 @@
     "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
     "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
   },
-  "reproduce_command": "python3 scripts/lattice_leave_lmax_prediction.py",
   "schema_version": 1,
   "script": "scripts/lattice_leave_lmax_prediction.py",
-  "script_sha256": "56deac4e69bc66080ea7b948739513d900eaf46a70d53fac39b788f5755265c4",
   "settings": {
     "blocks_per_replica": 40,
     "bootstrap_draws": 2000,
@@ -103,8 +143,8 @@
         "role": "fit_form_sensitivity"
       }
     ],
-    "h_max": 6.0,
-    "h_min": -1.0,
+    "h_max": 6,
+    "h_min": -1,
     "h_points": 141,
     "primary_covariance_relative_eigenvalue_threshold": 1e-08,
     "replica_ids_by_length": {
@@ -216,9 +256,9 @@
     11
   ],
   "versions": {
-    "matplotlib": "3.10.7",
-    "numpy": "2.3.4",
+    "matplotlib": "3.10.8",
+    "numpy": "2.3.5",
     "pandas": "2.3.3",
-    "scipy": "1.18.0"
+    "scipy": "1.17.1"
   }
 }

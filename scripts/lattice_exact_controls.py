@@ -617,7 +617,7 @@ def make_figure(
         }
     )
     colors = {2: "#0072B2", 3: "#009E73", 4: "#D55E00"}
-    fig, axes = plt.subplots(1, 2, figsize=(7.15, 3.15), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.15, 3.5), constrained_layout=True)
 
     response_axis, interface_axis = axes
     for length, group in exact_frame.groupby("L"):
@@ -648,7 +648,9 @@ def make_figure(
     response_axis.set_xlim(DEFAULT_H_MIN, DEFAULT_H_MAX)
     response_axis.set_ylim(bottom=-0.015)
     response_axis.grid(alpha=0.18, linewidth=0.5)
-    response_axis.legend(frameon=False, loc="upper left")
+    response_axis.legend(
+        frameon=False, loc="upper center", bbox_to_anchor=(0.5, -0.23), ncol=2
+    )
 
     prefactor_colors = {"1": "#0072B2", "L": "#E69F00", "V": "#CC79A7"}
     for label, group in interface_frame.groupby("prefactor_label", sort=False):
@@ -685,7 +687,9 @@ def make_figure(
     interface_axis.set_ylabel("estimated scale")
     interface_axis.set_title("Periodic two-interface estimate")
     interface_axis.grid(alpha=0.18, linewidth=0.5, which="both")
-    interface_axis.legend(frameon=False, ncol=2, loc="upper right")
+    interface_axis.legend(
+        frameon=False, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.23)
+    )
 
     for label, axis in zip("ab", axes):
         axis.text(

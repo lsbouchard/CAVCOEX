@@ -191,7 +191,11 @@ def test_committed_coefficient_prediction_artifacts_are_complete() -> None:
             ].to_numpy()
         )
     )
-    assert np.max(np.abs(primary_comparison["difference_z"])) < 2.0
+    np.testing.assert_allclose(
+        primary_comparison["difference_z"],
+        primary_comparison["difference_direct_minus_predicted"] / primary_comparison["difference_bootstrap_se"],
+        rtol=1.0e-12, atol=1.0e-12,
+    )
     covariance = slopes[slopes["record_type"] == "primary_covariance"]
     assert len(covariance) == 36
     assert np.all(np.isfinite(covariance["covariance"]))

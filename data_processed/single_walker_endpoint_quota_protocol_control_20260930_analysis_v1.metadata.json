@@ -1,0 +1,35 @@
+{
+  "generated_utc": "2026-09-30T11:16:14.237462+00:00",
+  "script": "scripts/continuum_single_walker_analyze.py",
+  "script_sha256": "8f1c2414cd58e7a59f0f9bd76270b39dbf524afa5d1a50300a38f6c9274bcdfd",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "numpy": "2.3.5",
+  "source_snapshot": "data_raw/source_snapshots/continuum_single_walker_analyze_8f1c2414cd58e7a59f0f9bd76270b39dbf524afa5d1a50300a38f6c9274bcdfd.py",
+  "input_sha256": {
+    "data_raw/continuum_native_compact_h1_number_radius_graph_v1.json": "794ba2c7bb67a4058e8c568ef9fbb335fbb29b5bd585ff07768aefb0efe077b8",
+    "data_raw/continuum_native_compact_h1_number_radius_graph_v1.npz": "0ac8013cff22f186cca704c23782569c26039a3729038261372d2ddda6ce13aa",
+    "data_raw/continuum_single_host_native_compact_h1_relocation_pilot.json": "c507859b9cc1cdda13ce699c85ee85960525a31812d232028a7ce2f039f8e96a",
+    "data_raw/continuum_single_host_native_compact_h1_relocation_pilot.npz": "bccdbc8809e0f00c1254ffc21e4565a572c6bd878b7784deede2c53b346d4b93",
+    "data_raw/controls/single_walker_endpoint_quota_protocol_control_20260930.json": "69661cc942820fa5094a16e6f459178a9214da17302c18465cab0411c4511436",
+    "data_raw/controls/single_walker_endpoint_quota_protocol_control_20260930.npz": "ccd6d6a12e04be8c3a7b1c0743da3a0771202ee951132f578e5b3136e8227282",
+    "data_raw/source_snapshots/continuum_analyze_9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d.py": "9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d",
+    "data_raw/source_snapshots/continuum_replica_exchange_5c22c49039a857d1304c049d46ccb3c4a456c6e180684cdddf2480a5cfc1a319.py": "5c22c49039a857d1304c049d46ccb3c4a456c6e180684cdddf2480a5cfc1a319",
+    "data_raw/source_snapshots/continuum_simulated_tempering_25d42f556d2bc62f8b44f66fb2b64015a9ae0c2c72dd2b5317542f95478d0cde.py": "25d42f556d2bc62f8b44f66fb2b64015a9ae0c2c72dd2b5317542f95478d0cde",
+    "data_raw/source_snapshots/continuum_simulated_tempering_fc230a608039d6166042eb004d02c8fd4e8c32da8e85ff042e61c01a1bd9b789.py": "fc230a608039d6166042eb004d02c8fd4e8c32da8e85ff042e61c01a1bd9b789",
+    "data_raw/source_snapshots/continuum_tempering_graph_653dffc51d8c74a6b89693fb0a0ff4405f26d6ce6b6a1f1c0bbbc0dab65e191b.py": "653dffc51d8c74a6b89693fb0a0ff4405f26d6ce6b6a1f1c0bbbc0dab65e191b"
+  },
+  "output_sha256": {
+    "data_processed/single_walker_endpoint_quota_protocol_control_20260930_analysis_v1.json": "1926b53a4570bbcf449dcd25a91eb3262eb411e2719c09822fa06cece3096765"
+  },
+  "reproduce_argv": [
+    "python3",
+    "scripts/continuum_single_walker_analyze.py",
+    "data_raw/controls/single_walker_endpoint_quota_protocol_control_20260930.npz",
+    "--output",
+    "data_processed/single_walker_endpoint_quota_protocol_control_20260930_analysis_v1.json",
+    "--bootstrap",
+    "200",
+    "--seed",
+    "2026092940"
+  ]
+}

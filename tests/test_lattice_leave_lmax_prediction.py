@@ -24,7 +24,25 @@ from lattice_leave_lmax_prediction import (  # noqa: E402
     first_order_curve,
     sha256,
     weighted_sequence_fit,
+    retained_mode_residuals,
 )
+
+
+def test_retained_eigenmode_residuals_reproduce_covariance_statistic() -> None:
+    curves = pd.read_csv(ROOT / "data_processed/lattice_leave_lmax_prediction_curves.csv")
+    diagnostics = pd.read_csv(ROOT / "data_processed/lattice_leave_lmax_prediction_diagnostics.csv")
+    with np.load(ROOT / "data_processed/lattice_leave_lmax_prediction_covariance.npz") as archive:
+        for target in TARGETS:
+            selected = curves[(curves.analysis_config == "primary") &
+                              (curves.target == target)].sort_values("h")
+            residual = (selected.heldout_observation - selected.prediction).to_numpy()
+            values, modes = retained_mode_residuals(residual, archive[f"covariance_{target}"])
+            expected = diagnostics[(diagnostics.analysis_config == "primary") &
+                                   (diagnostics.target == target) &
+                                   (diagnostics.covariance_relative_eigenvalue_threshold == 1e-8)].iloc[0]
+            assert len(modes) == int(expected.covariance_rank)
+            assert np.all(np.diff(values) <= 0.0)
+            np.testing.assert_allclose(modes @ modes, expected.covariance_Q, rtol=1e-7)
 
 
 def test_weighted_sequence_fit_recovers_polynomial_limits() -> None:
@@ -185,4 +203,8 @@ def test_committed_leave_lmax_artifacts_are_complete_and_nonleaking() -> None:
             figure_path,
         )
     }
-    assert metadata["output_sha256"] == expected_hashes
+    recorded_hashes = dict(metadata["output_sha256"])
+    # A plot-only redraw has distinct provenance and must not relabel the
+    # earlier statistical execution or its original figure digest.
+    recorded_hashes.update(metadata.get("figure_render", {}).get("output_sha256", {}))
+    assert recorded_hashes == expected_hashes

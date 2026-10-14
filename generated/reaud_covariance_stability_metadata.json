@@ -1,0 +1,25 @@
+{
+  "script": "scripts/reaud_covariance_mode_stability.py",
+  "script_sha256": "36dd58774eb4eb5f9b516f82f58d48d1b91a27078ba96d4a41db122767f2514f",
+  "bootstrap_draws": 4000,
+  "seed": 26080611,
+  "execution_mode": "cached diagnostic replay",
+  "scope": "Independent covariance/calibration subsets; retrospective mode check; no publication analysis overwritten",
+  "split_scope": "26 overlapping partitions of one 4000-draw bootstrap, not 26 independent datasets",
+  "raw_sha256": {
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc",
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679"
+  },
+  "input_sha256": {
+    "data_processed/lattice_leave_lmax_prediction_coefficients.csv": "6e9e1d130525316b7c9230dec6d0aa8787ae39f32c169f66d383dd2aca407f35",
+    "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+    "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb"
+  },
+  "published_predictor_weights_frozen": true,
+  "output_sha256": {
+    "data_processed/reaud_covariance_bootstrap_curves.npz": "54c8ebf8986cb369465c4db750b568a15d6e6b2bbfb8b749269db01463c12243",
+    "data_processed/reaud_covariance_split_tests.csv": "a24956d5c9dee2860de2345ad12c5188fc3b906f46ce9e523bda98d12dde18b7",
+    "data_processed/reaud_scalar_split_tests.csv": "febb6ad0bebf4139b1d71982cdb5bd43becb3c76c3186cd03dc588734a170d84",
+    "data_processed/reaud_fixed_mode_controls.csv": "fab41ec616a7e488d2e2a5fd08d2b5bbebc399e09413840a7f2ec6367b209c81"
+  }
+}

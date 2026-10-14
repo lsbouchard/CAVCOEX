@@ -1,0 +1,69 @@
+{
+  "schema": "cavcoex.single_host_regenerative_tempering.v1",
+  "settings": {
+    "production_steps": 150000,
+    "calibration_steps": 5000,
+    "coordinate_stride": 7,
+    "seed": 260929402,
+    "graph_from": null,
+    "weights_from": null
+  },
+  "generated_utc": "2026-09-30T06:47:23.464557+00:00",
+  "columns": [
+    "clock_step",
+    "label",
+    "N",
+    "fcc_bragg_mean",
+    "pair_overlap_count",
+    "empty_reference_sites",
+    "excess_site_occupancy",
+    "minimum_center_distance",
+    "sum_delete_one_solid_label_change",
+    "nearest_FCC_registry_rms_over_spacing",
+    "regeneration_cycle_id",
+    "ideal_heatbath_event"
+  ],
+  "source_snapshots": {
+    "driver": [
+      "data_raw/source_snapshots/continuum_simulated_tempering_0fe944b54839506b9a4e509db08489886691ad30c551084cade19a112598b5c6.py",
+      "0fe944b54839506b9a4e509db08489886691ad30c551084cade19a112598b5c6"
+    ],
+    "kernel": [
+      "data_raw/source_snapshots/continuum_replica_exchange_d6c2b876b9b6660ffabb0cf5e3d7199817fb31d997984c71b1ba70ac6e4ebb7a.py",
+      "d6c2b876b9b6660ffabb0cf5e3d7199817fb31d997984c71b1ba70ac6e4ebb7a"
+    ],
+    "graph_validation": [
+      "data_raw/source_snapshots/continuum_analyze_9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d.py",
+      "9e213674dc24a590a9867aa685c25e569467456a68f65c1d8ac7d416d590124d"
+    ],
+    "independent_control": [
+      "data_raw/source_snapshots/test_single_walker_continuum_equilibrium_9d03ab425dc57c022bbbf0d1522ed9c867bd673863c5e3c7f87dc02c9374bf77.py",
+      "9d03ab425dc57c022bbbf0d1522ed9c867bd673863c5e3c7f87dc02c9374bf77"
+    ]
+  },
+  "input_sha256": {},
+  "raw_sha256": "0955c2a5785ff8a03ba816a8f451952ad58f44880576494aa34826541dcbcaa8",
+  "calibration_cutoff_clock": 5000,
+  "sample_cadence_clock_steps": 1,
+  "weights_frozen_before_production": true,
+  "deletion_label_threshold": 0.45,
+  "control_scope": "Independent low-N implementation regression, not continuum coexistence evidence",
+  "cap_scope": "Deliberately truncated N<=3 toy; compare only with its explicit partition integrals, not unrestricted Palm/GNZ identities",
+  "partition_quadrature": {
+    "dimension": 9,
+    "sobol_points": 131072,
+    "scramble_seed": 260929401
+  },
+  "sampling_stage": "After local update, before lazy label hop; every full-clock dwell retained",
+  "reproduce_argv": [
+    "env",
+    "CAVCOEX_ST_CONTROL_EXPORT=/Users/bouchard/Documents/New project/constrained_cavity_nucleation_20260724/data_raw/controls/single_walker_capped_control_20260929.npz",
+    "python3",
+    "-m",
+    "pytest",
+    "-q",
+    "/Users/bouchard/Documents/New project/constrained_cavity_nucleation_20260724/tests/test_single_walker_continuum_equilibrium.py",
+    "-k",
+    "actual_single_host"
+  ]
+}

@@ -25,6 +25,28 @@ INTERFACE_PATH = (
 METADATA_PATH = ROOT / "generated" / "lattice_exact_controls_metadata.json"
 
 
+def test_exact_control_legends_are_outside_data_axes(tmp_path, monkeypatch):
+    import lattice_exact_controls as controls
+
+    close = controls.plt.close
+    captured = []
+
+    def check_and_close(figure):
+        if hasattr(figure, "axes"):
+            figure.canvas.draw()
+            for axis in figure.axes:
+                legend = axis.get_legend()
+                assert legend is not None
+                assert not legend.get_window_extent().overlaps(axis.get_window_extent())
+            captured.append(True)
+        close(figure)
+
+    monkeypatch.setattr(controls.plt, "close", check_and_close)
+    controls.make_figure(pd.read_csv(EXACT_PATH), pd.read_csv(INTERFACE_PATH),
+                         tmp_path / "controls.pdf")
+    assert captured == [True]
+
+
 def test_periodic_bond_convention_including_l2_parallel_edges() -> None:
     bonds_l2 = periodic_bonds(2)
     assert bonds_l2.shape == (8, 2)

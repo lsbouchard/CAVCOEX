@@ -5,7 +5,7 @@ Kish's concentration functional is used only as a support diagnostic.  A
 sampled configuration and its deterministic spin inverse form one antithetic
 orbit, not two independent observations.  We therefore combine both branches
 before computing orbit-level concentration and also aggregate orbit weights
-over the replica--time blocks used by the hierarchical uncertainty analysis.
+over the replica--time blocks used by the stratified uncertainty analysis.
 """
 
 from __future__ import annotations
@@ -150,47 +150,32 @@ def analyze(
     for length in available_sizes(trajectories):
         volume = length * length
         replicas = replicas_for_size(trajectories, length)
-        per_estimator_orbits: dict[str, list[np.ndarray]] = {
-            estimator: [] for estimator in ESTIMATORS
-        }
-        per_estimator_blocks: dict[str, list[np.ndarray]] = {
-            estimator: [] for estimator in ESTIMATORS
-        }
-        per_estimator_replica: dict[str, list[np.ndarray]] = {
-            estimator: [] for estimator in ESTIMATORS
-        }
-        for replica in replicas:
-            arrays = _replica_weight_arrays(
-                trajectories[(length, replica)], volume, h_grid
-            )
-            for estimator, weights in arrays.items():
-                indices = np.array_split(np.arange(weights.shape[1]), block_count)
-                block_weights = np.column_stack(
-                    [np.sum(weights[:, index], axis=1) for index in indices]
+        # Only one field is resident: storing all 301 fields for all four
+        # estimators and 240000 configurations required several GB of RAM.
+        for h_value in h_grid:
+            per_estimator_orbits = {estimator: [] for estimator in ESTIMATORS}
+            per_estimator_blocks = {estimator: [] for estimator in ESTIMATORS}
+            per_estimator_replica = {estimator: [] for estimator in ESTIMATORS}
+            for replica in replicas:
+                arrays = _replica_weight_arrays(
+                    trajectories[(length, replica)], volume, np.asarray([h_value])
                 )
-                per_estimator_orbits[estimator].append(weights)
-                per_estimator_blocks[estimator].append(block_weights)
-                per_estimator_replica[estimator].append(
-                    np.sum(weights, axis=1)
-                )
-
-        for estimator in ESTIMATORS:
-            orbit_weights = np.concatenate(
-                per_estimator_orbits[estimator], axis=1
-            )
-            block_weights = np.concatenate(
-                per_estimator_blocks[estimator], axis=1
-            )
-            replica_weights = np.column_stack(
-                per_estimator_replica[estimator]
-            )
-            replica_normalized = replica_weights / np.sum(
-                replica_weights, axis=1, keepdims=True
-            )
-            for index, h_value in enumerate(h_grid):
+                for estimator, field_weights in arrays.items():
+                    weights = field_weights[0]
+                    indices = np.array_split(np.arange(weights.size), block_count)
+                    per_estimator_orbits[estimator].append(weights)
+                    per_estimator_blocks[estimator].append(
+                        np.asarray([np.sum(weights[index]) for index in indices])
+                    )
+                    per_estimator_replica[estimator].append(float(np.sum(weights)))
+            for estimator in ESTIMATORS:
+                orbit_weights = np.concatenate(per_estimator_orbits[estimator])
+                block_weights = np.concatenate(per_estimator_blocks[estimator])
+                replica_weights = np.asarray(per_estimator_replica[estimator])
+                replica_normalized = replica_weights / np.sum(replica_weights)
                 for analysis_unit, weights in (
-                    ("antithetic_orbit", orbit_weights[index]),
-                    ("replica_time_block", block_weights[index]),
+                    ("antithetic_orbit", orbit_weights),
+                    ("replica_time_block", block_weights),
                 ):
                     row = support_summary(weights)
                     records.append(
@@ -205,10 +190,10 @@ def analyze(
                             "replicas": len(replicas),
                             "blocks_per_replica": block_count,
                             "maximum_replica_weight_fraction": float(
-                                np.max(replica_normalized[index])
+                                np.max(replica_normalized)
                             ),
                             "replicas_above_one_percent": int(
-                                np.count_nonzero(replica_normalized[index] >= 0.01)
+                                np.count_nonzero(replica_normalized >= 0.01)
                             ),
                         }
                     )
@@ -221,7 +206,7 @@ def analyze(
                             "estimator": estimator,
                             "replica": replica,
                             "normalized_weight_fraction": float(
-                                replica_normalized[index, replica_index]
+                                replica_normalized[replica_index]
                             ),
                         }
                     )
@@ -315,8 +300,9 @@ def analyze(
         "interpretation": (
             "weight concentration and reweighting support only; neither value "
             "is an independent-sample count or a substitute for the "
-            "replica-respecting hierarchical uncertainty calculation"
+            "stratified time-block uncertainty calculation"
         ),
+        "memory_strategy": "one reweighting field at a time; no all-field orbit arrays",
     }
     return curves, replica_frame, sensitivity, metadata
 

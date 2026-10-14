@@ -1,34 +1,59 @@
 #!/usr/bin/env python3
-"""Attach uniform, machine-verifiable provenance to generated metadata.
+"""Record release-file hashes without rewriting historical run provenance.
 
-The numerical generators retain their domain-specific metadata.  This final
-release step adds the current script and dependency hashes, hashes every
-external input consumed by an analysis, and records the exact command used by
-the Makefile.  It deliberately does not alter numerical data or figures.
+Generation-time metadata belongs to the numerical generators.  This packaging
+step writes a separate ``generated/release_provenance.json``: a snapshot of
+the currently distributed files and a suggested command. A matching hash is an integrity check, not
+evidence that the command was executed.  Legacy top-level hashes (some of
+which were refreshed during earlier packaging) are preserved verbatim.
 """
 
 from __future__ import annotations
 
-import hashlib
+import ast
 import json
 from datetime import datetime, timezone
 from pathlib import Path
+
+from make_release_manifest import sha256_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def sha256(relative_path: str) -> str:
-    """Return the SHA-256 digest of one release file."""
-
-    digest = hashlib.sha256()
-    with (ROOT / relative_path).open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1 << 20), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+def local_dependencies(script: str, root: Path) -> list[str]:
+    """Find the static local Python import closure for a packaged entry point."""
+    found: set[str] = set()
+    pending = [script]
+    while pending:
+        current = pending.pop()
+        tree = ast.parse((root / current).read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            modules = []
+            if isinstance(node, ast.Import):
+                modules = [item.name for item in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                modules = [node.module]
+            for module in modules:
+                relative = f"scripts/{module.rsplit('.', 1)[-1]}.py"
+                if relative != script and relative not in found and (root / relative).is_file():
+                    found.add(relative)
+                    pending.append(relative)
+    return sorted(found)
 
 
 SPECS = {
+    "generated/reaud_covariance_stability_metadata.json": {
+        "script": "scripts/reaud_covariance_mode_stability.py",
+        "inputs": [
+            "data_raw/lattice_gas_phase_switch_trajectories.npz",
+            "data_raw/lattice_gas_additional_replicas.npz",
+            "data_processed/lattice_leave_lmax_prediction_coefficients.csv",
+            "data_processed/lattice_leave_lmax_prediction_covariance.npz",
+            "data_processed/lattice_scalar_joint_validation.csv",
+        ],
+        "command": "python3 scripts/reaud_covariance_mode_stability.py",
+    },
     "generated/cavity_mc_metadata.json": {
         "script": "scripts/cavity_mc.py",
         "command": (
@@ -226,32 +251,68 @@ SPECS = {
         "script": "scripts/tonks_validation.py",
         "command": "python3 scripts/tonks_validation.py",
     },
+    "generated/hard_sphere_defect_sensitivity_metadata.json": {
+        "script": "scripts/hard_sphere_defect_sensitivity.py",
+        "inputs": [
+            "data_raw/fernandez2012_coexistence.csv",
+            "data_raw/hard_sphere_vacancy_scale.csv",
+        ],
+        "command": "python3 scripts/hard_sphere_defect_sensitivity.py",
+    },
+    "generated/lattice_resampling_audit_metadata.json": {
+        "script": "scripts/lattice_resampling_audit.py",
+        "inputs": [
+            "data_raw/lattice_gas_phase_switch_trajectories.npz",
+            "data_raw/lattice_gas_additional_replicas.npz",
+        ],
+        "command": "python3 scripts/lattice_resampling_audit.py",
+    },
 }
 
 
-def main() -> None:
+def enrich(root: Path = ROOT) -> int:
+    """Snapshot current files without changing any generation metadata bytes."""
+
+    def digest(relative_path: str) -> str:
+        return sha256_file(root / relative_path)
+
     refreshed = datetime.now(timezone.utc).isoformat()
+    records = {}
     for metadata_path, spec in SPECS.items():
-        path = ROOT / metadata_path
+        path = root / metadata_path
         if not path.exists():
             raise FileNotFoundError(path)
         script = str(spec["script"])
-        dependencies = [str(item) for item in spec.get("dependencies", [])]
+        dependencies = sorted(set(local_dependencies(script, root)).union(
+            str(item) for item in spec.get("dependencies", [])
+        ))
         inputs = [str(item) for item in spec.get("inputs", [])]
-        metadata = json.loads(path.read_text(encoding="utf-8"))
-        metadata["script"] = script
-        metadata["script_sha256"] = sha256(script)
-        metadata["dependency_sha256"] = {
-            item: sha256(item) for item in dependencies
+        records[metadata_path] = {
+            "recorded_utc": refreshed,
+            "scope": (
+                "Current distributed files only; no execution is asserted. "
+                "Existing generation-time and legacy packaging fields are "
+                "preserved without modification."
+            ),
+            "execution_metadata_sha256": digest(metadata_path),
+            "script": script,
+            "script_sha256": digest(script),
+            "dependency_sha256": {
+                item: digest(item) for item in dependencies
+            },
+            "input_sha256": {item: digest(item) for item in inputs},
+            "suggested_reproduce_command": str(spec["command"]),
         }
-        metadata["input_sha256"] = {item: sha256(item) for item in inputs}
-        metadata["reproduce_command"] = str(spec["command"])
-        metadata["provenance_refreshed_utc"] = refreshed
-        path.write_text(
-            json.dumps(metadata, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
-        )
-    print(f"refreshed provenance in {len(SPECS)} metadata files")
+    (root / "generated" / "release_provenance.json").write_text(
+        json.dumps(records, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return len(SPECS)
+
+
+def main() -> None:
+    count = enrich()
+    print(f"recorded {count} release contexts separately; execution metadata bytes unchanged")
 
 
 if __name__ == "__main__":

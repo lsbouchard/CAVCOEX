@@ -1,8 +1,17 @@
 PYTHON ?= python
 PYTEST ?= $(PYTHON) -m pytest
+OPENBLAS_NUM_THREADS ?= 1
+OMP_NUM_THREADS ?= 1
+MKL_NUM_THREADS ?= 1
+VECLIB_MAXIMUM_THREADS ?= 1
+NUMBA_NUM_THREADS ?= 1
+NUMEXPR_NUM_THREADS ?= 1
+export OPENBLAS_NUM_THREADS OMP_NUM_THREADS MKL_NUM_THREADS VECLIB_MAXIMUM_THREADS NUMBA_NUM_THREADS NUMEXPR_NUM_THREADS
 export MPLCONFIGDIR := $(CURDIR)/.mplconfig
 
-.PHONY: analytic lattice-analysis test reproduce
+.DEFAULT_GOAL := reproduce
+.NOTPARALLEL:
+.PHONY: analytic lattice-analysis numerical-macros provenance figures test reproduce release-manifest check-release
 
 analytic:
 	$(PYTHON) scripts/tonks_validation.py
@@ -10,6 +19,7 @@ analytic:
 	$(PYTHON) scripts/phase_conditioned.py
 	$(PYTHON) scripts/hard_sphere_sensitivity.py
 	$(PYTHON) scripts/hard_sphere_defect_sensitivity.py
+	$(PYTHON) scripts/tracer_radius_response_control.py
 	$(PYTHON) scripts/cs_benchmark.py
 	$(PYTHON) scripts/derive_pulse_finite_size_corrections.py
 	$(PYTHON) scripts/lattice_exact_controls.py
@@ -25,8 +35,24 @@ lattice-analysis:
 	$(PYTHON) scripts/lattice_replica_robustness.py
 	$(PYTHON) scripts/lattice_reweighting_overlap.py
 	$(PYTHON) scripts/lattice_basin_robustness.py
+	$(PYTHON) scripts/lattice_resampling_audit.py
 
 test:
 	$(PYTEST) -q
 
-reproduce: analytic lattice-analysis test
+figures:
+	$(PYTHON) scripts/render_publication_figures.py
+
+numerical-macros: lattice-analysis
+	$(PYTHON) scripts/make_numerical_macros.py
+
+provenance: numerical-macros
+	$(PYTHON) scripts/enrich_metadata_provenance.py
+
+release-manifest:
+	$(PYTHON) scripts/make_release_manifest.py --profile code
+
+check-release:
+	$(PYTHON) scripts/make_release_manifest.py --profile code --check
+
+reproduce: analytic lattice-analysis numerical-macros provenance figures test release-manifest

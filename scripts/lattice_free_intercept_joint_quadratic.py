@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Covariance-aware free-intercept test of the lattice pulse limits.
 
-The upstream lattice validation stores the central and hierarchical-bootstrap
+The upstream lattice validation stores the central and stratified block-bootstrap
 vectors for three pulse observables at five independently simulated lattice
 sizes.  This module uses those records without regenerating or altering them.
 It fits the joint model
@@ -12,7 +12,7 @@ with all three intercepts free.  It then reports (i) a nine-parameter global
 lack-of-fit test and (ii) a nested, three-restriction test of the joint null
 that the free intercept vector equals the exact thermodynamic-limit vector.
 Both primary p values are calibrated by adding the stored centered
-hierarchical-bootstrap noise to the appropriate fitted null model and
+stratified block-bootstrap noise to the appropriate fitted null model and
 refitting every replicate.  Correlation-matrix eigenmode thresholds are
 reported as a declared sensitivity analysis.
 """
@@ -682,12 +682,12 @@ def write_outputs(
             },
             "covariance_construction": (
                 "block diagonal across lattice sizes from the sample covariance "
-                "of the stored three-observable hierarchical-bootstrap vectors"
+                "of the stored three-observable stratified block-bootstrap vectors"
             ),
         },
         "bootstrap_calibration": {
             "source": (
-                "stored upstream replica-first, time-block-second hierarchical "
+                "stored upstream stratified time-block "
                 "bootstrap vectors"
             ),
             "centered_noise_definition": "bootstrap vector minus central vector",

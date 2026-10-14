@@ -4,7 +4,7 @@
 The production sampler intentionally remains separate.  These helpers load one
 or more NPZ trajectory archives, preserve replica identity, construct paired
 (spin-inversion antithetic) or raw unpaired block contributions, and implement
-the two-level replica/block bootstrap used by the revision analyses.
+the stratified time-block bootstrap used by the revision analyses.
 """
 
 from __future__ import annotations
@@ -213,20 +213,34 @@ def contribution_blocks(
     return result, replicas
 
 
-def hierarchical_bootstrap_totals(
+def stratified_block_indices(
+    replica_count: int, block_count: int, rng: np.random.Generator
+) -> np.ndarray:
+    """Resample time blocks independently inside every retained chain.
+
+    The chains sample the same equilibrium law and are not random physical
+    clusters. Resampling chains as well as their blocks counts within-chain
+    Monte Carlo noise twice. Chain identity is therefore a fixed stratum.
+    The caller must choose blocks longer than the autocorrelation time.
+    """
+    if replica_count < 1 or block_count < 2:
+        raise ValueError("at least one replica and two time blocks are required")
+    return rng.integers(0, block_count, size=(replica_count, block_count))
+
+
+def stratified_block_bootstrap_totals(
     block_arrays: np.ndarray,
     draws: int,
     rng: np.random.Generator,
 ) -> Iterable[np.ndarray]:
-    """Yield totals after resampling replicas, then blocks within replicas."""
+    """Yield totals after independently resampling blocks within each chain."""
 
     replica_count, block_count = block_arrays.shape[:2]
     output_shape = block_arrays.shape[2:]
     for _ in range(draws):
         total = np.zeros(output_shape, dtype=float)
-        selected_replicas = rng.integers(0, replica_count, replica_count)
-        for replica in selected_replicas:
-            selected_blocks = rng.integers(0, block_count, block_count)
+        indices = stratified_block_indices(replica_count, block_count, rng)
+        for replica, selected_blocks in enumerate(indices):
             total += np.sum(block_arrays[replica, selected_blocks], axis=0)
         yield total
 

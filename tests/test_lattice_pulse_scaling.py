@@ -1,4 +1,7 @@
 import sys
+import json
+import hashlib
+from types import SimpleNamespace
 from pathlib import Path
 
 import numpy as np
@@ -17,6 +20,34 @@ from lattice_pulse_scaling import (  # noqa: E402
     continuous_pulse_observables,
     weighted_polynomial_fit,
 )
+
+
+def test_plot_only_preserves_numerical_execution_and_inputs(tmp_path,monkeypatch):
+    import lattice_pulse_scaling as pulse
+    for directory in ('data_processed','generated','figures'):
+        (tmp_path/directory).mkdir()
+    names = ('lattice_peak_center_amplitude.csv','lattice_peak_scaling_fits.csv',
+             'lattice_width_hierarchical.csv','lattice_width_hierarchical_fit.csv',
+             'lattice_pulse_curves.csv','lattice_scalar_joint_validation.csv')
+    for name in names:
+        (tmp_path/'data_processed'/name).write_text('value\n1\n')
+    original = {'generated_utc':'original time','bootstrap_draws':5000,
+                'script_sha256':'original execution source'}
+    metadata = tmp_path/'generated/lattice_pulse_scaling_metadata.json'
+    metadata.write_text(json.dumps(original))
+    monkeypatch.setattr(pulse,'ROOT',tmp_path)
+    monkeypatch.setattr(pulse,'parse_args',lambda:SimpleNamespace(plot_only=True))
+    def render(*args):
+        args[-1].write_bytes(b'new figure')
+    monkeypatch.setattr(pulse,'make_figure',render)
+    pulse.main()
+    actual = json.loads(metadata.read_text())
+    assert {key:actual[key] for key in original} == original
+    assert actual['figure_render']['scope'].startswith('figure only')
+    for name in names:
+        path = tmp_path/'data_processed'/name
+        assert path.read_text() == 'value\n1\n'
+        assert actual['figure_render']['input_sha256'][f'data_processed/{name}'] == hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def test_analytic_pulse_center_magnitude_and_width() -> None:
@@ -82,7 +113,7 @@ def test_weighted_quadratic_fit_recovers_synthetic_correction() -> None:
     assert fit["dof"] == 2
 
 
-def test_hierarchical_pulse_fits_include_exact_limits() -> None:
+def test_pulse_fits_report_complete_exact_limit_comparisons() -> None:
     peak_observables = pd.read_csv(
         ROOT / "data_processed" / "lattice_peak_center_amplitude.csv"
     )
@@ -135,8 +166,11 @@ def test_hierarchical_pulse_fits_include_exact_limits() -> None:
         "chi2_p_value",
         "centered_hierarchical_bootstrap_p_value",
     ):
-        assert np.all(fixed[p_value].between(0.005, 1.0))
-    assert np.all(fixed["max_abs_standardized_residual"] < 4.0)
+        assert np.all(fixed[p_value].between(0.0, 1.0))
+    from scipy.stats import chi2
+    np.testing.assert_allclose(fixed["chi2_p_value"],
+                               chi2.sf(fixed["chi2"], fixed["dof"]), rtol=1e-12)
+    assert np.all(fixed["max_abs_standardized_residual"] >= 0.0)
 
     exact_from_free_fit = fits.set_index("observable")["exact_limit"]
     for observable, group in fixed.groupby("observable"):

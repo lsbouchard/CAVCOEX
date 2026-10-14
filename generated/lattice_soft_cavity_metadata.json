@@ -1,19 +1,101 @@
 {
-  "generated_utc": "2026-08-08T18:06:17.650101+00:00",
-  "script": "scripts/lattice_soft_cavity_family.py",
-  "script_sha256": "6d8620518689047f6965be00d41b4c2df2b2e7c1c019ae8ceee570dc0ecb78af",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "numpy": "2.3.4",
-  "pandas": "2.3.3",
-  "matplotlib": "3.10.7",
-  "scipy": "1.18.0",
-  "input_sha256": {
-    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc",
-    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679"
-  },
-  "seed": 26080611,
   "L": 64,
+  "bias": "chi_lambda = exp[-lambda * (n_i+n_j)] for a uniformly sampled nearest-neighbor bond",
+  "blocks_per_replica": 40,
+  "bootstrap_draws": 2000,
+  "comparison_scope": "reported z scores compare the finite L measurement directly with the exact thermodynamic limit; they diagnose finite-size displacement and are not thermodynamic-limit extrapolation tests",
+  "exact_soft_weight": "p_lambda=p00+exp(-lambda)*p01+exp(-2 lambda)*p11",
+  "exact_work_contrast": "Delta beta W=log(p_lambda,gas/p_lambda,liquid)",
+  "figure_render": {
+    "artist_data_unchanged": true,
+    "command": "python scripts/render_publication_figures.py",
+    "display": "continuous exact limits; 17 unshifted open measurement symbols per bias in panel (a)",
+    "exact_thermodynamic_plot_inputs": {
+      "nearest_neighbor_correlation": 0.8727822876562767,
+      "spontaneous_magnetization": 0.911319377877496
+    },
+    "feature_curves": "501-point direct evaluation of the exact staging formulas from archived m0 and c1; no interpolation, fitting, resampling, or changes to saved numerical data",
+    "generated_utc": "2026-10-14T19:53:22.342379+00:00",
+    "input_sha256": {
+      "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+      "data_processed/lattice_soft_cavity_features.csv": "e1775b3ae934a7b84d099cf3ffa25398d52c3ccedbb4629d2471b63ab0c9e81a",
+      "generated/lattice_gas_phase_switch_metadata.json": "3d3a5c3240ca626c436000b39a01f5faa761ca0c5e998ddb206461a0f92f67b0"
+    },
+    "output_sha256": {
+      "figures/lattice_soft_cavity_family.pdf": "866d0f569969b866375e3048b38bb8e920da21770c1af03420918c6482afdcd7"
+    },
+    "scope": "frozen-input presentation render only; original statistical execution preserved",
+    "script_sha256": "f85a8e63fe0f35b788baf5ad9b633a7af76460793213fbfc32e85872dfe5c7e2",
+    "style_script_sha256": "c56e6266cf13b8794067a8165cad1ad89ecbe8f8a9d431b02df84d0973832871",
+    "verification": "generated/publication_figure_style.json"
+  },
+  "figure_render_history": [
+    {
+      "command": "python3 scripts/lattice_soft_cavity_family.py --plot-only",
+      "display": "continuous exact limits; 17 unshifted open measurement symbols per bias in panel (a)",
+      "exact_thermodynamic_plot_inputs": {
+        "nearest_neighbor_correlation": 0.8727822876562767,
+        "spontaneous_magnetization": 0.911319377877496
+      },
+      "feature_curves": "501-point direct evaluation of the exact staging formulas from archived m0 and c1; no interpolation, fitting, resampling, or changes to saved numerical data",
+      "generated_utc": "2026-09-30T23:37:49.932384+00:00",
+      "input_sha256": {
+        "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+        "data_processed/lattice_soft_cavity_features.csv": "e1775b3ae934a7b84d099cf3ffa25398d52c3ccedbb4629d2471b63ab0c9e81a",
+        "generated/lattice_gas_phase_switch_metadata.json": "3d3a5c3240ca626c436000b39a01f5faa761ca0c5e998ddb206461a0f92f67b0"
+      },
+      "output_sha256": {
+        "figures/lattice_soft_cavity_family.pdf": "e55ffd558bb51f72fbc4d21e5e11be67ae96e266badfa82f764c9637b663b654"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "f85a8e63fe0f35b788baf5ad9b633a7af76460793213fbfc32e85872dfe5c7e2"
+    },
+    {
+      "artist_data_unchanged": true,
+      "command": "python3 revision_final_audit_20261014/restyle_figures.py",
+      "display": "continuous exact limits; 17 unshifted open measurement symbols per bias in panel (a)",
+      "exact_thermodynamic_plot_inputs": {
+        "nearest_neighbor_correlation": 0.8727822876562767,
+        "spontaneous_magnetization": 0.911319377877496
+      },
+      "feature_curves": "501-point direct evaluation of the exact staging formulas from archived m0 and c1; no interpolation, fitting, resampling, or changes to saved numerical data",
+      "generated_utc": "2026-10-14",
+      "input_sha256": {
+        "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+        "data_processed/lattice_soft_cavity_features.csv": "e1775b3ae934a7b84d099cf3ffa25398d52c3ccedbb4629d2471b63ab0c9e81a",
+        "generated/lattice_gas_phase_switch_metadata.json": "3d3a5c3240ca626c436000b39a01f5faa761ca0c5e998ddb206461a0f92f67b0"
+      },
+      "output_sha256": {
+        "figures/lattice_soft_cavity_family.pdf": "7ebde381f4c54e2833dc55b6ac7fd570d378ab54e8e7c3ce24819dbc296bf994"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "f85a8e63fe0f35b788baf5ad9b633a7af76460793213fbfc32e85872dfe5c7e2",
+      "style_script_sha256": "62c91022cddae4c715eb9254685ac9dad0b7ab31262f7ab2d50d3f12a754c83e",
+      "verification": "revision_final_audit_20261014/figure_style_verification.json"
+    }
+  ],
+  "generated_utc": "2026-09-29T20:03:30.530766+00:00",
+  "input_sha256": {
+    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+  },
+  "lambdas": [
+    "0.25",
+    "0.5",
+    "1",
+    "2",
+    "infinity"
+  ],
+  "matplotlib": "3.10.8",
+  "numpy": "2.3.5",
+  "output_sha256": {
+    "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
+    "data_processed/lattice_soft_cavity_features.csv": "e1775b3ae934a7b84d099cf3ffa25398d52c3ccedbb4629d2471b63ab0c9e81a",
+    "figures/lattice_soft_cavity_family.pdf": "3e6e6f1b703a0b35c21b2c0316f6e42e20b5c107c9ae4a844a34f3450cd743ab"
+  },
+  "pandas": "2.3.3",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
   "replica_ids": [
     0,
     1,
@@ -28,25 +110,12 @@
     10,
     11
   ],
-  "blocks_per_replica": 40,
-  "bootstrap_draws": 2000,
-  "lambdas": [
-    "0.25",
-    "0.5",
-    "1",
-    "2",
-    "infinity"
-  ],
-  "bias": "chi_lambda = exp[-lambda * (n_i+n_j)] for a uniformly sampled nearest-neighbor bond",
+  "reproduce_command": "python3 scripts/lattice_soft_cavity_family.py --length 64 --blocks-per-replica 40 --bootstrap-draws 2000 --seed 26080611",
+  "resampling": "all chains retained; time blocks resampled independently within each chain",
   "reuse_scope": "same archived unconstrained trajectories as the hard-cavity benchmark; this is a staged-weight family, not an independent simulation ensemble",
-  "comparison_scope": "reported z scores compare the finite L measurement directly with the exact thermodynamic limit; they diagnose finite-size displacement and are not thermodynamic-limit extrapolation tests",
-  "exact_soft_weight": "p_lambda=p00+exp(-lambda)*p01+exp(-2 lambda)*p11",
-  "exact_work_contrast": "Delta beta W=log(p_lambda,gas/p_lambda,liquid)",
-  "output_sha256": {
-    "data_processed/lattice_soft_cavity_features.csv": "04b44816ba59c334262ec037834c1d5b30f0d367aa2b720367550f398e55526e",
-    "data_processed/lattice_soft_cavity_curves.csv": "15717d56976c99b89e58632f1507a6b0cf3864c9bdcb2f100615c001334209e4",
-    "figures/lattice_soft_cavity_family.pdf": "03f3ec58e2e82f1d243c2928e15b5cdcd61beaa0b0455c48eb5c5f546a0f84af"
-  },
-  "runtime_seconds": 14.684626750000461,
-  "reproduce_command": "python3 scripts/lattice_soft_cavity_family.py --length 64 --blocks-per-replica 40 --bootstrap-draws 2000 --seed 26080611"
+  "runtime_seconds": 31.727483374997973,
+  "scipy": "1.17.1",
+  "script": "scripts/lattice_soft_cavity_family.py",
+  "script_sha256": "81a813563348fd041341d02f9b0a56d4bb597c38109f6b12eac89cef2498c1ab",
+  "seed": 26080611
 }

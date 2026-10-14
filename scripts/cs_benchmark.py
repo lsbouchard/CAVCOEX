@@ -302,7 +302,7 @@ def write_csv(path: Path, eta_grid: np.ndarray) -> None:
 
 
 def latex_rows(etas: Iterable[float]) -> list[str]:
-    def format_significant(value: float, digits: int = 5) -> str:
+    def format_significant(value: float, digits: int = 4) -> str:
         if value == 0.0:
             return "0"
         decimal_places = max(

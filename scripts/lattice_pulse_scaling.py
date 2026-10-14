@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import sys
@@ -24,7 +25,7 @@ try:
     from .lattice_analysis_common import (
         available_sizes,
         contribution_blocks,
-        hierarchical_bootstrap_totals,
+        stratified_block_bootstrap_totals,
         load_trajectory_archives,
         weighted_linear_fit,
     )
@@ -39,7 +40,7 @@ except ImportError:
     from lattice_analysis_common import (
         available_sizes,
         contribution_blocks,
-        hierarchical_bootstrap_totals,
+        stratified_block_bootstrap_totals,
         load_trajectory_archives,
         weighted_linear_fit,
     )
@@ -325,7 +326,7 @@ def analyze(
             name: np.empty(bootstrap_draws, dtype=float) for name in central
         }
         for draw, total in enumerate(
-            hierarchical_bootstrap_totals(blocks, bootstrap_draws, rng)
+            stratified_block_bootstrap_totals(blocks, bootstrap_draws, rng)
         ):
             result = pulse_observables(h_grid, total, volume)
             for name, value in result.items():
@@ -479,8 +480,8 @@ def analyze(
         "seed": seed,
         "bootstrap_draws": bootstrap_draws,
         "resampling": (
-            "replicas sampled with replacement; blocks sampled with replacement "
-            "within each selected replica"
+            "all replicas retained as fixed strata; time blocks sampled with "
+            "replacement independently within each replica"
         ),
         "blocks_per_replica": block_count,
         "analysis_grid": {
@@ -497,7 +498,7 @@ def analyze(
             "Brent root finding for both half-height crossings of the same "
             "cubic-spline interpolant"
         ),
-        "fit": "weighted least squares A+B/V using hierarchical standard errors",
+        "fit": "weighted least squares A+B/V using stratified block standard errors",
         "finite_size_sensitivity_models": [
             "A+B/V using all sizes",
             "A+B/V+C/V^2 using all sizes",
@@ -592,7 +593,13 @@ def make_figure(
     smooth_h = np.linspace(curves["h"].min(), curves["h"].max(), 1201)
     exact_curve = -phase_theory(smooth_h, exact_magnetization, exact_delta_w)
 
-    fig, axes = plt.subplots(2, 2, figsize=(7.1, 5.25), constrained_layout=True)
+    # A dedicated legend row spans both top panels; no legend lies over data.
+    fig = plt.figure(figsize=(7.1, 5.55), constrained_layout=True)
+    grid = fig.add_gridspec(3, 2, height_ratios=(0.17, 1, 1))
+    legend_axis = fig.add_subplot(grid[0, :])
+    legend_axis.set_axis_off()
+    axes = np.array([[fig.add_subplot(grid[1, 0]), fig.add_subplot(grid[1, 1])],
+                     [fig.add_subplot(grid[2, 0]), fig.add_subplot(grid[2, 1])]])
     pulse_axis, center_axis, magnitude_axis, width_axis = axes.flat
     for length, group in curves.groupby("L"):
         pulse_axis.plot(
@@ -624,18 +631,17 @@ def make_figure(
     pulse_axis.set_title("Total response and phase reweighting")
     pulse_axis.set_xlabel(r"$h=V(x-x_{\rm coex})$")
     pulse_axis.set_ylabel(r"$-\Delta N_{\mathcal{C}}/V$")
-    # The far-right tail is empty above the decaying pulse; a compact vertical
-    # legend there avoids reaching back over the maximum or the inset.
-    pulse_axis.legend(
+    handles, labels = pulse_axis.get_legend_handles_labels()
+    legend_axis.legend(
+        handles, labels,
         frameon=False,
-        ncol=1,
-        fontsize=6.8,
-        loc="upper right",
-        bbox_to_anchor=(0.99, 0.92),
+        ncol=len(labels),
+        fontsize=8.5,
+        loc="center",
         borderaxespad=0.0,
     )
     pulse_axis.grid(alpha=0.16, linewidth=0.5)
-    inset = pulse_axis.inset_axes([0.08, 0.72, 0.30, 0.20])
+    inset = pulse_axis.inset_axes([0.08, 0.66, 0.30, 0.20])
     for length in (int(curves["L"].min()), int(curves["L"].max())):
         group = curves[curves["L"] == length]
         inset.plot(
@@ -689,7 +695,7 @@ def make_figure(
             color="#0072B2",
             markersize=4.2,
             capsize=2.0,
-            label="hierarchical estimate",
+            label="block-bootstrap estimate",
         )
         fit_x = np.linspace(0.0, 1.05 * np.max(inverse_volume), 200)
         exact_limit = float(fit["exact_limit"])
@@ -738,11 +744,36 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--blocks-per-replica", type=int, default=40)
     parser.add_argument("--bootstrap-draws", type=int, default=5_000)
     parser.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    parser.add_argument("--plot-only", action="store_true",
+                        help="redraw saved numerical tables without resampling")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
+    if args.plot_only:
+        names = ("lattice_peak_center_amplitude.csv", "lattice_peak_scaling_fits.csv",
+                 "lattice_width_hierarchical.csv", "lattice_width_hierarchical_fit.csv",
+                 "lattice_pulse_curves.csv")
+        inputs = [ROOT / "data_processed" / name for name in names]
+        joint = ROOT / "data_processed/lattice_scalar_joint_validation.csv"
+        output = ROOT / "figures/lattice_pulse_scaling.pdf"
+        metadata_path = ROOT / "generated/lattice_pulse_scaling_metadata.json"
+        metadata = json.loads(metadata_path.read_text())
+        make_figure(*(pd.read_csv(path) for path in inputs), output)
+        digest = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
+        metadata["figure_render"] = {
+            "generated_utc": datetime.now(timezone.utc).isoformat(),
+            "scope": "figure only; original numerical execution record preserved",
+            "command": "python3 scripts/lattice_pulse_scaling.py --plot-only",
+            "script_sha256": digest(Path(__file__).resolve()),
+            "input_sha256": {str(path.relative_to(ROOT)): digest(path) for path in (*inputs, joint)},
+            "output_sha256": {str(output.relative_to(ROOT)): digest(output)},
+            "layout": "dedicated external legend row aligned across both top panels",
+        }
+        metadata_path.write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
+        print("Redrew saved pulse figure with an external legend band; numerical data unchanged")
+        return
     (
         peak,
         peak_fits,

@@ -185,7 +185,7 @@ def orient_symmetry_pairs(
     """Orient each sampled configuration so the first member is liquid-like.
 
     The spin-inverted configuration is included analytically as an antithetic
-    partner.  For the measure-zero finite-lattice tie M=0, the member with
+    partner.  For a finite-lattice tie M=0, the member with
     s_0=+1 is assigned to the liquid basin.  This is a fixed exhaustive tie
     rule and makes global spin inversion exchange the two basins exactly.
     """

@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-08-08T04:03:16.567351+00:00",
+  "generated_utc": "2026-09-29T20:02:18.902213+00:00",
   "headline_result": {
     "coefficient_absolute_shift": -1.3005140432137234e-05,
     "coefficient_relative_shift_percent": -0.5368298004987943,
@@ -30,7 +30,13 @@
   "sources": {
     "coexistence_specific_volumes": {
       "doi": "10.1103/PhysRevLett.108.165701",
-      "uncertainty": "published standard errors; covariance not reported"
+      "uncertainty": "published standard errors; covariance not reported",
+      "verified_author_version": {
+        "finite_size_duplicate": "Table I gives identical specific volumes and errors for N=500 and N=864; retained as in the source, without an inferred correction",
+        "location": "Table I, page 4, infinite-volume row",
+        "url": "https://arxiv.org/pdf/1103.2599v3",
+        "version": "arXiv:1103.2599v3, 12 March 2012"
+      }
     },
     "reported_first_order_defect_shifts": {
       "coexistence_chemical_potential_kBT": -0.00274,
@@ -41,10 +47,22 @@
     "representative_vacancy_fraction": {
       "doi": "10.1021/jp010779e",
       "uncertainty": "source reports an approximate scale; no statistical uncertainty is assigned here",
-      "value": 0.00026
+      "value": 0.00026,
+      "verified_author_version_url": "https://arxiv.org/pdf/cond-mat/0105060v1",
+      "verified_location": "page 4, paragraph following Eq. (23)"
     }
   },
   "uncertainty_propagation": {
+    "covariance_sensitivity": {
+      "correlation_range": [
+        -1.0,
+        1.0
+      ],
+      "output": "data_processed/hard_sphere_density_covariance_sensitivity.csv",
+      "scope": "sharp first-order range at fixed published marginal errors; not a total uncertainty",
+      "standard_error_maximum": 6.035950105833341e-06,
+      "standard_error_minimum": 2.918868521879056e-06
+    },
     "method": "first-order delta method with complex-step Jacobian",
     "reported_se_scope": "Fernandez specific-volume errors only",
     "specific_volume_covariance": 0.0

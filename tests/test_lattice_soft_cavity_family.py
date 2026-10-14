@@ -22,7 +22,9 @@ from lattice_soft_cavity_family import (  # noqa: E402
     DEFAULT_RAW,
     H_GRID,
     SOFT_LAMBDAS,
+    archived_exact_plot_inputs,
     coupling_coordinate,
+    exact_staging_features,
     exact_soft_pair_parameters,
     replica_soft_contributions,
     soft_pair_weights,
@@ -140,5 +142,23 @@ def test_soft_cavity_artifacts_are_complete_and_self_consistent() -> None:
     assert metadata["runtime_seconds"] > 0.0
     assert figure_path.stat().st_size > 10_000
 
-    for relative_path, expected_hash in metadata["output_sha256"].items():
+    recorded_hashes = dict(metadata["output_sha256"])
+    render = metadata.get("figure_render", {})
+    if render:
+        assert set(render["output_sha256"]) == {"figures/lattice_soft_cavity_family.pdf"}
+        for relative_path, expected_hash in render["input_sha256"].items():
+            if relative_path.startswith("data_processed/"):
+                assert metadata["output_sha256"][relative_path] == expected_hash
+            assert _sha256(ROOT / relative_path) == expected_hash
+        assert render["script_sha256"] == _sha256(ROOT / "scripts/lattice_soft_cavity_family.py")
+    recorded_hashes.update(render.get("output_sha256", {}))
+    for relative_path, expected_hash in recorded_hashes.items():
         assert _sha256(ROOT / relative_path) == expected_hash
+
+
+def test_exact_display_curves_reproduce_saved_feature_values() -> None:
+    features = pd.read_csv(ROOT / "data_processed/lattice_soft_cavity_features.csv")
+    values = exact_staging_features(features["staging_coordinate"].to_numpy(),
+                                    archived_exact_plot_inputs())
+    for column, curve in values.items():
+        assert np.allclose(curve, features[column], rtol=2e-13, atol=2e-13)

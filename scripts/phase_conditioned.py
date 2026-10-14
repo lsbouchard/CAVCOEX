@@ -21,6 +21,7 @@ not a new phase-switch simulation.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import platform
 import sys
@@ -436,7 +437,7 @@ def plot_collapse(
     color_map = mpl.colormaps["viridis"]
 
     fig, (left, right) = plt.subplots(
-        1, 2, figsize=(7.1, 3.05), constrained_layout=True
+        1, 2, figsize=(7.1, 3.35), constrained_layout=True
     )
     for volume, group in mixture.groupby("V", sort=True):
         color = color_map(normalizer(float(volume)))
@@ -460,11 +461,9 @@ def plot_collapse(
     left.set_title("Scaled phase-reweighting pulse")
     left.grid(alpha=0.16, linewidth=0.5)
     left.legend(
-        frameon=True,
-        facecolor="white",
-        framealpha=0.92,
-        edgecolor="none",
-        loc="upper right",
+        frameon=False,
+        loc="upper center",
+        bbox_to_anchor=(0.5, -0.23),
     )
 
     mu_grid = np.linspace(-0.36, 0.36, 721)
@@ -597,6 +596,30 @@ def main() -> None:
     metadata = {
         "generated_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/phase_conditioned.py",
+        "script_sha256": file_sha256(Path(__file__)),
+        "dependency_sha256": {
+            "scripts/hard_sphere_models.py": file_sha256(
+                Path(__file__).resolve().with_name("hard_sphere_models.py")
+            )
+        },
+        "input_sha256": {
+            "data_raw/fernandez2012_coexistence.csv": file_sha256(
+                root / "data_raw" / "fernandez2012_coexistence.csv"
+            )
+        },
+        "output_sha256": {
+            name: file_sha256(root / name)
+            for name in (
+                "data_processed/phase_conditioned_cavity.csv",
+                "generated/phase_equal_weight_summary.csv",
+                "generated/coexistence_widths.csv",
+                "generated/phase_table.tex",
+                "figures/phase_reweighting.pdf",
+                "figures/coexistence_collapse.pdf",
+                "figures/phase_source_uncertainty.pdf",
+            )
+        },
+        "reproduce_command": "python3 scripts/phase_conditioned.py",
         "python": sys.version,
         "platform": platform.platform(),
         "numpy": np.__version__,
@@ -628,6 +651,15 @@ def main() -> None:
         f"wrote {len(detailed)} phase-conditioned rows and "
         f"{len(equal_weight)} equal-weight summaries"
     )
+
+
+def file_sha256(path: Path) -> str:
+    """Digest an execution input/output without loading it all into memory."""
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
 
 
 if __name__ == "__main__":

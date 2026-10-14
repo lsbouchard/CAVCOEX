@@ -1,0 +1,370 @@
+{
+  "generated/cavity_mc_metadata.json": {
+    "dependency_sha256": {},
+    "execution_metadata_sha256": "a542035e295316976a0d7500621f523cf6bbf95574fa29b8f2ca68484a4bc827",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/cavity_mc.py",
+    "script_sha256": "18df6da113429d54ad0dc3d66c59f83b279eb12f0fa8524f02c8332187029a3b",
+    "suggested_reproduce_command": "python3 scripts/cavity_mc.py --seed 20260724 --sizes 108 256 --etas 0.05 0.10 0.20 0.30 0.40 --equil-sweeps 16000 --tune-sweeps 4000 --production-blocks 50 --sweeps-per-block 400 --sample-stride 5 --probes-per-sample 2048"
+  },
+  "generated/eos_benchmark_metadata.json": {
+    "dependency_sha256": {
+      "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+    },
+    "execution_metadata_sha256": "4759c4ce8b61ce5cd7f38e19cdecfae1674179f8ab7a81d0e5dc9b4fb5554e14",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/cs_benchmark.py",
+    "script_sha256": "aa41a8c6ac168e06631a888c40970be0aed4081aaf67cdde7f01eca77c1de78d",
+    "suggested_reproduce_command": "python3 scripts/cs_benchmark.py"
+  },
+  "generated/grand_reweight_metadata.json": {
+    "dependency_sha256": {
+      "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+    },
+    "execution_metadata_sha256": "965e1c8f879a30744315ff8a8ad8b6d8bac2f7a0c480cc4f95fab759921e8e7c",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/grand_reweight.py",
+    "script_sha256": "61274b48bc63f61d553ff9f1c1393a49106629469100e01ea04413bd16c5b391",
+    "suggested_reproduce_command": "python3 scripts/grand_reweight.py"
+  },
+  "generated/hard_sphere_defect_sensitivity_metadata.json": {
+    "dependency_sha256": {},
+    "execution_metadata_sha256": "547711827a2628d330c5759e4c8b2ea8a231e5b71e9a46591b3ca2aeee4373e4",
+    "input_sha256": {
+      "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+      "data_raw/hard_sphere_vacancy_scale.csv": "0355d5e1f15e03ae5b84a2148728687802097f1e191b08b15c1abd0edf81dc96"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/hard_sphere_defect_sensitivity.py",
+    "script_sha256": "5426fcbe3fda41978597b64d05e7989cb69bff563d0520113344aab989b1bf57",
+    "suggested_reproduce_command": "python3 scripts/hard_sphere_defect_sensitivity.py"
+  },
+  "generated/hard_sphere_model_sensitivity_metadata.json": {
+    "dependency_sha256": {
+      "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b",
+      "scripts/phase_conditioned.py": "86357a0ea4f5796cc2a4456883da6c08e633b81121ceb63ca3b0fc216ed16196"
+    },
+    "execution_metadata_sha256": "930bfd5e667d62c00aeac998ea53f80cdc4729a44da93bb0c5337fb00321f215",
+    "input_sha256": {
+      "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/hard_sphere_sensitivity.py",
+    "script_sha256": "fc892089949329e0624719b2b88a78645ad05de78c6205e86f98cca90987eb2b",
+    "suggested_reproduce_command": "python3 scripts/hard_sphere_sensitivity.py"
+  },
+  "generated/lattice_basin_robustness_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "95de3ab001f910f642d01f4bfebac60aec5a6f6f9bbd915910ee5040877814cb",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_basin_robustness.py",
+    "script_sha256": "ead0cdf9ba8e84238df7787bc1d443e1e2f459e73bbfa2508c7ad015f9d63525",
+    "suggested_reproduce_command": "python3 scripts/lattice_basin_robustness.py"
+  },
+  "generated/lattice_exact_controls_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "a6961a1a51771641b4fd0ef10e5a4e4306ab09cc343d58741eeab0c6de53c8a0",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_exact_controls.py",
+    "script_sha256": "bcf451f6601934cb5117d2aabde16efbad6696a4cb2a238b03a2dfc970f03d42",
+    "suggested_reproduce_command": "python3 scripts/lattice_exact_controls.py"
+  },
+  "generated/lattice_free_intercept_joint_quadratic_metadata.json": {
+    "dependency_sha256": {
+      "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+      "scripts/lattice_validation_statistics.py": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985"
+    },
+    "execution_metadata_sha256": "b898f73324013d2a30c9b5094ccadceb9d03632fc6246698354c64b6f3dca0cc",
+    "input_sha256": {
+      "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_free_intercept_joint_quadratic.py",
+    "script_sha256": "9d9a757cbfe88fa34a658a2ac8c451b204bb0852ec607c6562383c24e3d21904",
+    "suggested_reproduce_command": "python3 scripts/lattice_free_intercept_joint_quadratic.py"
+  },
+  "generated/lattice_gas_additional_replicas_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "3dde955aa5d3b4d52dc884ea35046debe6801fb65f9072270f5344b0e846ff06",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_gas_additional_replicas.py",
+    "script_sha256": "9cb27d89be41d5bdd1ed7fd8ef03f007078052142932d288589489795dc226dd",
+    "suggested_reproduce_command": "python3 scripts/lattice_gas_additional_replicas.py --seed 25072026 --sizes 16 24 32 48 64 --replica-start 4 --replica-stop 12 --equil-steps 2000 --production-steps 20000 --workers 1 --overwrite"
+  },
+  "generated/lattice_gas_phase_switch_metadata.json": {
+    "dependency_sha256": {},
+    "execution_metadata_sha256": "3d3a5c3240ca626c436000b39a01f5faa761ca0c5e998ddb206461a0f92f67b0",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_gas_phase_switch.py",
+    "script_sha256": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+    "suggested_reproduce_command": "python3 scripts/lattice_gas_phase_switch.py --seed 25072026 --sizes 16 24 32 48 64 --replicas 4 --equil-steps 2000 --production-steps 20000 --blocks-per-replica 40 --bootstrap-draws 400"
+  },
+  "generated/lattice_leave_lmax_prediction_metadata.json": {
+    "dependency_sha256": {
+      "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_correction_prediction.py": "7f2d2c720b44d7f41f97668059a55c68a81eb7813be86959f785d1d67abbf6bb",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+      "scripts/lattice_validation_statistics.py": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985"
+    },
+    "execution_metadata_sha256": "a4cbde09b350e44403263f4a1b36150b99a4ff7d7d5e278ee2c2bbd44b0eca3e",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_leave_lmax_prediction.py",
+    "script_sha256": "e727a4ce720742c902595c04db5f1cb41e212926c2a95ac627a316b3dd842e5c",
+    "suggested_reproduce_command": "python3 scripts/lattice_leave_lmax_prediction.py"
+  },
+  "generated/lattice_pulse_area_sum_rule_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "a32a4592fcc2e666fd6bf0032d51233e281045b5adb63a9a7813dd6280b4c849",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_pulse_area_sum_rule.py",
+    "script_sha256": "cf38a546421d6f5ccd20435281b23505395d3c3c589b1dbc8ed471c68f436d1d",
+    "suggested_reproduce_command": "python3 scripts/lattice_pulse_area_sum_rule.py"
+  },
+  "generated/lattice_pulse_correction_prediction_metadata.json": {
+    "dependency_sha256": {
+      "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    "execution_metadata_sha256": "3dfbe644b3389f88d4cd32add10ffe1f384a8fd2d72af6131bd7ef48784cb257",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_pulse_correction_prediction.py",
+    "script_sha256": "7f2d2c720b44d7f41f97668059a55c68a81eb7813be86959f785d1d67abbf6bb",
+    "suggested_reproduce_command": "python3 scripts/lattice_pulse_correction_prediction.py"
+  },
+  "generated/lattice_pulse_scaling_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "cf1bd13760bb0d49d1124df84a62d95e753bfda9d676614e5d57a05d56398a9d",
+    "input_sha256": {
+      "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_pulse_scaling.py",
+    "script_sha256": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+    "suggested_reproduce_command": "python3 scripts/lattice_pulse_scaling.py"
+  },
+  "generated/lattice_replica_robustness_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e"
+    },
+    "execution_metadata_sha256": "79daa775a31f720713fcfb003954ac0fd6a3f8eedc3fef79f1d33594d770ad88",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_replica_robustness.py",
+    "script_sha256": "b5e6fa262a23c24da7db02a6db6e86bf9aaacd5ae2fe0d39d1a945de0b1fe8c2",
+    "suggested_reproduce_command": "python3 scripts/lattice_replica_robustness.py"
+  },
+  "generated/lattice_resampling_audit_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    "execution_metadata_sha256": "229a1cd9d79203c73ffd2792b002eb57356a22e84b2d16f6780ed079d4a1deee",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_resampling_audit.py",
+    "script_sha256": "424a3cf69fc3a7ea1f7ac4eeb577976e1d023c6d380c0734a7b88cb81e908d0c",
+    "suggested_reproduce_command": "python3 scripts/lattice_resampling_audit.py"
+  },
+  "generated/lattice_reweighting_overlap_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    "execution_metadata_sha256": "282f7e2cc3edecf55110284fc39e1533ca023e0698e0e64c8b6a58e33a2edb6a",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_reweighting_overlap.py",
+    "script_sha256": "4c8d42f9233850192cb6af9ce555e98f0d52f13bc7785fd833376423d12086c6",
+    "suggested_reproduce_command": "python3 scripts/lattice_reweighting_overlap.py"
+  },
+  "generated/lattice_soft_cavity_metadata.json": {
+    "dependency_sha256": {
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    "execution_metadata_sha256": "b088ecded76ab7a5646c6088860eecf154ae7cd245fa3cf77cb477cc0ed5ac25",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_soft_cavity_family.py",
+    "script_sha256": "f85a8e63fe0f35b788baf5ad9b633a7af76460793213fbfc32e85872dfe5c7e2",
+    "suggested_reproduce_command": "python3 scripts/lattice_soft_cavity_family.py"
+  },
+  "generated/lattice_validation_statistics_metadata.json": {
+    "dependency_sha256": {
+      "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    "execution_metadata_sha256": "68cda1b75c392a894036db9710f84e1e8f7c5a11eb56644046e823ca52eefea7",
+    "input_sha256": {
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/lattice_validation_statistics.py",
+    "script_sha256": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985",
+    "suggested_reproduce_command": "python3 scripts/lattice_validation_statistics.py"
+  },
+  "generated/phase_metadata.json": {
+    "dependency_sha256": {
+      "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+    },
+    "execution_metadata_sha256": "fbf8396bc8f54faa68a22a34b370575ec0e265024aa1fe13525f060b551c88b6",
+    "input_sha256": {
+      "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/phase_conditioned.py",
+    "script_sha256": "86357a0ea4f5796cc2a4456883da6c08e633b81121ceb63ca3b0fc216ed16196",
+    "suggested_reproduce_command": "python3 scripts/phase_conditioned.py"
+  },
+  "generated/reaud_covariance_stability_metadata.json": {
+    "dependency_sha256": {
+      "scripts/derive_pulse_finite_size_corrections.py": "5c104a776505df977ca7510405ba48fd294e5adba04e237a7f8751c1c07bf3d6",
+      "scripts/lattice_analysis_common.py": "6abdf97f0d28e0084c7810bca9c05ab83ce68af42581c2a255ecd326aafe5c97",
+      "scripts/lattice_free_intercept_joint_quadratic.py": "9d9a757cbfe88fa34a658a2ac8c451b204bb0852ec607c6562383c24e3d21904",
+      "scripts/lattice_gas_phase_switch.py": "d111f4fdb6c33e5092513279f89b35b3e8b8589dce007e61e9a39e7e6a21904e",
+      "scripts/lattice_leave_lmax_prediction.py": "e727a4ce720742c902595c04db5f1cb41e212926c2a95ac627a316b3dd842e5c",
+      "scripts/lattice_pulse_correction_prediction.py": "7f2d2c720b44d7f41f97668059a55c68a81eb7813be86959f785d1d67abbf6bb",
+      "scripts/lattice_pulse_scaling.py": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+      "scripts/lattice_validation_statistics.py": "f637aed2e3302b74b9b939b082746d0bb7fcadf50de0119e34c23bc8ae587985"
+    },
+    "execution_metadata_sha256": "82f2d8a3901cff312eb381e65c5c98bd17aeec5d72960b12caf2a8cba63d00ec",
+    "input_sha256": {
+      "data_processed/lattice_leave_lmax_prediction_coefficients.csv": "6e9e1d130525316b7c9230dec6d0aa8787ae39f32c169f66d383dd2aca407f35",
+      "data_processed/lattice_leave_lmax_prediction_covariance.npz": "00c5fd65d80f29131ef99f706c700862e7be9558b19b292fa840c467783fc7b3",
+      "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+      "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+      "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/reaud_covariance_mode_stability.py",
+    "script_sha256": "36dd58774eb4eb5f9b516f82f58d48d1b91a27078ba96d4a41db122767f2514f",
+    "suggested_reproduce_command": "python3 scripts/reaud_covariance_mode_stability.py"
+  },
+  "generated/solid_cavity_mc_metadata.json": {
+    "dependency_sha256": {
+      "scripts/cavity_mc.py": "18df6da113429d54ad0dc3d66c59f83b279eb12f0fa8524f02c8332187029a3b"
+    },
+    "execution_metadata_sha256": "894d463c6f7a0b055208528ad72ea79e00c9af93c084513605ce6324579f3f44",
+    "input_sha256": {
+      "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/solid_cavity_mc.py",
+    "script_sha256": "7d9d9c74a52d02ae8ac81ac956de1fd120f5db07b5608210a50763fcfe7ddd71",
+    "suggested_reproduce_command": "python3 scripts/solid_cavity_mc.py --seed 92026072 --sizes 108 256 --equil-sweeps 16000 --tune-sweeps 4000 --production-blocks 100 --sweeps-per-block 400 --sample-stride 5 --probes-per-sample 2048"
+  },
+  "generated/solid_cavity_mc_replica_metadata.json": {
+    "dependency_sha256": {
+      "scripts/cavity_mc.py": "18df6da113429d54ad0dc3d66c59f83b279eb12f0fa8524f02c8332187029a3b",
+      "scripts/solid_cavity_mc.py": "7d9d9c74a52d02ae8ac81ac956de1fd120f5db07b5608210a50763fcfe7ddd71"
+    },
+    "execution_metadata_sha256": "8a97ba3fa03e9065234bc939cd170d72e0a866822bd6973044947e1a680a7ec0",
+    "input_sha256": {
+      "data_processed/solid_cavity_mc.csv": "82b7698a5db356a49563b81ed8deb149316e9037618986dd946fa091bc9e2919",
+      "data_raw/fernandez2012_coexistence.csv": "bb0fb6baa52eccbbf81f58c3679bb984ac8482e16f40fee5e759c2cfc20d8cd4",
+      "data_raw/solid_cavity_mc_structure.csv": "e0bc3f53a06908a7c22b59b57f7b565a3e0e05999f735183e8b6a19091d8150e"
+    },
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/solid_cavity_replica_campaign.py",
+    "script_sha256": "69629a4ab13d3d56c8536b0a1e7b9afce270dec908d3de64220be542d90150c6",
+    "suggested_reproduce_command": "python3 scripts/solid_cavity_replica_campaign.py --seed 631026801 --sizes 108 256 --replicas 4 --equil-sweeps 16000 --tune-sweeps 4000 --production-blocks 100 --sweeps-per-block 400 --sample-stride 5 --probes-per-sample 2048 --overwrite"
+  },
+  "generated/tonks_metadata.json": {
+    "dependency_sha256": {
+      "scripts/hard_sphere_models.py": "611935d80f546fe1a513bcbbe4291141fa597314555974d28a4a100d2631124b"
+    },
+    "execution_metadata_sha256": "e4a07d9e2c7ffca3000d12228db9bba00b9da229f6b94fb00d1435213e31a4c1",
+    "input_sha256": {},
+    "recorded_utc": "2026-10-14T19:55:50.050465+00:00",
+    "scope": "Current distributed files only; no execution is asserted. Existing generation-time and legacy packaging fields are preserved without modification.",
+    "script": "scripts/tonks_validation.py",
+    "script_sha256": "d6df88cac748a7fea80d2cff52583ad260d68162c7d7aff0a1d7866f6646b05f",
+    "suggested_reproduce_command": "python3 scripts/tonks_validation.py"
+  }
+}

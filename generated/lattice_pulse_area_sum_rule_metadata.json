@@ -1,13 +1,9 @@
 {
   "analysis_mode": "paired spin-inversion antithetic contributions",
   "blocks_per_replica": 40,
-  "bootstrap_calibration": "centered hierarchical bootstrap noise is added to each fitted null curve and every replicate is refitted before computing its statistic",
+  "bootstrap_calibration": "centered stratified block-bootstrap noise is added to each fitted null curve and every replicate is refitted before computing its statistic",
   "bootstrap_draws": 2000,
-  "bootstrap_hierarchy": "replicas sampled with replacement first; time blocks sampled with replacement within every selected replica",
-  "dependency_sha256": {
-    "scripts/lattice_analysis_common.py": "d7d22a04e784b6219dfb1c3aea6af155e2ae3ff3b4e70b53a1cc5713e9ca1c34",
-    "scripts/lattice_gas_phase_switch.py": "152c5aff92e8618dd9c371aa302687e36ade82b2c79195437e5a60a1fcbc9b67"
-  },
+  "bootstrap_hierarchy": "all replicas retained as fixed strata; time blocks sampled with replacement independently within each replica",
   "exact_antiderivative": "log(1+exp(Delta_rho h-a))-log(1+exp(Delta_rho h))",
   "exact_area_targets": {
     "full_area": -4.299960245352132,
@@ -22,12 +18,46 @@
   },
   "exact_response": "R_infinity(h)=Delta_rho[sigma(Delta_rho h-a)-sigma(Delta_rho h)]",
   "field_interval": {
-    "h_max": 9.0,
-    "h_min": -6.0,
+    "h_max": 9,
+    "h_min": -6,
     "points": 601,
     "selection": "fixed production pulse interval, declared before evaluating the area",
     "spacing_h": 0.025000000000000355
   },
+  "figure_render": {
+    "artist_data_unchanged": true,
+    "command": "python scripts/render_publication_figures.py",
+    "generated_utc": "2026-10-14T19:53:22.341690+00:00",
+    "input_sha256": {
+      "data_processed/lattice_pulse_area_sum_rule.csv": "1b45b41e09e9350762c45fe6d9a88128d113e664bd68a09e0fbc08c2dcc8c754",
+      "data_processed/lattice_pulse_area_sum_rule_fits.csv": "5836fa1f8dbfadd94031f88f88dab7b8d73a3ea36012572db779aa26813ca0fe"
+    },
+    "output_sha256": {
+      "figures/lattice_pulse_area_sum_rule.pdf": "2753969063acce875212934082e4485176a24f123b3a2b5825327696594cc1bd"
+    },
+    "scope": "frozen-input presentation render only; original statistical execution preserved",
+    "script_sha256": "cf38a546421d6f5ccd20435281b23505395d3c3c589b1dbc8ed471c68f436d1d",
+    "style_script_sha256": "c56e6266cf13b8794067a8165cad1ad89ecbe8f8a9d431b02df84d0973832871",
+    "verification": "generated/publication_figure_style.json"
+  },
+  "figure_render_history": [
+    {
+      "artist_data_unchanged": true,
+      "command": "python3 revision_final_audit_20261014/restyle_figures.py",
+      "generated_utc": "2026-10-14",
+      "input_sha256": {
+        "data_processed/lattice_pulse_area_sum_rule.csv": "1b45b41e09e9350762c45fe6d9a88128d113e664bd68a09e0fbc08c2dcc8c754",
+        "data_processed/lattice_pulse_area_sum_rule_fits.csv": "5836fa1f8dbfadd94031f88f88dab7b8d73a3ea36012572db779aa26813ca0fe"
+      },
+      "output_sha256": {
+        "figures/lattice_pulse_area_sum_rule.pdf": "d1200819b0069d190810a30093f2ac0fe14c8b90f1700e9dc27c57e25b088a61"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "cf38a546421d6f5ccd20435281b23505395d3c3c589b1dbc8ed471c68f436d1d",
+      "style_script_sha256": "62c91022cddae4c715eb9254685ac9dad0b7ab31262f7ab2d50d3f12a754c83e",
+      "verification": "revision_final_audit_20261014/figure_style_verification.json"
+    }
+  ],
   "finite_size_models": [
     "A_exact+B/V",
     "A_exact+B/V+C/V^2",
@@ -36,22 +66,21 @@
     "A+B/V+C/V^2 with A free"
   ],
   "full_sum_rule": "integral from -infinity to infinity R_infinity(h) dh=-a",
-  "generated_utc": "2026-08-08T04:05:21.995529+00:00",
+  "generated_utc": "2026-09-29T20:02:55.872494+00:00",
   "input_sha256": {
-    "data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
-    "data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
+    "/Users/bouchard/Documents/New project/constrained_cavity_nucleation_20260724/data_raw/lattice_gas_additional_replicas.npz": "8f86900706381c7064f9ffe6164f8166df4154662234a29ea42024e967aef679",
+    "/Users/bouchard/Documents/New project/constrained_cavity_nucleation_20260724/data_raw/lattice_gas_phase_switch_trajectories.npz": "893b24a196884b63a2a9322a8abefa2790e2d0dbd5121d9a09e75943e59968bc"
   },
-  "matplotlib": "3.10.7",
-  "numpy": "2.3.4",
+  "matplotlib": "3.10.8",
+  "numpy": "2.3.5",
   "output_sha256": {
-    "data_processed/lattice_pulse_area_sum_rule.csv": "d1a5efecfa7026d1a208a2ee6f4472c0190e7f98ddfda0fc6de033a546a2ff7b",
-    "data_processed/lattice_pulse_area_sum_rule_fits.csv": "dfa3a759235365df42641fbdabbf3dcd160bfbb7d6143c5675d0f4d9ca997851",
-    "figures/lattice_pulse_area_sum_rule.pdf": "8ba9790f7c183118b8d85a612f689cd5481247dc8c61133af81a25060e194988"
+    "data_processed/lattice_pulse_area_sum_rule.csv": "1b45b41e09e9350762c45fe6d9a88128d113e664bd68a09e0fbc08c2dcc8c754",
+    "data_processed/lattice_pulse_area_sum_rule_fits.csv": "5836fa1f8dbfadd94031f88f88dab7b8d73a3ea36012572db779aa26813ca0fe",
+    "figures/lattice_pulse_area_sum_rule.pdf": "933a193d4896374099e9a22ab32dfe2e245bf5ee465490b329509a0912585dee"
   },
   "pandas": "2.3.3",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "provenance_refreshed_utc": "2026-08-08T17:50:09.543532+00:00",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
   "quadrature": "composite Simpson rule on the fixed uniform h grid",
   "replica_ids_by_size": {
     "16": [
@@ -125,11 +154,11 @@
       11
     ]
   },
-  "reproduce_command": "python3 scripts/lattice_pulse_area_sum_rule.py",
+  "reproduce_command": "python3 scripts/lattice_pulse_area_sum_rule.py --blocks-per-replica 40 --bootstrap-draws 2000 --seed 26080609",
   "response_integrated": "deltaN_phase_reweighting(h)/V, with its sign retained",
-  "runtime_seconds": 26.364137999997183,
-  "scipy": "1.18.0",
+  "runtime_seconds": 136.44202049996238,
+  "scipy": "1.17.1",
   "script": "scripts/lattice_pulse_area_sum_rule.py",
-  "script_sha256": "12d14b3a256f9b52b24b81a97a5c7b0252b8bf07ebf1af13093f32fb43eb31bd",
+  "script_sha256": "cf38a546421d6f5ccd20435281b23505395d3c3c589b1dbc8ed471c68f436d1d",
   "seed": 26080609
 }

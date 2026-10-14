@@ -1,56 +1,118 @@
 {
-  "generated_utc": "2026-08-08T18:02:04.154012+00:00",
-  "script": "scripts/lattice_pulse_scaling.py",
-  "python": "3.14.6 (main, Jun 10 2026, 10:03:53) [Clang 21.0.0 (clang-2100.0.123.102)]",
-  "platform": "macOS-26.5.2-arm64-arm-64bit-Mach-O",
-  "numpy": "2.3.4",
-  "pandas": "2.3.3",
-  "matplotlib": "3.10.7",
-  "scipy": "1.18.0",
-  "raw_paths": [
-    "data_raw/lattice_gas_phase_switch_trajectories.npz",
-    "data_raw/lattice_gas_additional_replicas.npz"
-  ],
-  "seed": 26080602,
-  "bootstrap_draws": 5000,
-  "resampling": "replicas sampled with replacement; blocks sampled with replacement within each selected replica",
-  "blocks_per_replica": 40,
   "analysis_grid": {
-    "minimum_h": -6.0,
-    "maximum_h": 9.0,
+    "maximum_h": 9,
+    "minimum_h": -6,
     "points": 601,
     "spacing_h": 0.025
   },
-  "peak_estimator": "bounded continuous minimization of a cubic-spline interpolant of the pulse magnitude",
-  "width_estimator": "Brent root finding for both half-height crossings of the same cubic-spline interpolant",
-  "fit": "weighted least squares A+B/V using hierarchical standard errors",
+  "blocks_per_replica": 40,
+  "bootstrap_draws": 5000,
+  "exact_limits": {
+    "fwhm_h": 5.564321789962347,
+    "peak_center_h": 2.359195003274776,
+    "peak_magnitude": 0.7211578616788782
+  },
+  "figure_render": {
+    "artist_data_unchanged": true,
+    "command": "python scripts/render_publication_figures.py",
+    "generated_utc": "2026-10-14T19:53:22.343431+00:00",
+    "input_sha256": {
+      "data_processed/lattice_peak_center_amplitude.csv": "52eb8aac850976be2e3dc38e9dfdfd60be0664893c5cc563a040707d68987003",
+      "data_processed/lattice_peak_scaling_fits.csv": "dafe061c2dab4f256271f6c8ce05e55e40a32bd89eb9fff370104684ccdc015d",
+      "data_processed/lattice_pulse_curves.csv": "186bfac9a16850e21a3f511a9f050b2e5674af010266651aef0ee96943b36afa",
+      "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+      "data_processed/lattice_width_hierarchical.csv": "51a0ae04eeb3fc89f8d1630e07f4292a42b30106b7ec67e7cddcccb80a421a21",
+      "data_processed/lattice_width_hierarchical_fit.csv": "2b7eaf09cc182cb2c3efc60f4cc01164c3eb60fbef75ed4bdfb97a38ce17f503"
+    },
+    "layout": "dedicated external legend row aligned across both top panels",
+    "output_sha256": {
+      "figures/lattice_pulse_scaling.pdf": "a6883a17ad9a31845c5d56b00aa72c47c08641668357550a62013fd635e39063"
+    },
+    "scope": "frozen-input presentation render only; original statistical execution preserved",
+    "script_sha256": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+    "style_script_sha256": "c56e6266cf13b8794067a8165cad1ad89ecbe8f8a9d431b02df84d0973832871",
+    "verification": "generated/publication_figure_style.json"
+  },
+  "figure_render_history": [
+    {
+      "command": "python3 scripts/lattice_pulse_scaling.py --plot-only",
+      "generated_utc": "2026-09-30T06:08:08.008012+00:00",
+      "input_sha256": {
+        "data_processed/lattice_peak_center_amplitude.csv": "52eb8aac850976be2e3dc38e9dfdfd60be0664893c5cc563a040707d68987003",
+        "data_processed/lattice_peak_scaling_fits.csv": "dafe061c2dab4f256271f6c8ce05e55e40a32bd89eb9fff370104684ccdc015d",
+        "data_processed/lattice_pulse_curves.csv": "186bfac9a16850e21a3f511a9f050b2e5674af010266651aef0ee96943b36afa",
+        "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+        "data_processed/lattice_width_hierarchical.csv": "51a0ae04eeb3fc89f8d1630e07f4292a42b30106b7ec67e7cddcccb80a421a21",
+        "data_processed/lattice_width_hierarchical_fit.csv": "2b7eaf09cc182cb2c3efc60f4cc01164c3eb60fbef75ed4bdfb97a38ce17f503"
+      },
+      "layout": "dedicated external legend row aligned across both top panels",
+      "output_sha256": {
+        "figures/lattice_pulse_scaling.pdf": "83079b7af71d09ba7e9c1298410fb597b285ae3aef47c47a94857521ad76b0e8"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906"
+    },
+    {
+      "artist_data_unchanged": true,
+      "command": "python3 revision_final_audit_20261014/restyle_figures.py",
+      "generated_utc": "2026-10-14",
+      "input_sha256": {
+        "data_processed/lattice_peak_center_amplitude.csv": "52eb8aac850976be2e3dc38e9dfdfd60be0664893c5cc563a040707d68987003",
+        "data_processed/lattice_peak_scaling_fits.csv": "dafe061c2dab4f256271f6c8ce05e55e40a32bd89eb9fff370104684ccdc015d",
+        "data_processed/lattice_pulse_curves.csv": "186bfac9a16850e21a3f511a9f050b2e5674af010266651aef0ee96943b36afa",
+        "data_processed/lattice_scalar_joint_validation.csv": "8813eee56697c0c73010398533ecc6994d475ba4703aa5dcfbce5f683d6889bb",
+        "data_processed/lattice_width_hierarchical.csv": "51a0ae04eeb3fc89f8d1630e07f4292a42b30106b7ec67e7cddcccb80a421a21",
+        "data_processed/lattice_width_hierarchical_fit.csv": "2b7eaf09cc182cb2c3efc60f4cc01164c3eb60fbef75ed4bdfb97a38ce17f503"
+      },
+      "layout": "dedicated external legend row aligned across both top panels",
+      "output_sha256": {
+        "figures/lattice_pulse_scaling.pdf": "a7bee0e8ddf3490a73d2c7efd5989939cba0a185b34ea3cacc5d7866f439e6e1"
+      },
+      "scope": "figure only; original numerical execution record preserved",
+      "script_sha256": "e5e57c0538bd290e3343c709e28eb236f250ca53887f56b337485144278ec906",
+      "style_script_sha256": "62c91022cddae4c715eb9254685ac9dad0b7ab31262f7ab2d50d3f12a754c83e",
+      "verification": "revision_final_audit_20261014/figure_style_verification.json"
+    }
+  ],
+  "finite_size_sensitivity_max_abs_shift_from_nominal": {
+    "fwhm_h": 0.0010523092590819516,
+    "peak_center_h": 0.0003664322638026185,
+    "peak_magnitude": 3.069933920751833e-05
+  },
   "finite_size_sensitivity_models": [
     "A+B/V using all sizes",
     "A+B/V+C/V^2 using all sizes",
     "A+B/V after excluding L=16"
   ],
+  "fit": "weighted least squares A+B/V using stratified block standard errors",
+  "generated_utc": "2026-09-29T20:00:35.838712+00:00",
+  "grid_sensitivity_max_abs_intercept_shift": {
+    "fwhm_h": 1.356580936473506e-07,
+    "peak_center_h": 6.238232188593429e-07,
+    "peak_magnitude": 2.438895752021608e-09
+  },
   "grid_sensitivity_spacings_h": [
     0.025,
     0.05,
     0.1
   ],
-  "finite_size_sensitivity_max_abs_shift_from_nominal": {
-    "fwhm_h": 0.001140320369442449,
-    "peak_center_h": 0.0004154331556511792,
-    "peak_magnitude": 4.1661519613822584e-05
-  },
-  "grid_sensitivity_max_abs_intercept_shift": {
-    "fwhm_h": 1.3437227952550757e-07,
-    "peak_center_h": 6.414578317404107e-07,
-    "peak_magnitude": 2.4078153915141343e-09
-  },
+  "matplotlib": "3.10.8",
+  "numpy": "2.3.5",
+  "pandas": "2.3.3",
+  "peak_estimator": "bounded continuous minimization of a cubic-spline interpolant of the pulse magnitude",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.12.12 | packaged by conda-forge | (main, Oct 22 2025, 23:34:53) [Clang 19.1.7 ]",
+  "raw_paths": [
+    "data_raw/lattice_gas_phase_switch_trajectories.npz",
+    "data_raw/lattice_gas_additional_replicas.npz"
+  ],
+  "resampling": "all replicas retained as fixed strata; time blocks sampled with replacement independently within each replica",
+  "scipy": "1.17.1",
+  "script": "scripts/lattice_pulse_scaling.py",
+  "seed": 26080602,
   "sensitivity_outputs": [
     "data_processed/lattice_pulse_finite_size_sensitivity.csv",
     "data_processed/lattice_pulse_grid_sensitivity.csv"
   ],
-  "exact_limits": {
-    "peak_center_h": 2.359195003274776,
-    "peak_magnitude": 0.7211578616788782,
-    "fwhm_h": 5.564321789962347
-  }
+  "width_estimator": "Brent root finding for both half-height crossings of the same cubic-spline interpolant"
 }

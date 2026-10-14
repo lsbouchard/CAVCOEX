@@ -5,7 +5,7 @@ This module deliberately lives beside, rather than inside, the production
 analysis.  It provides four publication-facing checks:
 
 1. exact-limit-fixed ``X_L = X_inf + B/V`` fits with both chi-square and
-   centered hierarchical-bootstrap calibration;
+   centered stratified block-bootstrap calibration;
 2. a joint three-observable compatibility test retaining every scalar
    bootstrap vector and its covariance;
 3. complete paired and raw-unpaired pulse sequences at every lattice size;
@@ -48,6 +48,7 @@ try:
         contribution_blocks,
         load_trajectory_archives,
         replicas_for_size,
+        stratified_block_indices,
     )
     from .lattice_gas_phase_switch import (
         K_ISING,
@@ -69,6 +70,7 @@ except ImportError:
         contribution_blocks,
         load_trajectory_archives,
         replicas_for_size,
+        stratified_block_indices,
     )
     from lattice_gas_phase_switch import (
         K_ISING,
@@ -396,13 +398,12 @@ def _hierarchical_totals_common_modes(
         if arrays[mode].shape[:2] != (replica_count, block_count):
             raise ValueError("paired and unpaired block hierarchies differ")
     for _ in range(draws):
-        selected_replicas = rng.integers(0, replica_count, replica_count)
+        indices = stratified_block_indices(replica_count, block_count, rng)
         totals = {
             mode: np.zeros(arrays[mode].shape[2:], dtype=float)
             for mode in modes
         }
-        for replica in selected_replicas:
-            selected_blocks = rng.integers(0, block_count, block_count)
+        for replica, selected_blocks in enumerate(indices):
             for mode in modes:
                 totals[mode] += np.sum(
                     arrays[mode][replica, selected_blocks], axis=0
@@ -422,10 +423,8 @@ def _resample_subset_total(
     replica_count = len(indices)
     block_count = blocks.shape[1]
     total = np.zeros(blocks.shape[2:], dtype=float)
-    selected = rng.integers(0, replica_count, replica_count)
-    for local_index in selected:
-        replica_index = indices[int(local_index)]
-        selected_blocks = rng.integers(0, block_count, block_count)
+    block_indices = stratified_block_indices(replica_count, block_count, rng)
+    for replica_index, selected_blocks in zip(indices, block_indices):
         total += np.sum(blocks[replica_index, selected_blocks], axis=0)
     return total
 
@@ -1423,8 +1422,8 @@ def main() -> None:
             "holdout": "paired_antithetic with disjoint training/heldout replicas",
         },
         "bootstrap_hierarchy": (
-            "replicas sampled with replacement first; time blocks sampled with "
-            "replacement within every selected replica"
+            "all replicas retained as fixed strata; time blocks sampled with "
+            "replacement independently within each replica"
         ),
         "independence_structure": (
             "lattice sizes come from independent simulations and are treated as "
@@ -1462,7 +1461,7 @@ def main() -> None:
             "reference_volume_used_for_numerical_conditioning": REFERENCE_VOLUME,
         },
         "bootstrap_calibration": (
-            "centered hierarchical bootstrap noise is added to the fitted null "
+            "centered stratified block-bootstrap noise is added to the fitted null "
             "model and every replicate is refitted before computing its statistic"
         ),
         "monte_carlo_p_value": (
